@@ -134,5 +134,18 @@
       "Bash(powershell * -Verb RunAs*)",
       "Bash(pwsh * -Verb RunAs*)"
     ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \".claude/scripts/notify-stop.ps1\"",
+            "async": true
+          }
+        ]
+      }
+    ]
   }
 }
