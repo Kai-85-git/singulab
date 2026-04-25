@@ -1,0 +1,60 @@
+title: "Singulab — 集団構成パラメータと創発の関係を観察する"
+subtitle: "LLM 多体シミュレーションによる仮説検証レポート"
+author: "Kai、タコ"
+contact: "https://github.com/Kai-85-git/singulab"
+date: "2026-05-07"
+version: "1.0"
+language: "ja-JP"
+tone: "技術ブログ調"
+audience: "ハッカソン審査員"
+
+pandoc:
+  pdf_engine: xelatex
+  toc: true
+  toc_depth: 2
+  number_sections: true
+  geometry:
+    - "margin=22mm"
+    - "headheight=15pt"
+  fontsize: "11pt"
+  # Latin fonts (via fontspec)
+  mainfont: "Yu Mincho"
+  sansfont: "Yu Gothic UI"
+  monofont: "Consolas"
+  # CJK fonts (Yu series ships with Windows 10/11; works with xdvipdfmx).
+  # To upgrade to Noto JP, install static (non-variable) variants and edit
+  # build_pdf.ps1.
+  linkcolor: "MidnightBlue"
+  urlcolor: "MidnightBlue"
+  toccolor: "black"
+
+theme:
+  primary: "#0F4C5C"
+  accent: "#E36414"
+  rule: "#5F0F40"
+
+chapters:
+  - id: "00"
+    file: "00_表紙.md"
+    title: "表紙"
+  - id: "01"
+    file: "01_思想と背景.md"
+    title: "思想と背景"
+  - id: "02"
+    file: "02_システム構成.md"
+    title: "システム構成"
+  - id: "03"
+    file: "03_検証結果.md"
+    title: "検証結果"
+  - id: "04"
+    file: "04_創発観察.md"
+    title: "創発観察"
+  - id: "05"
+    file: "05_頑張った点.md"
+    title: "頑張った点"
+  - id: "06"
+    file: "06_未解決課題.md"
+    title: "未解決課題"
+  - id: "07"
+    file: "07_今後の展望.md"
+    title: "今後の展望"
