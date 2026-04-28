@@ -1,0 +1,48 @@
+# Phase 2-2 確認用シナリオ:
+#   - environment.economy: "bad"
+#   - economy_text のデフォルト文を上書きせず、設計書のテンプレを使う
+#   - 4 体 × 5 ステップ、シンプルな office 1 つ
+
+random_seed: 7
+
+simulation:
+  duration: 5
+  half_space_size: 25
+  half_place_size: 5
+
+agents:
+  num_agents: 4
+  communication_radius: 8
+  memory_limit: 20
+  memory_size: 5
+  message_history_limit: 10
+  message_context_size: 3
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 10
+    capacity: 100
+
+# Phase 2-2: 2 階(環境)を有効化
+# economy_text を上書きせず、デフォルト(`現在、景気は悪く、予算・雇用に緊張感がある。`)を使用
+environment:
+  economy: "bad"
+
+llm:
+  model: "qwen2.5:3b"
+  base_url: "http://localhost:11434"
+  temperature: 0.5
+  max_tokens: 512
+  repeat_penalty: 1.1
+  repeat_last_n: 128
+  min_p: 0.05
+
+fires: []
+
+logging:
+  level: "INFO"

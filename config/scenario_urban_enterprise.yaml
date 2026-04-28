@@ -1,0 +1,45 @@
+# 都心 × 大企業 × neutral(ベースライン)
+# 設計書: 04_2階-環境/04_象限ごとのデフォルト
+
+extends: "base.yaml"
+
+simulation:
+  duration: 5  # スモーク確認用。本番は 100 へ
+
+agents:
+  num_agents: 10  # 本来 100 だが Phase 3-1 の動作確認は控えめに
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+  persona:
+    location_label: "都心"
+    company_type_label: "大企業"
+    name_pool: ["田中", "佐藤", "鈴木", "高橋", "伊藤", "山本", "中村", "小林", "加藤", "吉田"]
+    role_distribution:
+      "エンジニア": 0.4
+      "マネージャー": 0.2
+      "リーダー": 0.2
+      "平社員": 0.2
+    tenure_range: [1, 25]
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 10
+    capacity: 100
+  - name: "meeting_room"
+    type: "meeting"
+    center_x: 5
+    center_y: 5
+    half_size: 2
+    capacity: 10  # 設計書: 「会議室は 10 人が自然」
+
+environment:
+  economy: "neutral"
+
+world_laws:
+  communication_radius: 4.0  # 大集団: 近傍のみ
+  communication_radius_overrides:
+    meeting_room: 5.0  # 会議室は密室で全員に届く
+  cognitive_limit: 30  # ダンバー数下限(知人圏)

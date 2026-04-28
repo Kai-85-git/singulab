@@ -1,0 +1,45 @@
+# 地方 × スタートアップ × bad
+# 4 象限の中で最も脆弱な組み合わせ(設計書 04_2階-環境/04_象限ごとのデフォルト)
+
+extends: "base.yaml"
+
+simulation:
+  duration: 5
+
+agents:
+  num_agents: 5
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+  persona:
+    location_label: "地方"
+    company_type_label: "スタートアップ"
+    name_pool: ["木村", "森", "斎藤", "山田", "松本", "井上"]
+    role_distribution:
+      "エンジニア": 0.5
+      "リーダー": 0.3
+      "マネージャー": 0.1
+      "平社員": 0.1
+    tenure_range: [1, 4]
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 8
+    capacity: 20
+  - name: "meeting_room"
+    type: "meeting"
+    center_x: 4
+    center_y: 4
+    half_size: 2
+    capacity: 5
+
+environment:
+  economy: "bad"  # 設計書: 「資金体力も立地アクセスも持たない最も脆弱な組み合わせ」
+
+world_laws:
+  communication_radius: 8.0
+  communication_radius_overrides:
+    meeting_room: 5.0
+  cognitive_limit: 10

@@ -1,0 +1,44 @@
+# 都心 × スタートアップ × neutral
+
+extends: "base.yaml"
+
+simulation:
+  duration: 5
+
+agents:
+  num_agents: 5  # 小〜中集団、フラット
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+  persona:
+    location_label: "都心"
+    company_type_label: "スタートアップ"
+    name_pool: ["木村", "森", "斎藤", "山田", "松本", "井上", "近藤", "渡辺"]
+    role_distribution:
+      "エンジニア": 0.6
+      "リーダー": 0.2
+      "マネージャー": 0.1
+      "平社員": 0.1
+    tenure_range: [1, 5]  # 創業期、社歴は短い
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 8
+    capacity: 30
+  - name: "meeting_room"
+    type: "meeting"
+    center_x: 4
+    center_y: 4
+    half_size: 2
+    capacity: 6
+
+environment:
+  economy: "neutral"
+
+world_laws:
+  communication_radius: 8.0  # 小集団: 全員届きやすい
+  communication_radius_overrides:
+    meeting_room: 5.0
+  cognitive_limit: 10  # 全員把握可能

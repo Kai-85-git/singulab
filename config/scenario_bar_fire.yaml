@@ -1,0 +1,52 @@
+# Phase 1 デグレ確認用シナリオ
+# 参考実装 docs/10_共有資料/2d-multi-places-simulation-on-fire-public/config.yaml と等価。
+# モデルだけ既に pull 済みの qwen2.5:3b を使用(Phase 1 は速度より動作確認優先)。
+
+random_seed: 42  # B1-06: 再現性確保
+
+simulation:
+  duration: 5  # Phase 1 デグレ確認は短め(本番は 20+)
+  half_space_size: 25
+  half_place_size: 5
+
+agents:
+  num_agents: 5
+  communication_radius: 5
+  memory_limit: 20
+  memory_size: 5
+  message_history_limit: 10
+  message_context_size: 3
+
+places:
+  - name: "left_bar"
+    type: "bar"
+    center_x: -15
+    center_y: 0
+    half_size: 5
+    capacity: 12
+  - name: "right_bar"
+    type: "bar"
+    center_x: 15
+    center_y: 0
+    half_size: 5
+    capacity: 10
+
+llm:
+  model: "qwen2.5:3b"  # Phase 1: 既存 pull 済みで動作確認最優先
+  base_url: "http://localhost:11434"
+  temperature: 0.2
+  max_tokens: 2048
+  repeat_penalty: 1.1
+  repeat_last_n: 128
+  min_p: 0.05
+
+fires:
+  - name: "fire_1"
+    start_step: 3
+    intensity: 0.8
+    radius: 15
+    center_x: 15
+    center_y: 10
+
+logging:
+  level: "INFO"

@@ -1,0 +1,53 @@
+# Phase 2-1 確認用シナリオ:
+#   - main_office が meeting_room を内包する入れ子構造
+#   - meeting_room は capacity=2 と小さく、入室拒否を観察可能
+#   - 初期配置は random_in_place で main_office 内から開始
+#   - 5 ステップ × 4 体で events.jsonl の出方を確認
+
+random_seed: 42
+
+simulation:
+  duration: 5
+  half_space_size: 25
+  half_place_size: 5
+
+agents:
+  num_agents: 4
+  communication_radius: 8
+  memory_limit: 20
+  memory_size: 5
+  message_history_limit: 10
+  message_context_size: 3
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+
+# ⚠️ 入れ子構造: main_office が meeting_room を内包
+# get_place_at_position は half_size 最小の place(=meeting_room)を優先
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 10
+    capacity: 100
+  - name: "meeting_room"
+    type: "meeting"
+    center_x: 5
+    center_y: 5
+    half_size: 2
+    capacity: 2  # 4 体中 2 体までしか入れない → 入室拒否観察ポイント
+
+llm:
+  model: "qwen2.5:3b"
+  base_url: "http://localhost:11434"
+  temperature: 0.5
+  max_tokens: 512
+  repeat_penalty: 1.1
+  repeat_last_n: 128
+  min_p: 0.05
+
+# Phase 2-1 では火事は飛ばす(機能検証に集中するため)
+fires: []
+
+logging:
+  level: "INFO"

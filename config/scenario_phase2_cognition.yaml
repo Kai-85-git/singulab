@@ -1,0 +1,57 @@
+# Phase 2-3 確認用シナリオ:
+#   - cognitive_limit: 2(他者を 2 人までしか覚えていられない)
+#   - 4 体 × 4 ステップで全員が main_office にいる → 全員が互いと話す可能性
+#   - 結果として memory_evicted が複数発火する想定
+#   - communication_radius_overrides で main_office を広く設定し全員が届くように
+
+random_seed: 7
+
+simulation:
+  duration: 4
+  half_space_size: 25
+  half_place_size: 5
+
+agents:
+  num_agents: 4
+  communication_radius: 5  # 後方互換用、world_laws が無ければ参照される
+  memory_limit: 20
+  memory_size: 5
+  message_history_limit: 10
+  message_context_size: 3
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 10
+    capacity: 100
+
+environment:
+  economy: "neutral"
+
+world_laws:
+  communication_radius: 5.0
+  communication_radius_overrides:
+    main_office: 30.0  # main_office 内は全員届く想定
+  cognitive_limit: 2  # 4 体中 2 人までしか覚えていられない → eviction 発火想定
+  message_delay:
+    same_place_near: 0
+    same_place_far: 1
+    cross_place: 3
+
+llm:
+  model: "qwen2.5:3b"
+  base_url: "http://localhost:11434"
+  temperature: 0.5
+  max_tokens: 512
+  repeat_penalty: 1.1
+  repeat_last_n: 128
+  min_p: 0.05
+
+fires: []
+
+logging:
+  level: "INFO"
