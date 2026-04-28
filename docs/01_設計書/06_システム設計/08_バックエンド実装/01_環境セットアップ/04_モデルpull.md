@@ -7,7 +7,8 @@
 ollama pull huihui_ai/qwen3-abliterated:4b
 
 # 100 人大集団の本命(最大並列)
-ollama pull huihui_ai/llama3.2-abliterated:3b
+# ⚠️ Llama だけタグ末尾が "abliterate"(d なし)。他 2 モデルは "abliterated"
+ollama pull huihui_ai/llama3.2-abliterate:3b
 
 # 品質検証用(stretch、CPU オフロード併用)
 ollama pull huihui_ai/dolphin3-abliterated:8b-llama3.1-q4_K_M

@@ -23,7 +23,7 @@ LLM を中心とするバックエンド実装詳細。採用 LLM が確定し�
 - **対象ハードウェア**: ASUS TUF Gaming A15 (RTX 3060 Laptop 6GB / Ryzen 7 6800H / 16GB RAM / Windows 11)
 - **採用モデル**:
   - ★★★ `huihui_ai/qwen3-abliterated:4b` (🇨🇳 メイン)
-  - ★★★ `huihui_ai/llama3.2-abliterated:3b` (🇺🇸 100 人大集団用)
+  - ★★★ `huihui_ai/llama3.2-abliterate:3b` (🇺🇸 100 人大集団用)
   - ★ (stretch) `huihui_ai/dolphin3-abliterated:8b-llama3.1-q4_K_M` (🇺🇸 品質検証用)
 - **推論サーバー**: Ollama(基本) / llama-server `--cont-batching` (大集団本番、必要時)
 - **実装言語**: Python 3.10+ (想定)

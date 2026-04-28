@@ -1,7 +1,7 @@
 # 03_Modelfile
 
 ```
-FROM huihui_ai/llama3.2-abliterated:3b
+FROM huihui_ai/llama3.2-abliterate:3b
 
 PARAMETER temperature 0.7
 PARAMETER num_ctx 2048
