@@ -1,0 +1,15 @@
+# 本番ラン: 地方 × 大企業 × neutral
+# Phase 4 提出物用。Qwen3 4B abliterated + think:false(M-05 検証で eval_count 17倍効率化)
+extends: "scenario_local_enterprise.yaml"
+
+simulation:
+  duration: 15
+
+llm:
+  model: "huihui_ai/qwen3-abliterated:4b"
+  max_tokens: 256
+  think: false
+
+visualization:
+  save_frames: true
+  frame_interval: 1

@@ -1,0 +1,25 @@
+{
+  "run_dir": "output/prod_local_startup",
+  "duration_steps": 15,
+  "num_agents": 5,
+  "scenario_label": "地方×スタートアップ×bad",
+  "total_messages": 69,
+  "unique_speakers": 5,
+  "silent_agent_rate": 0.0,
+  "gini_utterance": 0.06376811594202914,
+  "top_speaker_share": 0.21739130434782608,
+  "utterances_per_agent": {
+    "0": 15,
+    "1": 15,
+    "2": 15,
+    "3": 14,
+    "4": 10
+  },
+  "pair_stability": 0.7692307692307693,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 14,
+    "place_change": 4
+  },
+  "re_encountered_avg_gap": 0.0
+}

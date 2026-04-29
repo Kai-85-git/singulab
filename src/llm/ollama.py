@@ -1,9 +1,13 @@
-"""Ollama API クライアント。参考実装 ollama_client.py をそのまま移植。
+"""Ollama API クライアント。参考実装 ollama_client.py をベースに以下を拡張:
+
+- Qwen3 等の thinking モデル向けに `think` パラメータ(Ollama 0.21+)を追加
+  → 検証ログ [04_モデル検証/2026-04-29_qwen3_no_think解決.md] で `think: false` が
+    完全に thinking 抑制することを確認済み(eval_count 約 17 倍効率化)
 
 > Phase 2 で `src/llm/base.py` の抽象化 + httpx async に置き換え予定。
 """
 import logging
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -16,7 +20,7 @@ DEFAULT_MAX_TOKENS = 200
 DEFAULT_REPEAT_PENALTY = 1.1
 DEFAULT_REPEAT_LAST_N = 128
 DEFAULT_MIN_P = 0.05
-API_TIMEOUT = 60
+API_TIMEOUT = 120  # thinking off で短縮、ON でも余裕を見る
 CONNECTION_CHECK_TIMEOUT = 5
 
 
@@ -32,7 +36,14 @@ class OllamaClient:
         repeat_penalty: float = DEFAULT_REPEAT_PENALTY,
         repeat_last_n: int = DEFAULT_REPEAT_LAST_N,
         min_p: float = DEFAULT_MIN_P,
+        think: Optional[bool] = None,
     ):
+        """
+        Args:
+            think: thinking モデル(Qwen3 等)の thinking 制御。
+                None なら API リクエストに含めない(モデル既定)。
+                True で明示有効化、False で抑制。
+        """
         self.base_url = base_url.rstrip("/")
         self.model = model
         self.temperature = temperature
@@ -40,6 +51,7 @@ class OllamaClient:
         self.repeat_penalty = repeat_penalty
         self.repeat_last_n = repeat_last_n
         self.min_p = min_p
+        self.think = think
         self.api_url = f"{self.base_url}/api/generate"
 
     def generate(
@@ -66,6 +78,8 @@ class OllamaClient:
                     "min_p": self.min_p,
                 },
             }
+            if self.think is not None:
+                payload["think"] = self.think
             response = requests.post(self.api_url, json=payload, timeout=API_TIMEOUT)
             response.raise_for_status()
             result = response.json()

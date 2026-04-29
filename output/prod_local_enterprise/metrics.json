@@ -1,0 +1,30 @@
+{
+  "run_dir": "output/prod_local_enterprise",
+  "duration_steps": 15,
+  "num_agents": 10,
+  "scenario_label": "地方×大企業×neutral",
+  "total_messages": 109,
+  "unique_speakers": 8,
+  "silent_agent_rate": 0.2,
+  "gini_utterance": 0.24678899082568795,
+  "top_speaker_share": 0.13761467889908258,
+  "utterances_per_agent": {
+    "0": 11,
+    "1": 15,
+    "2": 12,
+    "3": 15,
+    "4": 13,
+    "6": 15,
+    "7": 15,
+    "9": 13,
+    "5": 0,
+    "8": 0
+  },
+  "pair_stability": 0.875,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 16,
+    "place_change": 3
+  },
+  "re_encountered_avg_gap": 0.0
+}

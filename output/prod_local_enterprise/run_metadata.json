@@ -1,0 +1,134 @@
+{
+  "timestamp": "2026-04-29T23:34:53",
+  "config_path": "config/scenario_prod_local_enterprise.yaml",
+  "random_seed": 42,
+  "duration": 15,
+  "num_agents": 10,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 10,
+      "capacity": 50
+    },
+    {
+      "name": "meeting_room",
+      "type": "meeting",
+      "center": [
+        5,
+        5
+      ],
+      "half_size": 2,
+      "capacity": 8
+    }
+  ],
+  "environment": {
+    "economy": "neutral",
+    "economy_text_used": "現在、景気は可もなく不可もない。"
+  },
+  "world_laws": {
+    "communication_radius": 5.0,
+    "communication_radius_overrides": {
+      "meeting_room": 5.0
+    },
+    "cognitive_limit": 20,
+    "message_delay": {
+      "same_place_near": 0,
+      "same_place_far": 1,
+      "cross_place": 3
+    }
+  },
+  "personas": [
+    {
+      "name": "中村",
+      "role": "エンジニア",
+      "tenure_years": 21,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "田中",
+      "role": "平社員",
+      "tenure_years": 8,
+      "gender": "female",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "山本",
+      "role": "エンジニア",
+      "tenure_years": 9,
+      "gender": "female",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "佐藤",
+      "role": "エンジニア",
+      "tenure_years": 6,
+      "gender": "female",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "山本",
+      "role": "リーダー",
+      "tenure_years": 28,
+      "gender": "female",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "小林",
+      "role": "リーダー",
+      "tenure_years": 15,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "伊藤",
+      "role": "平社員",
+      "tenure_years": 22,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "高橋",
+      "role": "平社員",
+      "tenure_years": 4,
+      "gender": "female",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "伊藤",
+      "role": "平社員",
+      "tenure_years": 30,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    },
+    {
+      "name": "佐藤",
+      "role": "マネージャー",
+      "tenure_years": 17,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "大企業"
+    }
+  ],
+  "llm": {
+    "model": "huihui_ai/qwen3-abliterated:4b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.5
+  }
+}

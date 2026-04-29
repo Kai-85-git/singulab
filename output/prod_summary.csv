@@ -1,0 +1,5 @@
+run,scenario,agents,steps,msgs,silent_rate,gini,top_share,pair_stability,place_change,memory_evicted,memory_re_encountered
+prod_local_startup,地方×スタートアップ×bad,5,15,69,0.00,0.064,0.22,0.769,4,0,0
+prod_urban_startup,都心×スタートアップ×neutral,5,15,71,0.00,0.045,0.21,0.846,3,0,0
+prod_local_enterprise,地方×大企業×neutral,10,15,109,0.20,0.247,0.14,0.875,3,0,0
+prod_urban_enterprise,都心×大企業×neutral,10,15,91,0.30,0.390,0.16,0.944,2,0,0

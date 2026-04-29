@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-04-29T23:09:57",
+  "config_path": "config/scenario_prod_urban_startup.yaml",
+  "random_seed": 42,
+  "duration": 15,
+  "num_agents": 5,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 8,
+      "capacity": 30
+    },
+    {
+      "name": "meeting_room",
+      "type": "meeting",
+      "center": [
+        4,
+        4
+      ],
+      "half_size": 2,
+      "capacity": 6
+    }
+  ],
+  "environment": {
+    "economy": "neutral",
+    "economy_text_used": "現在、景気は可もなく不可もない。"
+  },
+  "world_laws": {
+    "communication_radius": 8.0,
+    "communication_radius_overrides": {
+      "meeting_room": 5.0
+    },
+    "cognitive_limit": 10,
+    "message_delay": {
+      "same_place_near": 0,
+      "same_place_far": 1,
+      "cross_place": 3
+    }
+  },
+  "personas": [
+    {
+      "name": "森",
+      "role": "エンジニア",
+      "tenure_years": 5,
+      "gender": "male",
+      "location_label": "都心",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "山田",
+      "role": "リーダー",
+      "tenure_years": 5,
+      "gender": "male",
+      "location_label": "都心",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "山田",
+      "role": "エンジニア",
+      "tenure_years": 3,
+      "gender": "female",
+      "location_label": "都心",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "斎藤",
+      "role": "リーダー",
+      "tenure_years": 3,
+      "gender": "male",
+      "location_label": "都心",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "斎藤",
+      "role": "エンジニア",
+      "tenure_years": 3,
+      "gender": "female",
+      "location_label": "都心",
+      "company_type_label": "スタートアップ"
+    }
+  ],
+  "llm": {
+    "model": "huihui_ai/qwen3-abliterated:4b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.5
+  }
+}

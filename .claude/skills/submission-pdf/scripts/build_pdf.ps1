@@ -24,7 +24,11 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-Set-Location "C:\Projects\singulab"
+# プロジェクトルートはこのスクリプトの 3 つ上の階層
+# (.claude/skills/submission-pdf/scripts/build_pdf.ps1 → ../../.. = repo root)
+$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..\..")).Path
+Set-Location $ProjectRoot
+Write-Host "[init] project root = $ProjectRoot"
 
 $SkillRoot = ".claude\skills\submission-pdf"
 $TemplateDir = Join-Path $SkillRoot "templates"

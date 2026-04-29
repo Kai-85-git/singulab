@@ -32,6 +32,8 @@ YYYY-MM-DD_<モデル短縮名>_<検証種別>.md
 | 2026-04-28 | huihui_ai/llama3.2-abliterate:3b | 対話確認(`ollama run`) | △ 日本語応答するが品質は Qwen3 より劣る(造語・英単語混入)。100 人大集団用は **条件付き採用可** → [2026-04-28_llama3.2-3b-abliterate_対話確認.md](2026-04-28_llama3.2-3b-abliterate_対話確認.md) |
 | 2026-04-28 | huihui_ai/dolphin3-abliterated:8b-llama3.1-q4_K_M | 対話確認(`ollama run`) | ◯ 日本語応答 OK・文章語/論文調で長文化。**品質重視シナリオの第 2 候補**(速度がネックで大集団は不向き)→ [2026-04-28_dolphin3-8b-abliterated_対話確認.md](2026-04-28_dolphin3-8b-abliterated_対話確認.md) |
 | 2026-04-28 | 3 モデル横並び | JSON 出力品質(各 3 trial / `/api/chat`) | **Llama 3.2 3B が JSON 品質+速度で最強**(平均 2.4 s)。Qwen3 4B は完璧だが thinking 残存で 11.3 s。Dolphin 8B は 1/3 でキー欠落 → [2026-04-28_3モデル_JSON出力品質.md](2026-04-28_3モデル_JSON出力品質.md) |
+| 2026-04-29 | huihui_ai/qwen3-abliterated:4b | `/no_think` 解決(5 アプローチ比較)| ✅ **`think: false` API パラメータが正解**。eval_count を 17 倍効率化、Qwen3 4B が大集団本番にも投入可能 → [2026-04-29_qwen3_no_think解決.md](2026-04-29_qwen3_no_think解決.md) |
+| 2026-04-30 | huihui_ai/qwen3-abliterated:4b | 中国語混入対策(BEFORE/AFTER 各 3 試行)| ✅ **`=== LANGUAGE REQUIREMENT ===` セクションをペルソナ直後に挿入で BEFORE 3/3 中国語 → AFTER 0/3**。本番ラン日本語品質を確保 → [2026-04-30_qwen3_中国語混入対策.md](2026-04-30_qwen3_中国語混入対策.md) |
 
 ## 関連ドキュメント
 

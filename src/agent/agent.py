@@ -169,10 +169,19 @@ class Agent:
         return f"\n=== ENVIRONMENT ===\n{self.environment_fragment}\n"
 
     def _build_persona_section(self) -> str:
-        """ペルソナ文(日本語)を YOUR CURRENT STATE 直前に挿入するセクション。"""
+        """ペルソナ文(日本語)を YOUR CURRENT STATE 直前に挿入するセクション。
+
+        Qwen3 系は abliterated でも母語(中国語)に流れることがあるため、
+        ペルソナがある = 日本語シナリオなので、明示的に日本語出力を強制する。
+        """
         if not self.persona_fragment:
             return ""
-        return f"\n=== PERSONA ===\n{self.persona_fragment}\n"
+        return (
+            f"\n=== PERSONA ===\n{self.persona_fragment}\n"
+            f"\n=== LANGUAGE REQUIREMENT (CRITICAL) ===\n"
+            f"All JSON string values (message, reasoning, memory) MUST be written in Japanese (日本語).\n"
+            f"Do NOT use Chinese, English, or romaji. 日本語以外は不可。\n"
+        )
 
     def _build_fire_section(self, fire_info: Optional[List[Dict]]) -> str:
         if not fire_info:

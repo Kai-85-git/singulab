@@ -34,13 +34,20 @@ world_laws:
     cross_place: 3
 
 llm:
-  model: "qwen2.5:3b"
+  # 採用方針(Phase 0.5 検証済み):
+  #   - 大集団 100 体: huihui_ai/llama3.2-abliterate:3b(JSON 完璧 + 速い)
+  #   - 小〜中集団: huihui_ai/qwen3-abliterated:4b + think: false(自然な日本語)
+  # 既定は Qwen3 4B abliterated + thinking 抑制
+  model: "huihui_ai/qwen3-abliterated:4b"
   base_url: "http://localhost:11434"
   temperature: 0.5
   max_tokens: 512
   repeat_penalty: 1.1
   repeat_last_n: 128
   min_p: 0.05
+  # M-05 検証(2026-04-29)で thinking モデルでは think: false が必須と判明
+  # null=モデル既定 / true=思考有効 / false=思考抑制
+  think: false
 
 fires: []
 

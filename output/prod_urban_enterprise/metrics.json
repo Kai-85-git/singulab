@@ -1,0 +1,30 @@
+{
+  "run_dir": "output/prod_urban_enterprise",
+  "duration_steps": 15,
+  "num_agents": 10,
+  "scenario_label": "都心×大企業×neutral",
+  "total_messages": 91,
+  "unique_speakers": 7,
+  "silent_agent_rate": 0.3,
+  "gini_utterance": 0.39010989010989006,
+  "top_speaker_share": 0.16483516483516483,
+  "utterances_per_agent": {
+    "0": 2,
+    "1": 15,
+    "3": 15,
+    "4": 15,
+    "7": 15,
+    "9": 15,
+    "6": 14,
+    "2": 0,
+    "5": 0,
+    "8": 0
+  },
+  "pair_stability": 0.9444444444444444,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 12,
+    "place_change": 2
+  },
+  "re_encountered_avg_gap": 0.0
+}

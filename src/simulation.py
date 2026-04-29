@@ -171,7 +171,10 @@ class Simulation:
             repeat_penalty=llm_config.get("repeat_penalty", 1.1),
             repeat_last_n=llm_config.get("repeat_last_n", 128),
             min_p=llm_config.get("min_p", 0.05),
+            think=llm_config.get("think"),  # None / True / False
         )
+        if llm_config.get("think") is not None:
+            logger.info(f"LLM think mode: {llm_config['think']} (Qwen3 系の thinking 抑制用)")
 
         self.agents: List[Agent] = []
         self.step = 0
