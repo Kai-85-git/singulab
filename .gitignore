@@ -1,6 +1,5 @@
 docs/10_共有資料/
 build/
-output/
 
 # Python
 .venv/
