@@ -1,0 +1,25 @@
+2026-04-28 21:35:33,205 [INFO] root: config = config/scenario_phase2_bad_economy.yaml
+2026-04-28 21:35:33,206 [INFO] root: output_dir = output/phase2_bad_econ
+2026-04-28 21:35:33,250 [INFO] src.simulation: random_seed = 7 に固定
+2026-04-28 21:35:33,250 [INFO] src.simulation: World initialized: 1 place(s) ['main_office'] (types: ['office'])
+2026-04-28 21:35:33,250 [INFO] src.simulation: Environment: economy=bad -> "現在、景気は悪く、予算・雇用に緊張感がある。"
+2026-04-28 21:35:33,250 [INFO] src.simulation: Starting simulation...
+2026-04-28 21:35:35,311 [INFO] src.simulation: Initializing 4 agents (placement=random_in_place)...
+2026-04-28 21:35:35,311 [INFO] src.simulation: Agents initialized
+2026-04-28 21:35:52,207 [INFO] src.simulation: Step 1: Agent 0 -> 1 nearby: "Hi Agent 3! It seems like we're all in a bit of a lull right now with economic conditions affecting our budgets and employment levels. How's everyone holding up?"
+2026-04-28 21:35:52,207 [INFO] src.agent.agent: Agent 3 received message from Agent 0: "Hi Agent 3! It seems like we're all in a bit of a lull right now with economic conditions affecting our budgets and employment levels. How's everyone holding up?"
+2026-04-28 21:35:52,210 [INFO] src.simulation: Step 1: Agent 3 -> 1 nearby: "大家好，目前公司面临一些挑战。为了更好地了解情况并共同寻找解决方案，请随时与我分享你的观察和想法。"
+2026-04-28 21:35:52,215 [INFO] src.agent.agent: Agent 0 received message from Agent 3: "大家好，目前公司面临一些挑战。为了更好地了解情况并共同寻找解决方案，请随时与我分享你的观察和想法。"
+2026-04-28 21:36:17,776 [INFO] src.simulation: Step 2: Agent 0 -> 1 nearby: "大家好，我注意到目前办公室的空旷程度并不理想。我认为通过分享我们的观察和经验，我们可以更好地了解当前的情况，并共同寻找改进的方法。希望我们能一起为改善办公环境贡献一份力量。"
+2026-04-28 21:36:17,777 [INFO] src.agent.agent: Agent 3 received message from Agent 0: "大家好，我注意到目前办公室的空旷程度并不理想。我认为通过分享我们的观察和经验，我们可以更好地了解当前的情况，并共同寻找改进的方法。希望我们能一起为改善办公环境贡献一份力量。"
+2026-04-28 21:36:17,778 [INFO] src.simulation: Step 2: Agent 3 -> 1 nearby: "Hello Agent 0! It does seem like we're all facing some economic challenges right now. The main_office is currently quiet with only one other agent here. Everyone seems to be holding up okay despite the tough times."
+2026-04-28 21:36:17,778 [INFO] src.agent.agent: Agent 0 received message from Agent 3: "Hello Agent 0! It does seem like we're all facing some economic challenges right now. The main_office is currently quiet with only one other agent here. Everyone seems to be holding up okay despite the tough times."
+2026-04-28 21:37:48,135 [INFO] src.simulation: Simulation completed
+2026-04-28 21:37:48,141 [INFO] root: ===== Statistics =====
+2026-04-28 21:37:48,141 [INFO] root:   mean_occupancy: 0.9
+2026-04-28 21:37:48,141 [INFO] root:   std_occupancy: 0.2
+2026-04-28 21:37:48,141 [INFO] root:   mean_agents_in_place: 3.6
+2026-04-28 21:37:48,141 [INFO] root:   max_agents_in_place: 4
+2026-04-28 21:37:48,141 [INFO] root:   min_agents_in_place: 2
+2026-04-28 21:37:48,141 [INFO] root:   total_steps: 5
+2026-04-28 21:37:48,141 [INFO] root:   place_entry_denied_count: 0

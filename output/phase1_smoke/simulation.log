@@ -1,0 +1,17 @@
+2026-04-28 21:11:11,768 [INFO] root: config = config/scenario_bar_fire.yaml
+2026-04-28 21:11:11,768 [INFO] root: output_dir = output/phase1_smoke
+2026-04-28 21:11:12,035 [INFO] src.simulation: random_seed = 42 に固定
+2026-04-28 21:11:12,036 [INFO] src.simulation: 2 place(s) initialized: ['left_bar', 'right_bar'] (types: ['bar', 'bar'])
+2026-04-28 21:11:12,036 [INFO] src.simulation: FireEvent 'fire_1' configured: step=3, intensity=0.8, radius=15, position=(15, 10)
+2026-04-28 21:11:12,036 [INFO] src.simulation: Starting simulation...
+2026-04-28 21:11:14,156 [INFO] src.simulation: Initializing 5 agents...
+2026-04-28 21:11:14,156 [INFO] src.simulation: Agents initialized
+2026-04-28 21:12:20,007 [INFO] src.simulation: EVENT 'fire_1' activated at step 3: position=(15, 10), intensity=0.8, radius=15
+2026-04-28 21:13:52,830 [INFO] src.simulation: Simulation completed
+2026-04-28 21:13:52,835 [INFO] root: ===== Statistics =====
+2026-04-28 21:13:52,835 [INFO] root:   mean_occupancy: 0.0
+2026-04-28 21:13:52,835 [INFO] root:   std_occupancy: 0.0
+2026-04-28 21:13:52,835 [INFO] root:   mean_agents_in_place: 0.0
+2026-04-28 21:13:52,836 [INFO] root:   max_agents_in_place: 0
+2026-04-28 21:13:52,836 [INFO] root:   min_agents_in_place: 0
+2026-04-28 21:13:52,836 [INFO] root:   total_steps: 5

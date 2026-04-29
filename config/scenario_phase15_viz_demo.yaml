@@ -1,0 +1,11 @@
+# Phase 1.5 (A-viz) スモーク確認用シナリオ
+# 地方 × スタートアップ × bad ベース + visualization.save_frames=true
+
+extends: "scenario_local_startup.yaml"
+
+simulation:
+  duration: 5
+
+visualization:
+  save_frames: true
+  frame_interval: 1

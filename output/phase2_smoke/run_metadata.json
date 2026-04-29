@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-04-28T21:24:09",
+  "config_path": "config/scenario_phase2_office.yaml",
+  "random_seed": 42,
+  "duration": 5,
+  "num_agents": 4,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 10,
+      "capacity": 100
+    },
+    {
+      "name": "meeting_room",
+      "type": "meeting",
+      "center": [
+        5,
+        5
+      ],
+      "half_size": 2,
+      "capacity": 2
+    }
+  ],
+  "llm": {
+    "model": "qwen2.5:3b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.5
+  }
+}

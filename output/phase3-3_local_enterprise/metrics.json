@@ -1,0 +1,30 @@
+{
+  "run_dir": "output/phase3-3_local_enterprise",
+  "duration_steps": 5,
+  "num_agents": 10,
+  "scenario_label": "地方×大企業×neutral",
+  "total_messages": 38,
+  "unique_speakers": 8,
+  "silent_agent_rate": 0.2,
+  "gini_utterance": 0.23684210526315774,
+  "top_speaker_share": 0.13157894736842105,
+  "utterances_per_agent": {
+    "0": 3,
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 5,
+    "6": 5,
+    "7": 5,
+    "9": 5,
+    "5": 0,
+    "8": 0
+  },
+  "pair_stability": 0.9130434782608695,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 14,
+    "place_change": 1
+  },
+  "re_encountered_avg_gap": 0.0
+}

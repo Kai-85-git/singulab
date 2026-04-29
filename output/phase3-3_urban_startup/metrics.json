@@ -1,0 +1,24 @@
+{
+  "run_dir": "output/phase3-3_urban_startup",
+  "duration_steps": 5,
+  "num_agents": 5,
+  "scenario_label": "都心×スタートアップ×neutral",
+  "total_messages": 25,
+  "unique_speakers": 5,
+  "silent_agent_rate": 0.0,
+  "gini_utterance": 0.0,
+  "top_speaker_share": 0.2,
+  "utterances_per_agent": {
+    "0": 5,
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 5
+  },
+  "pair_stability": 1.0,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 14
+  },
+  "re_encountered_avg_gap": 0.0
+}

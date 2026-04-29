@@ -25,6 +25,7 @@ from src.llm.ollama import OllamaClient
 from src.physics.base import WorldLaws
 from src.physics.communication import CommunicationPhysics
 from src.runlog.jsonl import JsonlLogger
+from src.viz.visualizer import Visualizer
 from src.world.environment import Environment
 from src.world.place import PlaceConfig
 from src.world.world import World
@@ -45,6 +46,12 @@ class Simulation:
         self.config_path = config_path
         self.output_dir = output_dir
         self.runlog = JsonlLogger(output_dir)
+
+        # Visualizer は output_dir + visualization.save_frames=true のとき生成
+        viz_cfg = self.config.get("visualization") or {}
+        self.viz: Optional[Visualizer] = None
+        self._viz_save_frames = bool(viz_cfg.get("save_frames", False))
+        self._viz_frame_interval = int(viz_cfg.get("frame_interval", 1))
 
         seed = self.config.get("random_seed")
         if seed is not None:
@@ -92,6 +99,19 @@ class Simulation:
             f"World initialized: {len(self.places)} place(s) "
             f"{[p['name'] for p in self.places]} (types: {[p['type'] for p in self.places]})"
         )
+
+        # Visualizer は output_dir があり、かつ save_frames=true のときだけ有効化
+        if output_dir and self._viz_save_frames:
+            self.viz = Visualizer(
+                output_dir=output_dir,
+                half_space_size=self.half_space_size,
+                places=self.places,
+                frame_interval=self._viz_frame_interval,
+            )
+            logger.info(
+                f"Visualizer enabled: frames every {self._viz_frame_interval} step(s) "
+                f"-> {self.viz.frames_dir}"
+            )
 
         # Phase 2-2: 2 階(環境)
         self.environment = Environment.from_config(self.config.get("environment"))
@@ -482,6 +502,20 @@ class Simulation:
             logger.info(
                 f"Step {self.step}/{self.duration}: {agents_in} in places ({place_info}), "
                 f"{overall['occupancy_rate']:.1%} occupancy"
+            )
+
+        # 1 ステップ分のフレーム保存(visualizer 有効時のみ)
+        if self.viz is not None:
+            fire_states = [
+                ev.state() for ev in self.events
+                if isinstance(ev, FireEvent) and ev.active
+            ]
+            self.viz.save_frame(
+                step=self.step,
+                agents=self.agents,
+                place_status=overall,
+                fire_states=fire_states,
+                comm_radius=self.world_laws.communication_radius,
             )
 
     def run(self) -> None:

@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-04-29T21:39:02",
+  "config_path": "config/scenario_phase15_viz_demo.yaml",
+  "random_seed": 42,
+  "duration": 5,
+  "num_agents": 5,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 8,
+      "capacity": 20
+    },
+    {
+      "name": "meeting_room",
+      "type": "meeting",
+      "center": [
+        4,
+        4
+      ],
+      "half_size": 2,
+      "capacity": 5
+    }
+  ],
+  "environment": {
+    "economy": "bad",
+    "economy_text_used": "現在、景気は悪く、予算・雇用に緊張感がある。"
+  },
+  "world_laws": {
+    "communication_radius": 8.0,
+    "communication_radius_overrides": {
+      "meeting_room": 5.0
+    },
+    "cognitive_limit": 10,
+    "message_delay": {
+      "same_place_near": 0,
+      "same_place_far": 1,
+      "cross_place": 3
+    }
+  },
+  "personas": [
+    {
+      "name": "木村",
+      "role": "エンジニア",
+      "tenure_years": 1,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "井上",
+      "role": "リーダー",
+      "tenure_years": 4,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "山田",
+      "role": "リーダー",
+      "tenure_years": 1,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "井上",
+      "role": "エンジニア",
+      "tenure_years": 3,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "スタートアップ"
+    },
+    {
+      "name": "森",
+      "role": "平社員",
+      "tenure_years": 3,
+      "gender": "male",
+      "location_label": "地方",
+      "company_type_label": "スタートアップ"
+    }
+  ],
+  "llm": {
+    "model": "qwen2.5:3b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.5
+  }
+}

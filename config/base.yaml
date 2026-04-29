@@ -44,5 +44,11 @@ llm:
 
 fires: []
 
+# Phase 1.5: 可視化(matplotlib フレーム保存)
+# 既定は false。動画化したいシナリオで true に上書きする
+visualization:
+  save_frames: false  # true で各ステップを PNG 保存
+  frame_interval: 1   # N ステップに 1 枚
+
 logging:
   level: "INFO"

@@ -1,0 +1,24 @@
+{
+  "run_dir": "output/phase3-3_local_startup",
+  "duration_steps": 5,
+  "num_agents": 5,
+  "scenario_label": "地方×スタートアップ×bad",
+  "total_messages": 24,
+  "unique_speakers": 5,
+  "silent_agent_rate": 0.0,
+  "gini_utterance": 0.03333333333333344,
+  "top_speaker_share": 0.20833333333333334,
+  "utterances_per_agent": {
+    "0": 5,
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 4
+  },
+  "pair_stability": 0.8,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 14
+  },
+  "re_encountered_avg_gap": 0.0
+}

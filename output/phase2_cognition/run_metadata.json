@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-04-28T21:51:51",
+  "config_path": "config/scenario_phase2_cognition.yaml",
+  "random_seed": 7,
+  "duration": 4,
+  "num_agents": 4,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 10,
+      "capacity": 100
+    }
+  ],
+  "environment": {
+    "economy": "neutral",
+    "economy_text_used": "現在、景気は可もなく不可もない。"
+  },
+  "world_laws": {
+    "communication_radius": 5.0,
+    "communication_radius_overrides": {
+      "main_office": 30.0
+    },
+    "cognitive_limit": 2,
+    "message_delay": {
+      "same_place_near": 0,
+      "same_place_far": 1,
+      "cross_place": 3
+    }
+  },
+  "llm": {
+    "model": "qwen2.5:3b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.5
+  }
+}

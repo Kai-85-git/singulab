@@ -1,0 +1,30 @@
+{
+  "run_dir": "output/phase3-3_urban_enterprise",
+  "duration_steps": 5,
+  "num_agents": 10,
+  "scenario_label": "都心×大企業×neutral",
+  "total_messages": 30,
+  "unique_speakers": 6,
+  "silent_agent_rate": 0.4,
+  "gini_utterance": 0.3999999999999999,
+  "top_speaker_share": 0.16666666666666666,
+  "utterances_per_agent": {
+    "0": 5,
+    "1": 5,
+    "3": 5,
+    "4": 5,
+    "7": 5,
+    "9": 5,
+    "2": 0,
+    "5": 0,
+    "6": 0,
+    "8": 0
+  },
+  "pair_stability": 1.0,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 10,
+    "place_change": 1
+  },
+  "re_encountered_avg_gap": 0.0
+}

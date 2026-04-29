@@ -1,0 +1,25 @@
+{
+  "run_dir": "output/phase2_cognition",
+  "duration_steps": 4,
+  "num_agents": 4,
+  "scenario_label": "neutral",
+  "total_messages": 16,
+  "unique_speakers": 4,
+  "silent_agent_rate": 0.0,
+  "gini_utterance": 0.0,
+  "top_speaker_share": 0.25,
+  "utterances_per_agent": {
+    "0": 4,
+    "1": 4,
+    "2": 4,
+    "3": 4
+  },
+  "pair_stability": 1.0,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 48,
+    "memory_evicted": 40,
+    "memory_re_encountered": 36
+  },
+  "re_encountered_avg_gap": 1.0
+}

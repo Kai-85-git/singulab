@@ -24,11 +24,12 @@ Singulab ハッカソン実装フェーズの作業管理。
 | **モデル検証**(対話確認 + JSON 出力品質)| ✅ **Phase 0.5 完了**(3 モデル × 対話 + JSON 横並び)|
 | 採用方針 | ✅ **改訂済み**:大集団=Llama 3.2 3B 確定 / 小〜中集団=Qwen3 4B(thinking OFF デフォルト)/ Dolphin 8B 保留 |
 | 新規プロジェクト雛形(`src/` ディレクトリ) | ✅ **Phase 1-1 完了**(`src/world/`, `src/agent/`, `src/events/`, `src/llm/`, `src/runlog/`, `src/viz/`)|
-| MVP コード(参考実装と等価な動作) | 🟢 **Phase 1-2 / 1-3 完了**(5 体 × 5 ステップ完走、jsonl 出力 OK。可視化のみ Phase 1.5 へ後置)|
+| MVP コード(参考実装と等価な動作) | ✅ **Phase 1 完了**(jsonl 出力 + 可視化 PNG/mp4 まで)|
 | MVP+(1階補強・2階環境・3階法則・events.jsonl) | ✅ **Phase 2 完了**(capacity / 景気 / 認知限界 K + LRU / 到達距離 overrides / 6 種イベント)|
 | 4 象限シナリオ・ペルソナ・景気 | ✅ **Phase 3-1 完了**(Persona + PersonaFactory + 4 yaml + extends 機構 + 日本語プロンプト)|
-| 創発指標・解析スクリプト | ⏳ Phase 3-2(次)|
-| 提出 PDF | ⏳ Phase 4(テンプレ準備済み)|
+| 創発指標・解析スクリプト | ✅ **Phase 3-2 完了**(gini / silent_rate / pair_stability / events 統計 + tools/analyze_run + aggregate_runs)|
+| 試走(4 象限ベースライン)| ✅ **Phase 3-3 完了**(各象限 1 ラン × 5 step、明確な象限差を検出)|
+| 提出 PDF | ⏳ **Phase 4(次)**(テンプレ準備済み)|
 
 ### 残検証(着手余裕あれば)
 
