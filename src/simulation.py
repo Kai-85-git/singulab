@@ -19,8 +19,10 @@ import numpy as np
 from src.agent.agent import Agent
 from src.agent.persona import Persona, PersonaFactory
 from src.config_loader import load_config
+from src.events.alien import AlienEvent
 from src.events.base import Event, collect_perceived_events
 from src.events.fire import FireEvent
+from src.events.zero_gravity import ZeroGravityEvent
 from src.llm.ollama import OllamaClient
 from src.physics.base import WorldLaws
 from src.physics.communication import CommunicationPhysics
@@ -142,7 +144,10 @@ class Simulation:
             f"cognitive_limit={self.world_laws.cognitive_limit}"
         )
 
-        # Fire events
+        # Events
+        # 旧:`fires:` セクションのみ対応していた。
+        # 2026-04-30 改訂(問題解決ToDo §C):`events:` セクションで type 判別 alien / zero_gravity 等
+        # を受け付けるように拡張。`fires:` は後方互換として残す。
         self.events: List[Event] = []
         for i, fc in enumerate(self.config.get("fires", []) or []):
             ev = FireEvent(
@@ -161,6 +166,41 @@ class Simulation:
                 f"FireEvent '{ev.name}' configured: step={fc['start_step']}, "
                 f"intensity={fc['intensity']}, radius={fc['radius']}, position={pos_info}"
             )
+
+        # 新形式(type 判別)
+        for i, ec in enumerate(self.config.get("events", []) or []):
+            etype = ec.get("type")
+            if etype == "fire":
+                ev = FireEvent(
+                    name=ec.get("name", f"fire_{i}"),
+                    start_step=ec["start_step"],
+                    intensity=ec["intensity"],
+                    radius=ec["radius"],
+                    center=(ec["center_x"], ec["center_y"]) if "center_x" in ec else None,
+                    random_position_range=self.half_space_size,
+                )
+            elif etype == "alien":
+                ev = AlienEvent(
+                    name=ec.get("name", f"alien_{i}"),
+                    start_step=ec.get("start_step", 1),
+                    prompt_text=ec.get(
+                        "prompt_text",
+                        "現在、地球外生命体との接触が確認されています。",
+                    ),
+                )
+            elif etype == "zero_gravity":
+                ev = ZeroGravityEvent(
+                    name=ec.get("name", f"zero_gravity_{i}"),
+                    start_step=ec.get("start_step", 1),
+                    prompt_text=ec.get(
+                        "prompt_text",
+                        "現在、無重力状態が発生しています。物理法則が崩壊しています。",
+                    ),
+                )
+            else:
+                raise ValueError(f"unknown event type: {etype!r} (event index {i})")
+            self.events.append(ev)
+            logger.info(f"{type(ev).__name__} '{ev.name}' configured: start_step={ev.start_step}")
 
         llm_config = self.config["llm"]
         self.llm_client = OllamaClient(
@@ -373,11 +413,20 @@ class Simulation:
         for ev in self.events:
             new_state = ev.maybe_activate(self.step)
             if new_state is not None:
-                logger.info(
-                    f"EVENT '{new_state['name']}' activated at step {self.step}: "
-                    f"position={new_state['position']}, intensity={new_state['intensity']}, "
-                    f"radius={new_state['radius']}"
-                )
+                # 旧 fire 専用ログを kind 別に分岐(2026-04-30 §C 改訂)
+                kind = new_state.get("kind", "unknown")
+                if kind == "fire":
+                    logger.info(
+                        f"EVENT '{new_state['name']}' (fire) activated at step {self.step}: "
+                        f"position={new_state.get('position')}, "
+                        f"intensity={new_state.get('intensity')}, "
+                        f"radius={new_state.get('radius')}"
+                    )
+                else:
+                    logger.info(
+                        f"EVENT '{new_state['name']}' ({kind}) activated at step {self.step}: "
+                        f"prompt_text={new_state.get('prompt_text', '(no prompt_text)')!r}"
+                    )
 
         for agent in self.agents:
             agent.update_state(self.places)

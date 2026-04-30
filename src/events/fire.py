@@ -65,6 +65,7 @@ class FireEvent(Event):
         if distance > self.radius:
             return None
         return {
+            "kind": "fire",  # 2026-04-30: agent.py の event 振り分け用
             "name": self.name,
             "fire_position": self.center,
             "intensity": self.intensity,

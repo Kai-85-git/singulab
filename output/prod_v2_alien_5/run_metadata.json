@@ -1,0 +1,72 @@
+{
+  "timestamp": "2026-04-30T21:33:24",
+  "config_path": "config/scenario_alien_5.yaml",
+  "random_seed": 42,
+  "duration": 15,
+  "num_agents": 5,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 10,
+      "capacity": 100
+    }
+  ],
+  "environment": {
+    "economy": "neutral",
+    "economy_text_used": "現在、景気は可もなく不可もない。"
+  },
+  "world_laws": {
+    "communication_radius": 10.0,
+    "communication_radius_overrides": {},
+    "cognitive_limit": 10,
+    "message_delay": {
+      "same_place_near": 0,
+      "same_place_far": 1,
+      "cross_place": 3
+    }
+  },
+  "personas": [
+    {
+      "age": 22,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENTJ"
+    },
+    {
+      "age": 34,
+      "gender": "male",
+      "nationality": "ベトナム",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 54,
+      "gender": "male",
+      "nationality": "フランス",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 57,
+      "gender": "female",
+      "nationality": "ブラジル",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 47,
+      "gender": "male",
+      "nationality": "ドイツ",
+      "mbti": "ISTJ"
+    }
+  ],
+  "llm": {
+    "model": "huihui_ai/qwen3-abliterated:4b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.8
+  }
+}

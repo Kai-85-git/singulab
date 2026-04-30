@@ -1,0 +1,14 @@
+{"step": 1, "type": "memory_added", "other_id": 0, "agent_id": 4}
+{"step": 1, "type": "memory_added", "other_id": 1, "agent_id": 2}
+{"step": 1, "type": "memory_added", "other_id": 1, "agent_id": 3}
+{"step": 1, "type": "memory_added", "other_id": 2, "agent_id": 1}
+{"step": 1, "type": "memory_added", "other_id": 2, "agent_id": 3}
+{"step": 1, "type": "memory_added", "other_id": 3, "agent_id": 1}
+{"step": 1, "type": "memory_added", "other_id": 3, "agent_id": 2}
+{"step": 1, "type": "memory_added", "other_id": 4, "agent_id": 0}
+{"step": 3, "type": "place_change", "agent_id": 0, "from": "main_office", "to": null}
+{"step": 5, "type": "memory_added", "other_id": 2, "agent_id": 4}
+{"step": 5, "type": "memory_added", "other_id": 4, "agent_id": 2}
+{"step": 7, "type": "memory_added", "other_id": 3, "agent_id": 4}
+{"step": 7, "type": "memory_added", "other_id": 4, "agent_id": 3}
+{"step": 15, "type": "place_change", "agent_id": 2, "from": "main_office", "to": null}

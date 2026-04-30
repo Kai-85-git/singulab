@@ -1,0 +1,38 @@
+# 5 人 × 宇宙人イベント(2026-04-29 議事録 §3.2 採用シナリオ)。
+# 部署分けなし(main_office のみ、議事録 §5)。
+# Qwen3 4B abliterated + think:false + max_tokens=100 + temperature=0.8(M-08/M-09 適用済)。
+# MBTI ペルソナ(議事録改訂版)を base.yaml から継承。
+
+extends: "base.yaml"
+
+simulation:
+  duration: 15
+
+agents:
+  num_agents: 5
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 10
+    capacity: 100
+
+environment:
+  economy: "neutral"
+
+world_laws:
+  communication_radius: 10.0
+  cognitive_limit: 10
+
+events:
+  - type: "alien"
+    start_step: 1
+    # prompt_text 省略時はデフォルト「現在、地球外生命体との接触が確認されています。」
+
+visualization:
+  save_frames: true
+  frame_interval: 1

@@ -1,0 +1,18 @@
+# 100 人 × 無重力イベント(粉川氏マシン用)。
+# Qwen3 34B Uncensored で実走想定。RTX 3060 Laptop 6GB では完走不可。
+
+extends: "scenario_zero_gravity_5.yaml"
+
+simulation:
+  duration: 100
+
+agents:
+  num_agents: 100
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 25
+    capacity: 200

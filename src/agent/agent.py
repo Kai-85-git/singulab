@@ -199,19 +199,35 @@ class Agent:
             f"Do NOT use Chinese, English, or romaji. 日本語以外は不可。\n"
         )
 
-    def _build_fire_section(self, fire_info: Optional[List[Dict]]) -> str:
-        if not fire_info:
+    def _build_event_section(self, event_infos: Optional[List[Dict]]) -> str:
+        """発生中のイベント(火事 / 宇宙人 / 無重力 …)を prompt セクションとして描く。
+
+        2026-04-30 改訂(問題解決ToDo §C-1-2):
+        旧 `_build_fire_section` は火事専用だったが、宇宙人・無重力イベントを追加するため
+        `kind` フィールドで分岐する汎用版に書き換え。新 event は `prompt_text` をそのまま挿入する。
+        """
+        if not event_infos:
             return ""
-        lines = ["\n=== FIRE EVENT ==="]
-        for fi in fire_info:
-            lines.append(
-                f"Fire \"{fi['name']}\":\n"
-                f"  Position: ({fi['fire_position'][0]}, {fi['fire_position'][1]})\n"
-                f"  Intensity: {fi['intensity']} (scale: 0.0 to 1.0)\n"
-                f"  Radius: {fi['radius']}\n"
-                f"  Your distance: {fi['agent_distance']}"
-            )
+        lines = ["\n=== EVENT(s) ==="]
+        for ei in event_infos:
+            kind = ei.get("kind", "unknown")
+            if kind == "fire":
+                lines.append(
+                    f"Fire \"{ei['name']}\":\n"
+                    f"  Position: ({ei['fire_position'][0]}, {ei['fire_position'][1]})\n"
+                    f"  Intensity: {ei['intensity']} (scale: 0.0 to 1.0)\n"
+                    f"  Radius: {ei['radius']}\n"
+                    f"  Your distance: {ei['agent_distance']}"
+                )
+            else:
+                # 新 event(alien / zero_gravity 等)は prompt_text をそのまま使う
+                text = ei.get("prompt_text") or ei.get("name") or str(ei)
+                lines.append(text)
         return "\n".join(lines) + "\n"
+
+    # 後方互換シム(旧呼び出しを残しても動くように)
+    def _build_fire_section(self, fire_info: Optional[List[Dict]]) -> str:
+        return self._build_event_section(fire_info)
 
     def _limit_message_words(self, message: str) -> str:
         if not message:
@@ -258,7 +274,7 @@ class Agent:
 
         unique_types = list({p["type"] for p in self.places})
         world_description = f"a 2D world with multiple places ({', '.join(unique_types)})"
-        fire_section = self._build_fire_section(fire_info)
+        fire_section = self._build_event_section(fire_info)
         environment_section = self._build_environment_section()
         persona_section = self._build_persona_section()
 
@@ -351,7 +367,7 @@ Step: {step}
         message_section = ""
         if message_to_send:
             message_section = f"\n=== MESSAGE YOU DECIDED TO SEND ===\n{message_to_send}\n"
-        fire_section = self._build_fire_section(fire_info)
+        fire_section = self._build_event_section(fire_info)
         environment_section = self._build_environment_section()
         persona_section = self._build_persona_section()
 

@@ -1,0 +1,25 @@
+{
+  "run_dir": "output/prod_v2_zero_gravity_5",
+  "duration_steps": 15,
+  "num_agents": 5,
+  "scenario_label": "neutral",
+  "total_messages": 62,
+  "unique_speakers": 5,
+  "silent_agent_rate": 0.0,
+  "gini_utterance": 0.16129032258064524,
+  "top_speaker_share": 0.24193548387096775,
+  "utterances_per_agent": {
+    "0": 3,
+    "1": 15,
+    "2": 15,
+    "3": 15,
+    "4": 14
+  },
+  "pair_stability": 0.75,
+  "pair_stability_n_windows": 4,
+  "event_counts": {
+    "memory_added": 12,
+    "place_change": 2
+  },
+  "re_encountered_avg_gap": 0.0
+}
