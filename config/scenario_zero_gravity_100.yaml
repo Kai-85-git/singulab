@@ -1,5 +1,6 @@
 # 100 人 × 無重力イベント(粉川氏マシン用)。
 # Qwen3 34B Uncensored で実走想定。RTX 3060 Laptop 6GB では完走不可。
+# 詳細手順: docs/05_運用手順/粉川氏向け_100体ラン手順.md
 
 extends: "scenario_zero_gravity_5.yaml"
 
@@ -16,3 +17,9 @@ places:
     center_y: 0
     half_size: 25
     capacity: 200
+
+llm:
+  # ⚠️ 粉川氏マシンで `ollama list` を実行し、実際にあるタグに書き換えてください。
+  model: "huihui_ai/qwen3-uncensored:34b"
+  max_tokens: 150
+  think: false
