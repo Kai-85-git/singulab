@@ -1,0 +1,100 @@
+{"step": 1, "from": 0, "to": 2, "message": "なんとかなる", "reasoning": "状況に応じた対応を示す"}
+{"step": 1, "from": 0, "to": 3, "message": "なんとかなる", "reasoning": "状況に応じた対応を示す"}
+{"step": 1, "from": 1, "to": 2, "message": "どうすれば効率が上がるか", "reasoning": "現在の状況を改善するための考え"}
+{"step": 1, "from": 1, "to": 3, "message": "どうすれば効率が上がるか", "reasoning": "現在の状況を改善するための考え"}
+{"step": 1, "from": 1, "to": 4, "message": "どうすれば効率が上がるか", "reasoning": "現在の状況を改善するための考え"}
+{"step": 1, "from": 2, "to": 0, "message": "頑張らないと勝てない", "reasoning": "今の状況に応じた意気込み"}
+{"step": 1, "from": 2, "to": 1, "message": "頑張らないと勝てない", "reasoning": "今の状況に応じた意気込み"}
+{"step": 1, "from": 2, "to": 3, "message": "頑張らないと勝てない", "reasoning": "今の状況に応じた意気込み"}
+{"step": 1, "from": 2, "to": 4, "message": "頑張らないと勝てない", "reasoning": "今の状況に応じた意気込み"}
+{"step": 1, "from": 3, "to": 0, "message": "予算を重視した設計", "reasoning": "今や景気の悪い中、効率的な資源の使い方を意識したい"}
+{"step": 1, "from": 3, "to": 1, "message": "予算を重視した設計", "reasoning": "今や景気の悪い中、効率的な資源の使い方を意識したい"}
+{"step": 1, "from": 3, "to": 2, "message": "予算を重視した設計", "reasoning": "今や景気の悪い中、効率的な資源の使い方を意識したい"}
+{"step": 1, "from": 4, "to": 1, "message": "景気は良い", "reasoning": "一言で伝えたい思った"}
+{"step": 1, "from": 4, "to": 2, "message": "景気は良い", "reasoning": "一言で伝えたい思った"}
+{"step": 2, "from": 0, "to": 2, "message": "予算の限界を超えることはできない", "reasoning": "予算が紧迫しているから"}
+{"step": 2, "from": 0, "to": 3, "message": "予算の限界を超えることはできない", "reasoning": "予算が紧迫しているから"}
+{"step": 2, "from": 1, "to": 2, "message": "景気の良いところもある", "reasoning": "Agent 4 のメッセージを踏まえ、現状の状況をバランスよく捉えた"}
+{"step": 2, "from": 1, "to": 3, "message": "景気の良いところもある", "reasoning": "Agent 4 のメッセージを踏まえ、現状の状況をバランスよく捉えた"}
+{"step": 2, "from": 1, "to": 4, "message": "景気の良いところもある", "reasoning": "Agent 4 のメッセージを踏まえ、現状の状況をバランスよく捉えた"}
+{"step": 2, "from": 2, "to": 0, "message": "頑張ります", "reasoning": "景気の良い情報を聞き、自分の言葉で反応しました。今後も頑張る意思を貫く必要が"}
+{"step": 2, "from": 2, "to": 1, "message": "頑張ります", "reasoning": "景気の良い情報を聞き、自分の言葉で反応しました。今後も頑張る意思を貫く必要が"}
+{"step": 2, "from": 2, "to": 3, "message": "頑張ります", "reasoning": "景気の良い情報を聞き、自分の言葉で反応しました。今後も頑張る意思を貫く必要が"}
+{"step": 2, "from": 3, "to": 0, "message": "頑張る", "reasoning": "他者の言葉を受けて、自分も頑張らなければできないと感じた"}
+{"step": 2, "from": 3, "to": 1, "message": "頑張る", "reasoning": "他者の言葉を受けて、自分も頑張らなければできないと感じた"}
+{"step": 2, "from": 3, "to": 2, "message": "頑張る", "reasoning": "他者の言葉を受けて、自分も頑張らなければできないと感じた"}
+{"step": 2, "from": 4, "to": 1, "message": "頑張る", "reasoning": "Agent 2 の言葉を心に留め、自分も頑張る気持ちを忘れずにいる"}
+{"step": 3, "from": 0, "to": 2, "message": "頑張る", "reasoning": "チームのサポートを受けながら、予算の限界を意識して仕事を進めたい"}
+{"step": 3, "from": 0, "to": 3, "message": "頑張る", "reasoning": "チームのサポートを受けながら、予算の限界を意識して仕事を進めたい"}
+{"step": 3, "from": 1, "to": 2, "message": "前を向いて進みましょう", "reasoning": "景気の悪さを乗り越えるためには前を向いて行動する必要があります"}
+{"step": 3, "from": 1, "to": 3, "message": "前を向いて進みましょう", "reasoning": "景気の悪さを乗り越えるためには前を向いて行動する必要があります"}
+{"step": 3, "from": 2, "to": 0, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受けて、自分も同じように頑張る決意を新たにした"}
+{"step": 3, "from": 2, "to": 1, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受けて、自分も同じように頑張る決意を新たにした"}
+{"step": 3, "from": 2, "to": 3, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受けて、自分も同じように頑張る決意を新たにした"}
+{"step": 3, "from": 3, "to": 0, "message": "頑張ります", "reasoning": "相手の気持ちに応じて、自分も同じように頑張る意気込みを新たにしました"}
+{"step": 3, "from": 3, "to": 1, "message": "頑張ります", "reasoning": "相手の気持ちに応じて、自分も同じように頑張る意気込みを新たにしました"}
+{"step": 3, "from": 3, "to": 2, "message": "頑張ります", "reasoning": "相手の気持ちに応じて、自分も同じように頑張る意気込みを新たにしました"}
+{"step": 4, "from": 0, "to": 2, "message": "頑張る", "reasoning": "チームのサポートを受けていることを踏まえ、自分も頑張る気持ちを表現した"}
+{"step": 4, "from": 0, "to": 3, "message": "頑張る", "reasoning": "チームのサポートを受けていることを踏まえ、自分も頑張る気持ちを表現した"}
+{"step": 4, "from": 1, "to": 2, "message": "一緒です", "reasoning": "チームの結束を強めたい"}
+{"step": 4, "from": 2, "to": 0, "message": "一緒に頑張る", "reasoning": "チームの成功のために協力したい"}
+{"step": 4, "from": 2, "to": 1, "message": "一緒に頑張る", "reasoning": "チームの成功のために協力したい"}
+{"step": 4, "from": 2, "to": 3, "message": "一緒に頑張る", "reasoning": "チームの成功のために協力したい"}
+{"step": 4, "from": 3, "to": 0, "message": "頑張る", "reasoning": "相手の意気込みに応え、自分自身も前を向いて進む"}
+{"step": 4, "from": 3, "to": 2, "message": "頑張る", "reasoning": "相手の意気込みに応え、自分自身も前を向いて進む"}
+{"step": 5, "from": 0, "to": 2, "message": "頑張る", "reasoning": "チームのサポートを受けたことを思い出し、自分も頑張る気持ちを示す"}
+{"step": 5, "from": 0, "to": 3, "message": "頑張る", "reasoning": "チームのサポートを受けたことを思い出し、自分も頑張る気持ちを示す"}
+{"step": 5, "from": 1, "to": 2, "message": "一緒に頑張る", "reasoning": "Agent 2 の言葉を反映し、チームの一体感を強調するため"}
+{"step": 5, "from": 1, "to": 4, "message": "一緒に頑張る", "reasoning": "Agent 2 の言葉を反映し、チームの一体感を強調するため"}
+{"step": 5, "from": 2, "to": 0, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意思を強くしました"}
+{"step": 5, "from": 2, "to": 1, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意思を強くしました"}
+{"step": 5, "from": 2, "to": 3, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意思を強くしました"}
+{"step": 5, "from": 3, "to": 0, "message": "頑張る", "reasoning": "Agent 2 の言葉に応じ、自分も頑張る意思を新たにした"}
+{"step": 5, "from": 3, "to": 2, "message": "頑張る", "reasoning": "Agent 2 の言葉に応じ、自分も頑張る意思を新たにした"}
+{"step": 5, "from": 4, "to": 1, "message": "前を向いて頑張る", "reasoning": "Agent 1 の言葉を聞いて、前を向いて頑張る気持ちを忘れずにいる"}
+{"step": 6, "from": 0, "to": 2, "message": "頑張る", "reasoning": "チームのサポートを受けたので、自分も頑張る"}
+{"step": 6, "from": 0, "to": 3, "message": "頑張る", "reasoning": "チームのサポートを受けたので、自分も頑張る"}
+{"step": 6, "from": 1, "to": 2, "message": "前を向いて頑張る", "reasoning": "Agent 4 の言葉を反映し、チームの士気を高めたい"}
+{"step": 6, "from": 1, "to": 4, "message": "前を向いて頑張る", "reasoning": "Agent 4 の言葉を反映し、チームの士気を高めたい"}
+{"step": 6, "from": 2, "to": 0, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意気込みを強くしました。"}
+{"step": 6, "from": 2, "to": 1, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意気込みを強くしました。"}
+{"step": 6, "from": 2, "to": 3, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意気込みを強くしました。"}
+{"step": 6, "from": 3, "to": 0, "message": "頑張る", "reasoning": "Agent 2 の言葉に応じ、自分も頑張る気持ちを新たにしました"}
+{"step": 6, "from": 3, "to": 2, "message": "頑張る", "reasoning": "Agent 2 の言葉に応じ、自分も頑張る気持ちを新たにしました"}
+{"step": 6, "from": 4, "to": 1, "message": "頑張る", "reasoning": "Agent 1 のメッセージを受けて、自分も頑張る気持ちを忘れずにいる"}
+{"step": 7, "from": 0, "to": 2, "message": "頑張る", "reasoning": "チームのサポートを受けたので、自分も頑張る"}
+{"step": 7, "from": 0, "to": 3, "message": "頑張る", "reasoning": "チームのサポートを受けたので、自分も頑張る"}
+{"step": 7, "from": 1, "to": 2, "message": "前を向いて頑張る", "reasoning": "チームの一体感を高めるため"}
+{"step": 7, "from": 1, "to": 4, "message": "前を向いて頑張る", "reasoning": "チームの一体感を高めるため"}
+{"step": 7, "from": 2, "to": 0, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意気込みを強めたい"}
+{"step": 7, "from": 2, "to": 1, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意気込みを強めたい"}
+{"step": 7, "from": 2, "to": 3, "message": "頑張る", "reasoning": "Agent 3 からのメッセージを受け、自分も頑張る意気込みを強めたい"}
+{"step": 7, "from": 3, "to": 0, "message": "頑張る", "reasoning": "Agent 2 からのメッセージに応じ、自分自身も頑張る意思を新たにした"}
+{"step": 7, "from": 3, "to": 2, "message": "頑張る", "reasoning": "Agent 2 からのメッセージに応じ、自分自身も頑張る意思を新たにした"}
+{"step": 7, "from": 4, "to": 1, "message": "前を向いて頑張る", "reasoning": "Agent 1 のメッセージに応え、自分も前を向いて頑張る気持ちを忘れずにいる"}
+{"step": 8, "from": 0, "to": 2, "message": "頑張る", "reasoning": "Agent 3 の言葉を受け inherit し、自分も同じ気持ちを持ちたい"}
+{"step": 8, "from": 0, "to": 3, "message": "頑張る", "reasoning": "Agent 3 の言葉を受け inherit し、自分も同じ気持ちを持ちたい"}
+{"step": 8, "from": 1, "to": 2, "message": "前を向いて頑張る", "reasoning": "Agent 4 のメッセージに応じ、チームの一丸となって頑張る気持ちを共有したい"}
+{"step": 8, "from": 1, "to": 4, "message": "前を向いて頑張る", "reasoning": "Agent 4 のメッセージに応じ、チームの一丸となって頑張る気持ちを共有したい"}
+{"step": 8, "from": 2, "to": 0, "message": "頑張る", "reasoning": "チームのために頑張る意思を強めたい"}
+{"step": 8, "from": 2, "to": 1, "message": "頑張る", "reasoning": "チームのために頑張る意思を強めたい"}
+{"step": 8, "from": 2, "to": 3, "message": "頑張る", "reasoning": "チームのために頑張る意思を強めたい"}
+{"step": 8, "from": 3, "to": 0, "message": "頑張る", "reasoning": "Agent 2 のメッセージに応じ、自分も同じように頑張る気持ちを新たにしたから"}
+{"step": 8, "from": 3, "to": 2, "message": "頑張る", "reasoning": "Agent 2 のメッセージに応じ、自分も同じように頑張る気持ちを新たにしたから"}
+{"step": 8, "from": 4, "to": 1, "message": "前を向いて頑張る", "reasoning": "Agent 1 のメッセージを聞いて、自分も頑張る気持ちを忘れずにいる"}
+{"step": 9, "from": 0, "to": 2, "message": "頑張る", "reasoning": "Agent 3 から「頑張る」を受け取り、自分も同じ気持ちを共有したい"}
+{"step": 9, "from": 0, "to": 3, "message": "頑張る", "reasoning": "Agent 3 から「頑張る」を受け取り、自分も同じ気持ちを共有したい"}
+{"step": 9, "from": 1, "to": 4, "message": "前を向いて頑張る", "reasoning": "Agent 4 の言葉を反映し、チームの一体感を高めたい"}
+{"step": 9, "from": 2, "to": 0, "message": "頑張る", "reasoning": "Agent 3 からの激励を受け、自分も頑張る意気込みを強くしました"}
+{"step": 9, "from": 2, "to": 3, "message": "頑張る", "reasoning": "Agent 3 からの激励を受け、自分も頑張る意気込みを強くしました"}
+{"step": 9, "from": 3, "to": 0, "message": "頑張る", "reasoning": "Agent 2 のメッセージに応じ、自分も頑張る意思を新たにした"}
+{"step": 9, "from": 3, "to": 2, "message": "頑張る", "reasoning": "Agent 2 のメッセージに応じ、自分も頑張る意思を新たにした"}
+{"step": 9, "from": 4, "to": 1, "message": "前を向いて頑張る", "reasoning": "Agent 1 のメッセージを聞いて、自分も前を向いて頑張る決意を新たにしたから"}
+{"step": 10, "from": 0, "to": 2, "message": "一緒に頑張る", "reasoning": "チームの精神を共有したい"}
+{"step": 10, "from": 0, "to": 3, "message": "一緒に頑張る", "reasoning": "チームの精神を共有したい"}
+{"step": 10, "from": 1, "to": 4, "message": "前を向いて頑張る", "reasoning": "Agent 4 のメッセージに合意し、チームの一丸となって頑張る気持ちを共有したい"}
+{"step": 10, "from": 2, "to": 0, "message": "頑張る", "reasoning": "チームの成功に向けて自分も頑張る決意を強めたから"}
+{"step": 10, "from": 2, "to": 3, "message": "頑張る", "reasoning": "チームの成功に向けて自分も頑張る決意を強めたから"}
+{"step": 10, "from": 3, "to": 0, "message": "頑張る", "reasoning": "Agent 2 からの励ましに応えて、自分も頑張る気持ちを新たにしたから"}
+{"step": 10, "from": 3, "to": 2, "message": "頑張る", "reasoning": "Agent 2 からの励ましに応えて、自分も頑張る気持ちを新たにしたから"}
+{"step": 10, "from": 4, "to": 1, "message": "前を向いて頑張る", "reasoning": "Agent 1 のメッセージを受けたため、自分も前を向いて頑張る気持ちを忘れずにいる"}

@@ -1,0 +1,13 @@
+# エコー対策(問題解決ToDo §A-1)の効果検証用シナリオ。
+# scenario_local_startup を継承し、duration を 10 に拡張。
+# base.yaml の新しい LLM 設定(max_tokens=100, temperature=0.8)が継承される。
+# 期待値: echo_max < 0.5、self_similarity < 0.4、reflection_mean < 0.4
+
+extends: "scenario_local_startup.yaml"
+
+simulation:
+  duration: 10
+
+# 動画は不要(エコー指標だけ見る)
+visualization:
+  save_frames: false

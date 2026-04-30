@@ -18,13 +18,25 @@ from pathlib import Path
 _HERE = Path(__file__).resolve().parent
 _PROJECT_ROOT = (_HERE / ".." / ".." / "..").resolve()
 ROOT = _PROJECT_ROOT / "output"
-SCENARIOS = [
+DEFAULT_SCENARIOS = [
     "prod_local_startup",
     "prod_urban_startup",
     "prod_local_enterprise",
     "prod_urban_enterprise",
 ]
-OUT = _HERE / "conversation_check.md"
+DEFAULT_OUT = _HERE / "conversation_check.md"
+# argv で対象シナリオを上書きできる:
+#   python check_conversation.py echo_check_v1
+#   python check_conversation.py echo_check_v1 prod_local_startup --out=v1.md
+SCENARIOS = []
+OUT = DEFAULT_OUT
+for arg in sys.argv[1:]:
+    if arg.startswith("--out="):
+        OUT = _HERE / arg[len("--out=") :]
+    else:
+        SCENARIOS.append(arg)
+if not SCENARIOS:
+    SCENARIOS = DEFAULT_SCENARIOS
 
 sys.stdout.reconfigure(encoding="utf-8")
 

@@ -152,11 +152,27 @@ class Agent:
         return "\n".join([f"- {m}" for m in recent])
 
     def _build_messages_context(self) -> str:
+        """直前に受信したメッセージを「引用 + 自分の言葉で返す」形式で挿入する。
+
+        2026-04-30 改訂(問題解決ToDo A-1-1):
+        過去 N 件をそのまま列挙する旧形式は LLM がコピペ的に再生産する原因になっていた
+        (`echo_max=1.0` を観測。詳細は docs/04_モデル検証/conversation_check/)。
+        新形式は **直近 1 件のみ** + 引用枠 + 「自分の言葉で返してください」を併記し、
+        コピペを抑制してエージェントの個性を引き出す。
+        """
         if not self.received_messages:
             return "No messages received."
-        recent = self.received_messages[-self.message_context_size:]
-        return "\n".join(
-            [f"from Agent {msg['from']}: {msg['content']}" for msg in recent]
+        latest = self.received_messages[-1]
+        if self.persona_fragment:
+            return (
+                f"直前に Agent {latest['from']} から次のメッセージを受け取りました:\n"
+                f"  > 「{latest['content']}」\n"
+                f"これを踏まえ、**自分の言葉で**(コピーせずに)反応を返してください。"
+            )
+        return (
+            f"You just received this from Agent {latest['from']}:\n"
+            f"  > \"{latest['content']}\"\n"
+            f"Respond in your own words (do NOT copy)."
         )
 
     def _build_environment_section(self) -> str:
@@ -246,6 +262,19 @@ class Agent:
         environment_section = self._build_environment_section()
         persona_section = self._build_persona_section()
 
+        # 2026-04-30 改訂(問題解決ToDo A-1-2):
+        # 旧 YOUR TASK は「Decide what message to send. You can share observations, experiences,
+        # or thoughts...」と例示まで提供し、定型的な業務会話を引き出していた。
+        # 新仕様は「今思ったことを一言で言って」程度の粗い投げ込みのみ(議事録 §3.4 兵頭氏アドバイス準拠)。
+        if self.persona_fragment:
+            task_section = "=== あなたへ ===\n今、頭に浮かんだことを一言で言ってください。\n"
+            message_hint = "今、頭に浮かんだ一言(短く・自分の言葉で。なくてもよい)"
+            reasoning_hint = "なぜそう言ったか(短く)"
+        else:
+            task_section = "=== YOUR TURN ===\nSay one thing that's on your mind right now.\n"
+            message_hint = "one short utterance in your own words (may be empty)"
+            reasoning_hint = "why you said it (brief)"
+
         prompt = f"""You are Agent {self.id} ({self.gender}) in {world_description}.
 {persona_section}
 === YOUR CURRENT STATE ===
@@ -263,13 +292,11 @@ In place: {"Yes" if self.in_place else "No"}
 === MESSAGES FROM OTHERS ===
 {messages_text}
 
-=== YOUR TASK ===
-Decide what message you want to send to nearby agents. You can share your observations, experiences, or thoughts about the places and situation.
-
+{task_section}
 === RESPOND IN JSON ===
 {{
-    "message": "message to nearby agents (max 200 words, optional if you don't want to send a message)",
-    "reasoning": "brief explanation of why you want to send this message"
+    "message": "{message_hint}",
+    "reasoning": "{reasoning_hint}"
 }}
 
 Step: {step}

@@ -40,8 +40,12 @@ llm:
   # 既定は Qwen3 4B abliterated + thinking 抑制
   model: "huihui_ai/qwen3-abliterated:4b"
   base_url: "http://localhost:11434"
-  temperature: 0.5
-  max_tokens: 512
+  # 2026-04-30 改訂(問題解決ToDo A-1-3 / A-1-4):
+  #   max_tokens 512 → 100  : 長文要求で定型句に逃げるのを防ぎ、短い感情表現を引き出す
+  #   temperature 0.5 → 0.8 : 多様性を取り戻し、エコー(同じ発言の伝染)を抑制
+  #   詳細は docs/03_ToDo/2026-04-30_問題解決ToDo.md §A-1
+  temperature: 0.8
+  max_tokens: 100
   repeat_penalty: 1.1
   repeat_last_n: 128
   min_p: 0.05

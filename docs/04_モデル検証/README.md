@@ -34,6 +34,7 @@ YYYY-MM-DD_<モデル短縮名>_<検証種別>.md
 | 2026-04-28 | 3 モデル横並び | JSON 出力品質(各 3 trial / `/api/chat`) | **Llama 3.2 3B が JSON 品質+速度で最強**(平均 2.4 s)。Qwen3 4B は完璧だが thinking 残存で 11.3 s。Dolphin 8B は 1/3 でキー欠落 → [2026-04-28_3モデル_JSON出力品質.md](2026-04-28_3モデル_JSON出力品質.md) |
 | 2026-04-29 | huihui_ai/qwen3-abliterated:4b | `/no_think` 解決(5 アプローチ比較)| ✅ **`think: false` API パラメータが正解**。eval_count を 17 倍効率化、Qwen3 4B が大集団本番にも投入可能 → [2026-04-29_qwen3_no_think解決.md](2026-04-29_qwen3_no_think解決.md) |
 | 2026-04-30 | huihui_ai/qwen3-abliterated:4b | 中国語混入対策(BEFORE/AFTER 各 3 試行)| ✅ **`=== LANGUAGE REQUIREMENT ===` セクションをペルソナ直後に挿入で BEFORE 3/3 中国語 → AFTER 0/3**。本番ラン日本語品質を確保 → [2026-04-30_qwen3_中国語混入対策.md](2026-04-30_qwen3_中国語混入対策.md) |
+| 2026-04-30 | huihui_ai/qwen3-abliterated:4b | エコー対策(`MESSAGES FROM OTHERS` 粒度 / `YOUR TASK` 粗化 / max_tokens 512→100 / temperature 0.5→0.8)| ✅ **echo_mean 0.336 → 0.043(8 倍改善)、self_similarity 0.422 → 0.163(2.6 倍改善)**。短文化の副作用で `echo_max=1.0` は残るが Phase 5 の MBTI / 創発イベントで対処予定 → [2026-04-30_M-08_エコー対策.md](2026-04-30_M-08_エコー対策.md) |
 
 ## 関連ドキュメント
 
