@@ -1,11 +1,22 @@
-"""Persona: エージェントの人格属性。
+"""Persona: エージェントの人格属性(2026-04-29 議事録改訂版)。
 
-設計書 [03_1階-物/06_4象限との関係](../../docs/01_設計書/03_1階-物/06_4象限との関係.md) と
-[04_2階-環境/04_象限ごとのデフォルト](../../docs/01_設計書/04_2階-環境/04_象限ごとのデフォルト.md)
-に基づく。
+設計書 [01_要件定義/03_機能要件/02_エージェント属性](../../docs/01_設計書/01_要件定義/03_機能要件/02_エージェント属性.md) と
+[06_システム設計/04_エージェント設計/07_ペルソナ拡張](../../docs/01_設計書/06_システム設計/04_エージェント設計/07_ペルソナ拡張.md)
+に基づく新スキーマ。
 
-- 4 象限(都心/地方 × 大企業/スタートアップ)はペルソナで吸収
-- 役職・社歴は乱数生成、状況記述として system prompt に注入
+採用するフィールド:
+- age          : 数値(20〜70 を想定)
+- gender       : male / female(LLM のジェンダーレス概念非対応のため生物学的のみ)
+- nationality  : 国名(プールから抽選。「日本語で回答」プロンプトで言語のみ固定)
+- mbti         : 16 タイプから1つ
+
+意図的に入れない:
+- role / job / position / tenure_years : 役職は自然発生を観察する
+- location_label / company_type_label  : 4 象限切り廃止に伴い廃止
+- name                                 : 役割を連想するため削除
+
+旧スキーマ(role / tenure_years / location_label など)は受け取った際に
+ValueError を投げて移行を促す(legacy/ に移したシナリオ yaml はそのまま使えない)。
 """
 from __future__ import annotations
 
@@ -16,110 +27,170 @@ from typing import Any, Dict, List, Mapping, Optional
 
 _GENDER_JP = {"male": "男性", "female": "女性"}
 
+# MBTI 16 タイプ
+MBTI_TYPES: List[str] = [
+    "INTJ", "INTP", "ENTJ", "ENTP",
+    "INFJ", "INFP", "ENFJ", "ENFP",
+    "ISTJ", "ISFJ", "ESTJ", "ESFJ",
+    "ISTP", "ISFP", "ESTP", "ESFP",
+]
+
+
+def _decade(age: int) -> int:
+    """年齢 32 → 30(代)、年齢 27 → 20(代)。"""
+    return (age // 10) * 10
+
 
 @dataclass(frozen=True)
 class Persona:
-    """1 エージェント分の人格設定。"""
+    """1 エージェント分の人格設定(新スキーマ)。"""
 
-    name: str
-    role: str
-    tenure_years: int
+    age: int
     gender: str
-    location_label: str  # 例: "都心" / "地方"
-    company_type_label: str  # 例: "大企業" / "スタートアップ"
+    nationality: str
+    mbti: str
 
     @property
     def gender_jp(self) -> str:
         return _GENDER_JP.get(self.gender, self.gender)
 
     def to_prompt(self) -> str:
-        """system prompt に挿入する状態記述(日本語)。"""
+        """system prompt の `=== PERSONA ===` セクションに挿入する状態記述(日本語)。
+
+        2026-04-29 議事録 §4.4 の雛形をベースに、**MBTI を冒頭に配置**(B-3-1 / §7-E-5)。
+        理由:性格次元(MBTI)を一番目立たせることで、エージェント間のばらつきを強化し、
+        エコー(同じ発言の伝染)を抑制することを狙う。
+        """
         return (
-            f"あなたは{self.name}({self.gender_jp})、"
-            f"{self.location_label}にある{self.company_type_label}で働く"
-            f"{self.tenure_years}年目の{self.role}です。"
+            f"MBTI: {self.mbti}\n"
+            f"私は{_decade(self.age)}代の{self.gender_jp}です。\n"
+            f"国籍: {self.nationality}\n"
+            f"日本語で回答してください。"
         )
 
     def to_metadata(self) -> Dict[str, Any]:
         return {
-            "name": self.name,
-            "role": self.role,
-            "tenure_years": self.tenure_years,
+            "age": self.age,
             "gender": self.gender,
-            "location_label": self.location_label,
-            "company_type_label": self.company_type_label,
+            "nationality": self.nationality,
+            "mbti": self.mbti,
         }
 
 
-class PersonaFactory:
-    """config の `agents.persona` セクションから Persona を乱数生成する。
+# ---- legacy 検出ユーティリティ -----------------------------------------------
 
-    Config schema:
+_LEGACY_KEYS = {
+    "role_distribution",
+    "tenure_range",
+    "location_label",
+    "company_type_label",
+    "name_pool",
+}
+
+
+def _is_legacy_config(persona_cfg: Mapping[str, Any]) -> bool:
+    return any(k in persona_cfg for k in _LEGACY_KEYS)
+
+
+# ---- PersonaFactory ----------------------------------------------------------
+
+
+class PersonaFactory:
+    """config の `agents.persona` セクションから Persona を乱数生成する(新スキーマ)。
+
+    Config schema(2026-04-29 議事録準拠):
+
         agents:
           persona:
-            location_label: "都心"
-            company_type_label: "大企業"
-            name_pool: ["田中", "佐藤", ...]
-            role_distribution:
-              "エンジニア": 0.6
-              "リーダー": 0.2
-              "マネージャー": 0.1
-              "平社員": 0.1
-            tenure_range: [1, 25]
+            age:
+              range: [20, 60]            # uniform 整数範囲
+            gender:
+              values: [male, female]     # 抽選候補
+            nationality:
+              pool: [日本, 米国, 中国, ...]
+            mbti:
+              values: [INTJ, ENFP, ...]  # 省略時は 16 タイプ全部
+
+    旧スキーマ(role / tenure_years / location_label など)を渡された場合は
+    ValueError を投げて移行を促す。
     """
 
     def __init__(
         self,
-        location_label: str,
-        company_type_label: str,
-        name_pool: List[str],
-        role_distribution: Dict[str, float],
-        tenure_range: tuple[int, int],
-    ):
-        if not name_pool:
-            raise ValueError("name_pool must not be empty")
-        if not role_distribution:
-            raise ValueError("role_distribution must not be empty")
-        total = sum(role_distribution.values())
-        if total <= 0:
-            raise ValueError("role_distribution values must sum to > 0")
-        # 重みは正規化しておく(合計 1.0 でなくても OK)
-        self.location_label = location_label
-        self.company_type_label = company_type_label
-        self.name_pool = list(name_pool)
-        self._roles = list(role_distribution.keys())
-        self._weights = [role_distribution[r] / total for r in self._roles]
-        lo, hi = tenure_range
+        age_range: tuple[int, int],
+        gender_values: List[str],
+        nationality_pool: List[str],
+        mbti_values: Optional[List[str]] = None,
+    ) -> None:
+        lo, hi = age_range
         if lo < 0 or hi < lo:
-            raise ValueError(f"tenure_range invalid: {tenure_range!r}")
-        self.tenure_range = (int(lo), int(hi))
+            raise ValueError(f"age_range invalid: {age_range!r}")
+        self.age_range = (int(lo), int(hi))
+
+        if not gender_values:
+            raise ValueError("gender_values must not be empty")
+        self.gender_values = list(gender_values)
+
+        if not nationality_pool:
+            raise ValueError("nationality_pool must not be empty")
+        self.nationality_pool = list(nationality_pool)
+
+        chosen = list(mbti_values) if mbti_values else list(MBTI_TYPES)
+        for m in chosen:
+            if m not in MBTI_TYPES:
+                raise ValueError(f"unknown mbti type: {m!r} (valid: {MBTI_TYPES})")
+        self.mbti_values = chosen
 
     @classmethod
     def from_config(cls, persona_cfg: Mapping[str, Any]) -> "PersonaFactory":
+        if _is_legacy_config(persona_cfg):
+            raise ValueError(
+                "Legacy persona schema detected (role_distribution / location_label / "
+                "company_type_label / name_pool / tenure_range). The schema was replaced "
+                "by age / gender / nationality / mbti per the 2026-04-29 meeting minutes. "
+                "Please migrate the scenario yaml. See "
+                "docs/01_設計書/06_システム設計/04_エージェント設計/07_ペルソナ拡張.md"
+            )
+
+        age_cfg = persona_cfg.get("age", {})
+        age_range = tuple(age_cfg.get("range", [20, 60]))
+
+        gender_cfg = persona_cfg.get("gender", {})
+        gender_values = list(gender_cfg.get("values", ["male", "female"]))
+
+        nationality_cfg = persona_cfg.get("nationality", {})
+        nationality_pool = list(nationality_cfg.get("pool", ["日本"]))
+
+        mbti_cfg = persona_cfg.get("mbti", {})
+        mbti_values = list(mbti_cfg.get("values", MBTI_TYPES))
+
         return cls(
-            location_label=persona_cfg["location_label"],
-            company_type_label=persona_cfg["company_type_label"],
-            name_pool=list(persona_cfg["name_pool"]),
-            role_distribution=dict(persona_cfg["role_distribution"]),
-            tenure_range=tuple(persona_cfg["tenure_range"]),
+            age_range=age_range,
+            gender_values=gender_values,
+            nationality_pool=nationality_pool,
+            mbti_values=mbti_values,
         )
 
     def generate(
         self,
         agent_id: int,
-        gender: str,
+        gender: Optional[str] = None,
         rng: Optional[random.Random] = None,
     ) -> Persona:
+        """Persona を 1 体生成する。
+
+        gender 引数は後方互換のため残す(simulation.py が乱択した値を渡す)。
+        gender=None なら gender_values から抽選。
+        """
         rng = rng or random
-        # 重複を許容(本物の組織でも同姓多数あり)
-        name = rng.choice(self.name_pool)
-        role = rng.choices(self._roles, weights=self._weights, k=1)[0]
-        tenure = rng.randint(self.tenure_range[0], self.tenure_range[1])
+        age = rng.randint(self.age_range[0], self.age_range[1])
+        if gender is None:
+            gender = rng.choice(self.gender_values)
+        nationality = rng.choice(self.nationality_pool)
+        mbti = rng.choice(self.mbti_values)
         return Persona(
-            name=name,
-            role=role,
-            tenure_years=tenure,
+            age=age,
             gender=gender,
-            location_label=self.location_label,
-            company_type_label=self.company_type_label,
+            nationality=nationality,
+            mbti=mbti,
         )

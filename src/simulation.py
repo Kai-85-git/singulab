@@ -287,9 +287,12 @@ class Simulation:
             self.agents.append(agent)
 
         if self.persona_factory is not None:
+            # 新スキーマ(2026-04-29 議事録改訂):age / gender / nationality / mbti
             logger.info(
                 f"Personas generated: {self.num_agents} agents "
-                f"({self.persona_factory.location_label} × {self.persona_factory.company_type_label})"
+                f"(age={self.persona_factory.age_range}, "
+                f"nationalities={self.persona_factory.nationality_pool}, "
+                f"mbti={len(self.persona_factory.mbti_values)} types)"
             )
         logger.info("Agents initialized")
 

@@ -17,6 +17,23 @@ agents:
   message_context_size: 3
   initial_placement: "random_in_place"
   home_place: "main_office"
+  # 2026-04-29 議事録改訂版ペルソナ(新スキーマ):
+  #   旧: name / role / tenure_years / location_label / company_type_label
+  #   新: age / gender / nationality / mbti
+  # 各シナリオ yaml で必要なら個別に上書きする。
+  # `persona:` セクションを持たないシナリオではペルソナ生成スキップ(参考実装互換)。
+  persona:
+    age:
+      range: [20, 60]
+    gender:
+      values: ["male", "female"]
+    nationality:
+      pool: ["日本", "米国", "中国", "インド", "ブラジル", "ドイツ", "フランス", "韓国", "ベトナム"]
+    mbti:
+      values: ["INTJ", "INTP", "ENTJ", "ENTP",
+               "INFJ", "INFP", "ENFJ", "ENFP",
+               "ISTJ", "ISFJ", "ESTJ", "ESFJ",
+               "ISTP", "ISFP", "ESTP", "ESFP"]
 
 # 場(1階)はシナリオ側で必須。base ではダミーを置かない
 places: []

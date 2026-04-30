@@ -1,13 +1,34 @@
 # エコー対策(問題解決ToDo §A-1)の効果検証用シナリオ。
-# scenario_local_startup を継承し、duration を 10 に拡張。
-# base.yaml の新しい LLM 設定(max_tokens=100, temperature=0.8)が継承される。
+# base.yaml の新スキーマ persona(MBTI/年齢/国籍/性別)+ LLM 設定(max_tokens=100, temperature=0.8)を継承。
 # 期待値: echo_max < 0.5、self_similarity < 0.4、reflection_mean < 0.4
+#
+# 旧 scenario_local_startup を継承していたが、その yaml は legacy/ に移動したので standalone 化(2026-04-30)。
 
-extends: "scenario_local_startup.yaml"
+extends: "base.yaml"
 
 simulation:
   duration: 10
 
-# 動画は不要(エコー指標だけ見る)
+agents:
+  num_agents: 5
+  initial_placement: "random_in_place"
+  home_place: "main_office"
+  # persona は base.yaml の新スキーマ(20-60 / male,female / 9 国籍 / MBTI 16 種)を継承
+
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 8
+    capacity: 20
+
+environment:
+  economy: "neutral"
+
+world_laws:
+  communication_radius: 8.0
+  cognitive_limit: 10
+
 visualization:
   save_frames: false
