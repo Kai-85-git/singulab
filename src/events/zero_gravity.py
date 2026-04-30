@@ -39,7 +39,9 @@ class ZeroGravityEvent(Event):
             "kind": "zero_gravity",
             "name": self.name,
             "start_step": self.start_step,
+            "activated_step": self.activated_step,  # 発生フラッシュ判定用(2026-05-01)
             "active": self.active,
+            "position": None,  # global event = 位置なし。視覚化は枠 + バナー
             "prompt_text": self.prompt_text,
         }
 

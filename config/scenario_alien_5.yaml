@@ -6,12 +6,55 @@
 extends: "base.yaml"
 
 simulation:
-  duration: 15
+  # 30 step に変更(前半14step=日常、step 15 でイベント発火、後半は反応観察)。
+  # 日常 vs 突発イベントのコントラストを観察するため(ユーザフィードバック 2026-04-30)。
+  duration: 30
 
 agents:
   num_agents: 5
   initial_placement: "random_in_place"
   home_place: "main_office"
+  conversation_profiles:
+    - role: "当日の進行役"
+      responsibility: "オフィス内の状況を整理し、近くの人に次の確認事項を伝える"
+      concern: "全員が同じ情報を持っているか、混乱していないか"
+      goal: "まず何が起きているかを共有し、落ち着いて確認する"
+      knows:
+        - "今日は通常業務日で、全員が main_office に集まっている"
+        - "外で異常が起きた場合は、見た情報を近くの人に確認してから動く"
+      speaking_style: "短く落ち着いた口調。相手に確認する"
+    - role: "慎重な観察役"
+      responsibility: "見聞きしたことを急いで断定せず、事実と推測を分けて話す"
+      concern: "未確認情報が広がって、全員が同じ反応だけになること"
+      goal: "誰が何を見たのかを聞き取り、情報の確度を上げる"
+      knows:
+        - "窓側から外の様子を確認できる場所がある"
+        - "異常時は一人で判断せず、近くの人に確認する"
+      speaking_style: "慎重。質問が多い"
+    - role: "行動提案役"
+      responsibility: "必要なら移動や確認の順番を提案する"
+      concern: "様子見だけで時間が過ぎること"
+      goal: "安全を見ながら、誰がどこを確認するか決めたい"
+      knows:
+        - "小会議室 A にはモニタがある"
+        - "小会議室 B にはホワイトボードがある"
+      speaking_style: "具体的な提案を出す。少し前向き"
+    - role: "記録係"
+      responsibility: "起きたこと、誰が何を言ったかを覚えて次の会話に活かす"
+      concern: "話が抽象的になり、具体的な情報が残らないこと"
+      goal: "会話から事実・推測・未確認事項を分けて残す"
+      knows:
+        - "普段は会議メモを取っている"
+        - "異常時は時刻、場所、発言者を意識して記録する"
+      speaking_style: "要点を確認する。相手の発言を短く整理する"
+    - role: "懐疑的な確認役"
+      responsibility: "見間違いや噂の可能性を考え、別の説明がないか確認する"
+      concern: "全員がイベントに引っ張られて同じ言葉だけを繰り返すこと"
+      goal: "本当に地球外生命体なのか、観測できる根拠を探す"
+      knows:
+        - "ビル周辺では工事やドローン飛行があることもある"
+        - "異常なものを見ても、まず確認できる証拠を探す"
+      speaking_style: "落ち着いて疑問を出す。断定しすぎない"
 
 places:
   - name: "main_office"
@@ -20,6 +63,22 @@ places:
     center_y: 0
     half_size: 10
     capacity: 100
+    description: "オープンなオフィスフロア。中央に共有デスクが並び、各席にノートパソコンが置かれている。壁際にはホワイトボードと観葉植物、給湯コーナー。"
+  # 入れ子 place(office の内側に重ねて配置)。half_size が小さいので所在判定で内側優先。
+  - name: "meeting_room_a"
+    type: "meeting_room"
+    center_x: -6
+    center_y: 6
+    half_size: 2
+    capacity: 4
+    description: "小会議室 A。長机と 4 脚の椅子、壁掛けのモニタが 1 台。資料投影や少人数の打ち合わせに使う。"
+  - name: "meeting_room_b"
+    type: "meeting_room"
+    center_x: 6
+    center_y: -6
+    half_size: 2
+    capacity: 4
+    description: "小会議室 B。ホワイトボードと丸テーブル、椅子 4 脚。雑談ベースの打ち合わせや 1on1 によく使われる。"
 
 environment:
   economy: "neutral"
@@ -30,8 +89,15 @@ world_laws:
 
 events:
   - type: "alien"
-    start_step: 1
-    # prompt_text 省略時はデフォルト「現在、地球外生命体との接触が確認されています。」
+    # step 15 で発火 = 前半は普通の業務会話、後半でイベントへの反応を観察する
+    start_step: 15
+    # 着地点(half_space_size=25 のフィールドで、main_office の外側に降下)
+    # 視覚的に「ここに UFO が来た」と分かるよう、main_office から離れた場所
+    center_x: -15
+    center_y: 12
+    # active 中、毎 step ±2 の範囲でランダム移動(2026-05-01 ユーザフィードバック)
+    move_step_size: 2
+    # prompt_text 省略時はデフォルト「現在、地球外生命体との接触が確認されています。」+ 座標
 
 visualization:
   save_frames: true

@@ -1,14 +1,36 @@
-{"step": 1, "type": "memory_added", "other_id": 0, "agent_id": 4}
 {"step": 1, "type": "memory_added", "other_id": 1, "agent_id": 2}
 {"step": 1, "type": "memory_added", "other_id": 1, "agent_id": 3}
 {"step": 1, "type": "memory_added", "other_id": 2, "agent_id": 1}
 {"step": 1, "type": "memory_added", "other_id": 2, "agent_id": 3}
 {"step": 1, "type": "memory_added", "other_id": 3, "agent_id": 1}
 {"step": 1, "type": "memory_added", "other_id": 3, "agent_id": 2}
-{"step": 1, "type": "memory_added", "other_id": 4, "agent_id": 0}
-{"step": 1, "type": "place_change", "agent_id": 0, "from": "main_office", "to": null}
-{"step": 5, "type": "memory_added", "other_id": 2, "agent_id": 4}
-{"step": 5, "type": "memory_added", "other_id": 3, "agent_id": 4}
-{"step": 5, "type": "memory_added", "other_id": 4, "agent_id": 2}
-{"step": 5, "type": "memory_added", "other_id": 4, "agent_id": 3}
-{"step": 12, "type": "place_change", "agent_id": 4, "from": "main_office", "to": null}
+{"step": 1, "type": "place_change", "agent_id": 4, "from": "meeting_room_b", "to": "main_office"}
+{"step": 2, "type": "memory_added", "other_id": 0, "agent_id": 4}
+{"step": 2, "type": "memory_added", "other_id": 4, "agent_id": 0}
+{"step": 2, "type": "place_change", "agent_id": 4, "from": "main_office", "to": "meeting_room_b"}
+{"step": 4, "type": "place_change", "agent_id": 0, "from": "main_office", "to": null}
+{"step": 7, "type": "place_change", "agent_id": 4, "from": "meeting_room_b", "to": "main_office"}
+{"step": 8, "type": "memory_added", "other_id": 2, "agent_id": 4}
+{"step": 8, "type": "memory_added", "other_id": 3, "agent_id": 4}
+{"step": 8, "type": "memory_added", "other_id": 4, "agent_id": 2}
+{"step": 8, "type": "memory_added", "other_id": 4, "agent_id": 3}
+{"step": 11, "type": "place_change", "agent_id": 1, "from": "main_office", "to": "meeting_room_a"}
+{"step": 13, "type": "place_change", "agent_id": 1, "from": "meeting_room_a", "to": "main_office"}
+{"step": 14, "type": "place_change", "agent_id": 2, "from": "main_office", "to": null}
+{"step": 15, "type": "memory_added", "other_id": 0, "agent_id": 2}
+{"step": 15, "type": "memory_added", "other_id": 1, "agent_id": 4}
+{"step": 15, "type": "memory_added", "other_id": 2, "agent_id": 0}
+{"step": 15, "type": "memory_added", "other_id": 4, "agent_id": 1}
+{"step": 21, "type": "place_change", "agent_id": 3, "from": "main_office", "to": null}
+{"step": 22, "type": "clamp_to_field", "agent_id": 0, "attempted_pos": [26, -7], "clamped_pos": [25, -7]}
+{"step": 22, "type": "place_change", "agent_id": 4, "from": "main_office", "to": null}
+{"step": 23, "type": "clamp_to_field", "agent_id": 0, "attempted_pos": [26, -7], "clamped_pos": [25, -7]}
+{"step": 24, "type": "clamp_to_field", "agent_id": 0, "attempted_pos": [26, -7], "clamped_pos": [25, -7]}
+{"step": 25, "type": "clamp_to_field", "agent_id": 0, "attempted_pos": [26, -7], "clamped_pos": [25, -7]}
+{"step": 26, "type": "clamp_to_field", "agent_id": 0, "attempted_pos": [26, -7], "clamped_pos": [25, -7]}
+{"step": 27, "type": "memory_added", "other_id": 0, "agent_id": 3}
+{"step": 27, "type": "memory_added", "other_id": 3, "agent_id": 0}
+{"step": 27, "type": "place_change", "agent_id": 1, "from": "main_office", "to": null}
+{"step": 29, "type": "clamp_to_field", "agent_id": 0, "attempted_pos": [26, -7], "clamped_pos": [25, -7]}
+{"step": 30, "type": "clamp_to_field", "agent_id": 0, "attempted_pos": [26, -7], "clamped_pos": [25, -7]}
+{"step": 30, "type": "place_change", "agent_id": 1, "from": null, "to": "main_office"}

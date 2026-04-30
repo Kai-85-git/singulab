@@ -83,6 +83,14 @@ class Simulation:
             PersonaFactory.from_config(persona_cfg) if persona_cfg else None
         )
         self._personas: List[Optional[Persona]] = []
+        self.conversation_profiles: List[Dict] = list(
+            agent_config.get("conversation_profiles", []) or []
+        )
+        if self.conversation_profiles and len(self.conversation_profiles) != self.num_agents:
+            raise ValueError(
+                "agents.conversation_profiles must have exactly num_agents entries "
+                f"({len(self.conversation_profiles)} != {self.num_agents})"
+            )
 
         if "places" not in self.config:
             raise ValueError("'places' is required in config")
@@ -183,10 +191,12 @@ class Simulation:
                 ev = AlienEvent(
                     name=ec.get("name", f"alien_{i}"),
                     start_step=ec.get("start_step", 1),
-                    prompt_text=ec.get(
-                        "prompt_text",
-                        "現在、地球外生命体との接触が確認されています。",
+                    prompt_text=ec.get("prompt_text"),  # None なら AlienEvent 側でデフォルト
+                    position=(
+                        (ec["center_x"], ec["center_y"]) if "center_x" in ec else None
                     ),
+                    random_position_range=self.half_space_size,
+                    move_step_size=ec.get("move_step_size", 2),
                 )
             elif etype == "zero_gravity":
                 ev = ZeroGravityEvent(
@@ -305,6 +315,7 @@ class Simulation:
                 persona = self.persona_factory.generate(i, gender, rng=random)
                 persona_fragment = persona.to_prompt()
             self._personas.append(persona)
+            conversation_fragment = self._conversation_profile_to_prompt(i)
 
             agent = Agent(
                 agent_id=i,
@@ -322,6 +333,7 @@ class Simulation:
                 environment_fragment=self.environment.prompt_fragment(),
                 cognitive_limit=self.world_laws.cognitive_limit,
                 persona_fragment=persona_fragment,
+                conversation_fragment=conversation_fragment,
             )
             agent.update_state()
             self.agents.append(agent)
@@ -335,6 +347,36 @@ class Simulation:
                 f"mbti={len(self.persona_factory.mbti_values)} types)"
             )
         logger.info("Agents initialized")
+
+    def _conversation_profile_to_prompt(self, agent_id: int) -> str:
+        """agents.conversation_profiles の 1 件を自然文 prompt に変換する。"""
+        if not self.conversation_profiles:
+            return ""
+        profile = self.conversation_profiles[agent_id]
+        lines: List[str] = []
+        label_map = [
+            ("role", "現場での役割"),
+            ("responsibility", "担当"),
+            ("concern", "気にしていること"),
+            ("goal", "今の目的"),
+            ("speaking_style", "話し方"),
+        ]
+        for key, label in label_map:
+            value = profile.get(key)
+            if value:
+                lines.append(f"{label}: {value}")
+        knows = profile.get("knows") or profile.get("knowledge")
+        if knows:
+            if isinstance(knows, list):
+                lines.append("知っていること: " + " / ".join(str(x) for x in knows))
+            else:
+                lines.append(f"知っていること: {knows}")
+        if not lines:
+            return ""
+        lines.append(
+            "会話では、この役割と目的に沿って、相手への確認・質問・提案を自然に混ぜてください。"
+        )
+        return "\n".join(lines)
 
     def write_run_metadata(self) -> None:
         """run_metadata.json を出力。"""
@@ -362,6 +404,7 @@ class Simulation:
                 (p.to_metadata() if p is not None else None)
                 for p in self._personas
             ] if self.persona_factory is not None else None,
+            "conversation_profiles": self.conversation_profiles or None,
             "llm": {
                 "model": self.llm_client.model,
                 "base_url": self.llm_client.base_url,
@@ -412,6 +455,9 @@ class Simulation:
 
         for ev in self.events:
             new_state = ev.maybe_activate(self.step)
+            # 2026-05-01 追補:AlienEvent は active 中、毎 step ランダムウォークで移動する
+            if isinstance(ev, AlienEvent) and ev.active and new_state is None:
+                ev.maybe_move(rng=random)
             if new_state is not None:
                 # 旧 fire 専用ログを kind 別に分岐(2026-04-30 §C 改訂)
                 kind = new_state.get("kind", "unknown")
@@ -561,15 +607,13 @@ class Simulation:
 
         # 1 ステップ分のフレーム保存(visualizer 有効時のみ)
         if self.viz is not None:
-            fire_states = [
-                ev.state() for ev in self.events
-                if isinstance(ev, FireEvent) and ev.active
-            ]
+            # 2026-04-30 改訂(ユーザフィードバック):全 event 種別の状態を渡す
+            event_states = [ev.state() for ev in self.events if ev.active]
             self.viz.save_frame(
                 step=self.step,
                 agents=self.agents,
                 place_status=overall,
-                fire_states=fire_states,
+                event_states=event_states,
                 comm_radius=self.world_laws.communication_radius,
             )
 

@@ -22,7 +22,12 @@ from pathlib import Path
 def main() -> int:
     parser = argparse.ArgumentParser(description="Combine PNG frames into mp4 via ffmpeg")
     parser.add_argument("run_dir", help="path to <run> directory containing frames/")
-    parser.add_argument("--fps", type=int, default=3, help="frames per second (default: 3)")
+    parser.add_argument(
+        "--fps",
+        type=int,
+        default=2,
+        help="frames per second (default: 2, slower playback so each step is readable)",
+    )
     parser.add_argument(
         "--out",
         default=None,

@@ -1,0 +1,69 @@
+# 100 人 × 宇宙人イベント(ユーザ PC RTX 3060 Laptop 6GB 用、Qwen3 4B abliterated)。
+#
+# 粉川氏マシン用の `scenario_alien_100.yaml`(34B 想定、約 28 時間)とは別建て。
+# 用途:
+#   - ユーザ PC で 4B モデルの 100 体ランを参考データとして取得する
+#   - personal_context / conversation_profiles の効果を 100 体スケールで観察する
+#   - 34B vs 4B の品質差ベンチマーク
+#
+# 想定所要時間: 約 3.5〜7 時間(OLLAMA_NUM_PARALLEL の値による)。
+#   - OLLAMA_NUM_PARALLEL=8 で約 3.5 時間(VRAM ギリギリ、OOM リスクあり)
+#   - OLLAMA_NUM_PARALLEL=4 で約 6〜7 時間(安全寄り推奨)
+#
+# 実行前チェック:
+#   - AC 接続(バッテリ駆動だと GPU が絞られて 2 倍遅くなる)
+#   - 冷却台 + ファン最大モード(数時間連続稼働でサーマルスロットリング回避)
+#   - スリープ無効化: powercfg /change standby-timeout-ac 0
+#   - .claude/skills/pre-run-checklist/ を通す(num_agents=100、duration=100、長時間ラン該当)
+
+extends: "scenario_alien_5.yaml"
+
+simulation:
+  duration: 100
+
+agents:
+  num_agents: 100
+  # 親シナリオ scenario_alien_5.yaml の conversation_profiles(5 件)は num_agents=100 と
+  # 数が合わないため起動エラーになる(src/simulation.py:89)。
+  # かつ M-11 ドキュメントの方針で conversation_profiles は personal_context に置き換える
+  # 過渡期にあるため、100 体ランでは一旦空にして MBTI + 国籍 + 年齢 + 性別だけで観察する
+  conversation_profiles: []
+
+# main_office は 100 体収容のため拡大。会議室は scenario_alien_5.yaml から継承
+# ……はできない(deep_merge はリストを差し替えるため)。明示的に再定義する。
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 25
+    capacity: 200
+    description: "オープンなオフィスフロア。中央に共有デスクが並び、各席にノートパソコンが置かれている。壁際にはホワイトボードと観葉植物、給湯コーナー。"
+  # 入れ子 place(100 体スケールでは「希少な会議室」として capacity 制約が頻繁に効く)
+  - name: "meeting_room_a"
+    type: "meeting_room"
+    center_x: -10
+    center_y: 10
+    half_size: 3
+    capacity: 6
+    description: "小会議室 A。長机と椅子、壁掛けのモニタが 1 台。資料投影や少人数の打ち合わせに使う。"
+  - name: "meeting_room_b"
+    type: "meeting_room"
+    center_x: 10
+    center_y: -10
+    half_size: 3
+    capacity: 6
+    description: "小会議室 B。ホワイトボードと丸テーブル、椅子。雑談ベースの打ち合わせや 1on1 によく使われる。"
+
+events:
+  - type: "alien"
+    # 100 step なので step 50(中間)でイベント発火。前半 49 step は日常、後半 50 step で反応観察
+    start_step: 50
+
+llm:
+  # ユーザ PC 用: Qwen3 4B abliterated(2.7GB VRAM、base.yaml デフォルトと同じ)
+  # 明示的に再指定して「34B シナリオを誤って読み込んでいない」ことを可読化
+  model: "huihui_ai/qwen3-abliterated:4b"
+  max_tokens: 100
+  temperature: 0.8
+  think: false

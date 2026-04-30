@@ -98,6 +98,7 @@ def t6_agent_prompt_contains_environment():
         places=places,
         num_agents=1,
         environment_fragment=env.prompt_fragment(),
+        conversation_fragment="現場での役割: 記録係\n今の目的: 具体的な情報を確認する",
     )
 
     msg_prompt = agent.create_message_prompt(place_status=None, nearby_agents=[], step=1)
@@ -107,6 +108,10 @@ def t6_agent_prompt_contains_environment():
     assert "=== ENVIRONMENT ===" in act_prompt, "action prompt に ENVIRONMENT セクションがない"
     assert "景気は悪く" in msg_prompt
     assert "景気は悪く" in act_prompt
+    assert "Speak to a nearby agent" in msg_prompt
+    assert "abstract phrase" in msg_prompt
+    assert "=== CONVERSATION PROFILE ===" in msg_prompt
+    assert "記録係" in msg_prompt
     print("   ✓ message / action 両 prompt に景気文を確認")
 
     # environment_fragment 未指定の場合はセクションが入らない

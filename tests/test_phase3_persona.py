@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 
 from src.agent.persona import MBTI_TYPES, Persona, PersonaFactory
 from src.config_loader import deep_merge, load_config
+from src.simulation import Simulation
 
 
 def t1_persona_to_prompt():
@@ -157,6 +158,45 @@ def t6_factory_from_config_new_schema():
     print(f"   ✓ p={p.to_metadata()}, defaults={p2.to_metadata()}")
 
 
+def t7_load_config_conversation_profiles():
+    print("[T7] load_config: conversation_profiles を保持")
+    with tempfile.TemporaryDirectory() as d:
+        base_path = Path(d) / "base.yaml"
+        scenario_path = Path(d) / "scenario.yaml"
+        base_path.write_text(
+            "simulation:\n  duration: 5\n  half_space_size: 25\n"
+            "agents:\n  num_agents: 2\n  memory_limit: 20\n",
+            encoding="utf-8",
+        )
+        scenario_path.write_text(
+            "extends: base.yaml\n"
+            "agents:\n"
+            "  conversation_profiles:\n"
+            "    - role: 進行役\n"
+            "      goal: 状況を共有する\n"
+            "    - role: 確認役\n"
+            "      goal: 事実を確認する\n",
+            encoding="utf-8",
+        )
+        cfg = load_config(str(scenario_path))
+        profiles = cfg["agents"]["conversation_profiles"]
+        assert len(profiles) == 2
+        assert profiles[0]["role"] == "進行役"
+        assert profiles[1]["goal"] == "事実を確認する"
+        print(f"   ✓ profiles={profiles}")
+
+
+def t8_simulation_accepts_conversation_profiles():
+    print("[T8] Simulation: conversation_profiles を Agent prompt に渡す")
+    sim = Simulation(config_path="config/scenario_alien_5.yaml", output_dir=None)
+    assert len(sim.conversation_profiles) == sim.num_agents == 5
+    fragment = sim._conversation_profile_to_prompt(0)
+    assert "現場での役割" in fragment
+    assert "当日の進行役" in fragment
+    assert "会話では" in fragment
+    print("   ✓ scenario_alien_5 の会話プロファイルを読み込み")
+
+
 if __name__ == "__main__":
     t1_persona_to_prompt()
     t2_persona_factory_distribution()
@@ -164,4 +204,6 @@ if __name__ == "__main__":
     t4_deep_merge()
     t5_load_config_with_extends()
     t6_factory_from_config_new_schema()
+    t7_load_config_conversation_profiles()
+    t8_simulation_accepts_conversation_profiles()
     print("\nALL TESTS PASSED ✓")

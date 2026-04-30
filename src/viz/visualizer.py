@@ -46,6 +46,17 @@ FIRE_MARKER_SIZE = 200
 FIRE_CIRCLE_ALPHA = 0.15
 FIRE_CIRCLE_LINEWIDTH = 2
 
+# Alien(2026-04-30 追補:UFO っぽい marker)
+ALIEN_MARKER_SIZE = 400
+ALIEN_HALO_RADIUS_RATIO = 0.3  # half_space_size に対する円のサイズ
+ALIEN_COLOR = "#7B2CBF"          # 紫(SF っぽい)
+ALIEN_HALO_ALPHA = 0.15
+
+# Zero Gravity(全体に効く効果なので枠 + バナー)
+ZERO_GRAVITY_BORDER_COLOR = "#0096C7"  # 青系
+ZERO_GRAVITY_BORDER_LW = 6
+ZERO_GRAVITY_BORDER_ALPHA = 0.4
+
 # place type → 背景色
 _PLACE_TYPE_COLORS = {
     "office": "lightblue",
@@ -167,6 +178,182 @@ class Visualizer:
                 fontweight="bold",
             )
 
+    def _draw_aliens(self, ax, alien_states: List[Dict], current_step: int) -> None:
+        """宇宙人イベントの視覚化。
+
+        2026-05-01 追補(ユーザフィードバック):**発火 step では「ARRIVED!」フラッシュ**を出す。
+        以降の step は通常の UFO 表示。これでイベント発生の瞬間が一目でわかる。
+        """
+        for ali in alien_states:
+            if not ali.get("active"):
+                continue
+            pos = ali.get("position")
+            if pos is None:
+                continue
+            x, y = pos
+            activated_step = ali.get("activated_step")
+            is_arrival = activated_step is not None and current_step == activated_step
+            radius = max(2, int(self.half_space_size * ALIEN_HALO_RADIUS_RATIO))
+
+            # ハロ(降下範囲のような円)— 発火 step は赤強調、以降は紫
+            halo_color = "red" if is_arrival else ALIEN_COLOR
+            halo_alpha = 0.35 if is_arrival else ALIEN_HALO_ALPHA
+            ax.add_patch(
+                patches.Circle(
+                    (x, y),
+                    radius * (1.4 if is_arrival else 1.0),
+                    linewidth=3 if is_arrival else 2,
+                    edgecolor=halo_color,
+                    facecolor=halo_color,
+                    alpha=halo_alpha,
+                    linestyle=":",
+                )
+            )
+
+            # UFO マーカー
+            ax.scatter(
+                x, y,
+                c=ALIEN_COLOR,
+                s=ALIEN_MARKER_SIZE * (1.5 if is_arrival else 1.0),
+                marker="D",
+                edgecolors="white",
+                linewidths=2,
+                zorder=11,
+            )
+            ax.scatter(
+                x, y,
+                c="white",
+                s=ALIEN_MARKER_SIZE * 0.4 * (1.5 if is_arrival else 1.0),
+                marker="o",
+                edgecolors=ALIEN_COLOR,
+                linewidths=2,
+                zorder=12,
+            )
+
+            # 発火 step は「ARRIVED!」を画面中央上部に大きく
+            if is_arrival:
+                ax.text(
+                    0,
+                    self.half_space_size - 1.0,
+                    f"👽 ALIEN ARRIVED at ({x}, {y})!",
+                    fontsize=18,
+                    ha="center",
+                    va="top",
+                    color="red",
+                    fontweight="bold",
+                    bbox=dict(boxstyle="round,pad=0.5",
+                              facecolor="yellow",
+                              edgecolor="red",
+                              linewidth=3,
+                              alpha=0.95),
+                    zorder=20,
+                )
+                ax.text(
+                    x,
+                    y - radius * 1.4 - 0.5,
+                    f"👽 {ali.get('name', 'alien')} 着地!",
+                    fontsize=12,
+                    ha="center",
+                    va="top",
+                    color="red",
+                    fontweight="bold",
+                )
+            else:
+                # 通常表示(発火後)
+                steps_since = (current_step - activated_step) if activated_step else 0
+                ax.text(
+                    x,
+                    y - radius - 0.5,
+                    f"👽 {ali.get('name', 'alien')}\n(着地+{steps_since})",
+                    fontsize=10,
+                    ha="center",
+                    va="top",
+                    color=ALIEN_COLOR,
+                    fontweight="bold",
+                )
+
+    def _draw_zero_gravity(self, ax, zg_states: List[Dict], current_step: int) -> None:
+        """無重力イベントの視覚化(全体は局所性なし → 枠を青く塗る + 上部にバナー)。
+
+        2026-05-01 追補(ユーザフィードバック):**発火 step では赤い「STARTED!」フラッシュ**で
+        瞬間がわかるようにする。以降の step は通常の青枠 + バナー(step+N 表示)。
+        """
+        active_zgs = [z for z in zg_states if z.get("active")]
+        if not active_zgs:
+            return
+
+        h = self.half_space_size
+
+        # 発火 step かどうかを判定(複数 zero_gravity event の最初の発火)
+        is_start = any(
+            z.get("activated_step") is not None and current_step == z["activated_step"]
+            for z in active_zgs
+        )
+        # 発火後の経過 step
+        first_zg = active_zgs[0]
+        activated_step = first_zg.get("activated_step")
+        steps_since = (current_step - activated_step) if activated_step else 0
+
+        # 枠 — 発火 step は赤太枠、以降は青枠
+        border_color = "red" if is_start else ZERO_GRAVITY_BORDER_COLOR
+        border_lw = ZERO_GRAVITY_BORDER_LW * 2 if is_start else ZERO_GRAVITY_BORDER_LW
+        border_alpha = 0.7 if is_start else ZERO_GRAVITY_BORDER_ALPHA
+        border = patches.Rectangle(
+            (-h - 0.5, -h - 0.5),
+            2 * h + 1,
+            2 * h + 1,
+            linewidth=border_lw,
+            edgecolor=border_color,
+            facecolor="none",
+            alpha=border_alpha,
+        )
+        ax.add_patch(border)
+
+        # バナー — 発火 step は赤大きく、以降は青小さく
+        if is_start:
+            ax.text(
+                0,
+                h - 1.0,
+                "⚠️ ZERO GRAVITY STARTED! ⚠️",
+                fontsize=20,
+                ha="center",
+                va="top",
+                color="red",
+                fontweight="bold",
+                bbox=dict(boxstyle="round,pad=0.6",
+                          facecolor="yellow",
+                          edgecolor="red",
+                          linewidth=3,
+                          alpha=0.95),
+                zorder=20,
+            )
+            # フィールド全体に薄い赤オーバーレイ(危機感を演出)
+            overlay = patches.Rectangle(
+                (-h - 0.5, -h - 0.5),
+                2 * h + 1,
+                2 * h + 1,
+                linewidth=0,
+                facecolor="red",
+                alpha=0.08,
+                zorder=1,
+            )
+            ax.add_patch(overlay)
+        else:
+            ax.text(
+                0,
+                h - 1.0,
+                f"⚠️ ZERO GRAVITY (step {activated_step}〜 / +{steps_since}) ⚠️",
+                fontsize=14,
+                ha="center",
+                va="top",
+                color=ZERO_GRAVITY_BORDER_COLOR,
+                fontweight="bold",
+                bbox=dict(boxstyle="round,pad=0.4",
+                          facecolor="white",
+                          edgecolor=ZERO_GRAVITY_BORDER_COLOR,
+                          alpha=0.9),
+            )
+
     def _draw_communication_links(
         self, ax, agents: List["Agent"], comm_radius: float
     ) -> None:
@@ -225,17 +412,39 @@ class Visualizer:
         place_status: Dict,
         fire_states: Optional[List[Dict]] = None,
         comm_radius: Optional[float] = None,
+        event_states: Optional[List[Dict]] = None,
     ) -> Optional[str]:
-        """1 ステップ分のフレームを保存。frame_interval を満たさない場合は何もしない。"""
+        """1 ステップ分のフレームを保存。frame_interval を満たさない場合は何もしない。
+
+        2026-04-30 改訂(ユーザフィードバック):
+        `event_states`(全 event 種別)を受け取り、`kind` で振り分けて描画する。
+        旧 `fire_states` は後方互換のため残す(火事のみ渡された場合の経路)。
+        """
         if step % self.frame_interval != 0:
             return None
+
+        # 後方互換:`fire_states` のみ渡されたら `event_states` に統合する
+        merged_events: List[Dict] = list(event_states or [])
+        if fire_states:
+            for fs in fire_states:
+                if "kind" not in fs:
+                    fs = {**fs, "kind": "fire"}
+                merged_events.append(fs)
 
         fig, ax = plt.subplots(figsize=FIGURE_SIZE)
         try:
             self._setup_axes(ax)
             self._draw_places(ax)
-            if fire_states:
-                self._draw_fires(ax, fire_states)
+            # kind 別に振り分け
+            fires = [e for e in merged_events if e.get("kind") == "fire" and e.get("active")]
+            aliens = [e for e in merged_events if e.get("kind") == "alien" and e.get("active")]
+            zgs = [e for e in merged_events if e.get("kind") == "zero_gravity" and e.get("active")]
+            if fires:
+                self._draw_fires(ax, fires)
+            if aliens:
+                self._draw_aliens(ax, aliens, current_step=step)
+            if zgs:
+                self._draw_zero_gravity(ax, zgs, current_step=step)
             if comm_radius:
                 self._draw_communication_links(ax, agents, comm_radius)
             self._draw_agents(ax, agents)
@@ -264,14 +473,26 @@ class Visualizer:
                 Line2D([0], [0], marker="*", color="w", markerfacecolor="red",
                        markersize=12, label="Female (in place)"),
             ]
-            active_fires = [f for f in (fire_states or []) if f.get("active")]
-            if active_fires:
-                for f in active_fires:
-                    legend_elements.append(
-                        Line2D([0], [0], marker="^", color="w", markerfacecolor="red",
-                               markeredgecolor="darkred", markersize=10,
-                               label=f"{f.get('name', 'Fire')} (int={f['intensity']})")
-                    )
+            active_fires = [f for f in merged_events if f.get("kind") == "fire" and f.get("active")]
+            for f in active_fires:
+                legend_elements.append(
+                    Line2D([0], [0], marker="^", color="w", markerfacecolor="red",
+                           markeredgecolor="darkred", markersize=10,
+                           label=f"{f.get('name', 'Fire')} (int={f.get('intensity', 1)})")
+                )
+            for a in aliens:
+                legend_elements.append(
+                    Line2D([0], [0], marker="D", color="w", markerfacecolor=ALIEN_COLOR,
+                           markeredgecolor="white", markersize=10,
+                           label=f"👽 {a.get('name', 'alien')}")
+                )
+            if zgs:
+                legend_elements.append(
+                    Line2D([0], [0], marker="s", color="w",
+                           markerfacecolor="none", markeredgecolor=ZERO_GRAVITY_BORDER_COLOR,
+                           markersize=10, markeredgewidth=2,
+                           label="⚠️ Zero Gravity")
+                )
             ax.legend(handles=legend_elements, loc="upper right", fontsize=8)
 
             path = os.path.join(self.frames_dir, f"frame_{step:04d}.png")

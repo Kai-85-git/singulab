@@ -58,6 +58,7 @@ class Agent:
         environment_fragment: str = "",
         cognitive_limit: Optional[int] = None,
         persona_fragment: str = "",
+        conversation_fragment: str = "",
     ):
         self.id = agent_id
         self.position = initial_position
@@ -78,6 +79,9 @@ class Agent:
 
         # ペルソナ文(日本語)。Phase 3-1 で導入。
         self.persona_fragment = persona_fragment
+
+        # 会話を具体化するための状況内ロール/目的。未指定なら参考実装寄りの薄い設定。
+        self.conversation_fragment = conversation_fragment
 
         # 3 階(世界の法則)の認知限界。Phase 2-3 で導入。
         # cognitive_limit=None なら無効化(Phase 1 互換動作)
@@ -167,12 +171,14 @@ class Agent:
             return (
                 f"直前に Agent {latest['from']} から次のメッセージを受け取りました:\n"
                 f"  > 「{latest['content']}」\n"
-                f"これを踏まえ、**自分の言葉で**(コピーせずに)反応を返してください。"
+                f"これを踏まえ、相手に向けて**自分の言葉で**返してください。"
+                f"質問・確認・提案・具体的な状況説明のどれかを含めてください。"
             )
         return (
             f"You just received this from Agent {latest['from']}:\n"
             f"  > \"{latest['content']}\"\n"
-            f"Respond in your own words (do NOT copy)."
+            f"Respond to that agent in your own words. Include a question, confirmation, "
+            f"suggestion, or concrete observation."
         )
 
     def _build_environment_section(self) -> str:
@@ -199,16 +205,26 @@ class Agent:
             f"Do NOT use Chinese, English, or romaji. 日本語以外は不可。\n"
         )
 
+    def _build_conversation_profile_section(self) -> str:
+        """自然会話用の役割・関心・目的を prompt に挿入する。"""
+        if not self.conversation_fragment:
+            return ""
+        return f"\n=== CONVERSATION PROFILE ===\n{self.conversation_fragment}\n"
+
     def _build_event_section(self, event_infos: Optional[List[Dict]]) -> str:
         """発生中のイベント(火事 / 宇宙人 / 無重力 …)を prompt セクションとして描く。
 
         2026-04-30 改訂(問題解決ToDo §C-1-2):
         旧 `_build_fire_section` は火事専用だったが、宇宙人・無重力イベントを追加するため
         `kind` フィールドで分岐する汎用版に書き換え。新 event は `prompt_text` をそのまま挿入する。
+
+        2026-04-30 追補(ユーザフィードバック): イベントセクションを目立たせるため
+        ヘッダを「⚠️ 突発イベント発生 ⚠️」に変更。イベント発火直前まで日常会話だった agent が
+        ピボットしやすくする。
         """
         if not event_infos:
             return ""
-        lines = ["\n=== EVENT(s) ==="]
+        lines = ["\n=== ⚠️ 突発イベント発生 ⚠️ ==="]
         for ei in event_infos:
             kind = ei.get("kind", "unknown")
             if kind == "fire":
@@ -269,6 +285,9 @@ class Agent:
                 f"\n  Capacity: {place_status.get('capacity', 0)}"
                 f"\n  Occupancy rate: {place_status.get('occupancy_rate', 0.0):.2f}"
             )
+            place_desc = current_place_info.get("description")
+            if place_desc:
+                place_section_text += f"\n  この場所の様子: {place_desc}"
         else:
             place_section_text = ""
 
@@ -277,22 +296,57 @@ class Agent:
         fire_section = self._build_event_section(fire_info)
         environment_section = self._build_environment_section()
         persona_section = self._build_persona_section()
+        conversation_section = self._build_conversation_profile_section()
 
         # 2026-04-30 改訂(問題解決ToDo A-1-2):
         # 旧 YOUR TASK は「Decide what message to send. You can share observations, experiences,
         # or thoughts...」と例示まで提供し、定型的な業務会話を引き出していた。
         # 新仕様は「今思ったことを一言で言って」程度の粗い投げ込みのみ(議事録 §3.4 兵頭氏アドバイス準拠)。
+        #
+        # 2026-04-30 追補(ユーザフィードバック): event_infos が active なときは
+        # 「日常モード」から離脱できないので、TASK プロンプトを強めて event への反応を促す。
+        has_active_event = bool(fire_info)
         if self.persona_fragment:
-            task_section = "=== あなたへ ===\n今、頭に浮かんだことを一言で言ってください。\n"
-            message_hint = "今、頭に浮かんだ一言(短く・自分の言葉で。なくてもよい)"
-            reasoning_hint = "なぜそう言ったか(短く)"
+            if has_active_event:
+                task_section = (
+                    "=== あなたへ ===\n"
+                    "**上の EVENT セクションを読んでください。今、これが起きています。**\n"
+                    "近くの相手に向けて、何が起きたと思うか・次に何を確認したいかを1〜2文で話してください。\n"
+                    "「驚き」だけ、抽象語だけ、相手の言葉のコピーだけで終わらせないでください。\n"
+                )
+                message_hint = "相手に向けた具体的な一言。状況確認・質問・提案のいずれかを含める"
+                reasoning_hint = "なぜその内容を相手に伝えるか(短く)"
+            else:
+                task_section = (
+                    "=== あなたへ ===\n"
+                    "近くの相手に向けて、今の状況について1〜2文で話してください。\n"
+                    "挨拶・確認・質問・提案・具体的な観察のどれかにしてください。\n"
+                    "「静けさ」「風」「光」などの抽象語だけで終わらせないでください。\n"
+                )
+                message_hint = "相手に向けた自然な会話文。確認・質問・提案・具体的な観察のいずれか"
+                reasoning_hint = "なぜその内容を話すか(短く)"
         else:
-            task_section = "=== YOUR TURN ===\nSay one thing that's on your mind right now.\n"
-            message_hint = "one short utterance in your own words (may be empty)"
-            reasoning_hint = "why you said it (brief)"
+            if has_active_event:
+                task_section = (
+                    "=== YOUR TURN ===\n"
+                    "**Read the EVENT(s) section above. This is happening NOW.**\n"
+                    "Speak to a nearby agent in 1-2 sentences about what you think is happening "
+                    "and what you want to check next. Do not answer with only an abstract word.\n"
+                )
+                message_hint = "concrete message to another agent, with a question/check/suggestion"
+                reasoning_hint = "why you say this to them"
+            else:
+                task_section = (
+                    "=== YOUR TURN ===\n"
+                    "Speak to a nearby agent in 1-2 sentences about the current situation. "
+                    "Use a greeting, confirmation, question, suggestion, or concrete observation. "
+                    "Do not end with only an abstract phrase.\n"
+                )
+                message_hint = "natural conversation to another agent, not an abstract phrase"
+                reasoning_hint = "why you say this"
 
         prompt = f"""You are Agent {self.id} ({self.gender}) in {world_description}.
-{persona_section}
+{persona_section}{conversation_section}
 === YOUR CURRENT STATE ===
 Gender: {self.gender}
 In place: {"Yes" if self.in_place else "No"}
@@ -349,16 +403,23 @@ Step: {step}
                 f"\n  Capacity: {place_status.get('capacity', 0)}"
                 f"\n  Occupancy rate: {place_status.get('occupancy_rate', 0.0):.2f}"
             )
+            place_desc = current_place_info.get("description")
+            if place_desc:
+                place_section_text += f"\n  この場所の様子: {place_desc}"
         else:
             place_section_text = ""
 
         place_locations = []
         for place in self.places:
-            place_locations.append(
+            base = (
                 f"{place['name']} ({place['type']}): center at ({place['center_x']}, {place['center_y']}), "
                 f"covers X from {place['center_x'] - place['half_size']} to {place['center_x'] + place['half_size']}, "
                 f"Y from {place['center_y'] - place['half_size']} to {place['center_y'] + place['half_size']}"
             )
+            desc = place.get("description")
+            if desc:
+                base += f" — {desc}"
+            place_locations.append(base)
         place_locations_text = "\n".join(place_locations)
 
         unique_types = list({p["type"] for p in self.places})
@@ -370,9 +431,10 @@ Step: {step}
         fire_section = self._build_event_section(fire_info)
         environment_section = self._build_environment_section()
         persona_section = self._build_persona_section()
+        conversation_section = self._build_conversation_profile_section()
 
         prompt = f"""You are Agent {self.id} ({self.gender}) in {world_description}.
-{persona_section}
+{persona_section}{conversation_section}
 === YOUR CURRENT STATE ===
 Gender: {self.gender}
 Position: ({self.position[0]}, {self.position[1]})

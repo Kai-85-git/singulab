@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-30T21:44:25",
+  "timestamp": "2026-05-01T01:38:22",
   "config_path": "config/scenario_zero_gravity_5.yaml",
   "random_seed": 42,
-  "duration": 15,
+  "duration": 30,
   "num_agents": 5,
   "initial_placement": "random_in_place",
   "home_place": "main_office",
@@ -16,6 +16,26 @@
       ],
       "half_size": 10,
       "capacity": 100
+    },
+    {
+      "name": "meeting_room_a",
+      "type": "meeting_room",
+      "center": [
+        -6,
+        6
+      ],
+      "half_size": 2,
+      "capacity": 4
+    },
+    {
+      "name": "meeting_room_b",
+      "type": "meeting_room",
+      "center": [
+        6,
+        -6
+      ],
+      "half_size": 2,
+      "capacity": 4
     }
   ],
   "environment": {
@@ -37,31 +57,88 @@
       "age": 22,
       "gender": "female",
       "nationality": "日本",
-      "mbti": "ENTJ"
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 52,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
     },
     {
       "age": 34,
-      "gender": "male",
-      "nationality": "ベトナム",
-      "mbti": "INTJ"
-    },
-    {
-      "age": 54,
-      "gender": "male",
-      "nationality": "フランス",
-      "mbti": "ENFP"
-    },
-    {
-      "age": 57,
       "gender": "female",
-      "nationality": "ブラジル",
-      "mbti": "INTJ"
+      "nationality": "日本",
+      "mbti": "ISTJ"
     },
     {
-      "age": 47,
+      "age": 30,
       "gender": "male",
-      "nationality": "ドイツ",
-      "mbti": "ISTJ"
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 29,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    }
+  ],
+  "conversation_profiles": [
+    {
+      "role": "当日の進行役",
+      "responsibility": "オフィス内の状況を整理し、近くの人に次の確認事項を伝える",
+      "concern": "全員が同じ情報を持っているか、混乱していないか",
+      "goal": "まず何が起きているかを共有し、落ち着いて確認する",
+      "knows": [
+        "今日は通常業務日で、全員が main_office に集まっている",
+        "外で異常が起きた場合は、見た情報を近くの人に確認してから動く"
+      ],
+      "speaking_style": "短く落ち着いた口調。相手に確認する"
+    },
+    {
+      "role": "慎重な観察役",
+      "responsibility": "見聞きしたことを急いで断定せず、事実と推測を分けて話す",
+      "concern": "未確認情報が広がって、全員が同じ反応だけになること",
+      "goal": "誰が何を見たのかを聞き取り、情報の確度を上げる",
+      "knows": [
+        "窓側から外の様子を確認できる場所がある",
+        "異常時は一人で判断せず、近くの人に確認する"
+      ],
+      "speaking_style": "慎重。質問が多い"
+    },
+    {
+      "role": "行動提案役",
+      "responsibility": "必要なら移動や確認の順番を提案する",
+      "concern": "様子見だけで時間が過ぎること",
+      "goal": "安全を見ながら、誰がどこを確認するか決めたい",
+      "knows": [
+        "小会議室 A にはモニタがある",
+        "小会議室 B にはホワイトボードがある"
+      ],
+      "speaking_style": "具体的な提案を出す。少し前向き"
+    },
+    {
+      "role": "記録係",
+      "responsibility": "起きたこと、誰が何を言ったかを覚えて次の会話に活かす",
+      "concern": "話が抽象的になり、具体的な情報が残らないこと",
+      "goal": "会話から事実・推測・未確認事項を分けて残す",
+      "knows": [
+        "普段は会議メモを取っている",
+        "異常時は時刻、場所、発言者を意識して記録する"
+      ],
+      "speaking_style": "要点を確認する。相手の発言を短く整理する"
+    },
+    {
+      "role": "懐疑的な確認役",
+      "responsibility": "見間違いや噂の可能性を考え、別の説明がないか確認する",
+      "concern": "全員がイベントに引っ張られて同じ言葉だけを繰り返すこと",
+      "goal": "本当に物理法則が崩壊したのか、観測できる根拠を探す",
+      "knows": [
+        "ビル周辺ではメンテや地震訓練があることもある",
+        "異常を感じても、まず確認できる証拠を探す"
+      ],
+      "speaking_style": "落ち着いて疑問を出す。断定しすぎない"
     }
   ],
   "llm": {

@@ -18,6 +18,11 @@ places:
     half_size: 25
     capacity: 200
 
+events:
+  - type: "zero_gravity"
+    # 100 step の場合、step 50(中間)でイベント発火。前半は日常会話、後半は反応観察。
+    start_step: 50
+
 llm:
   # ⚠️ 粉川氏マシンで `ollama list` を実行し、実際にあるタグに書き換えてください。
   model: "huihui_ai/qwen3-uncensored:34b"

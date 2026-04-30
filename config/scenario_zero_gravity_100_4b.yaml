@@ -1,0 +1,48 @@
+# 100 人 × 無重力イベント(ユーザ PC RTX 3060 Laptop 6GB 用、Qwen3 4B abliterated)。
+# 粉川氏マシン用の `scenario_zero_gravity_100.yaml`(34B 想定)とは別建て。
+# 詳細は scenario_alien_100_4b.yaml の冒頭コメント参照。
+
+extends: "scenario_zero_gravity_5.yaml"
+
+simulation:
+  duration: 100
+
+agents:
+  num_agents: 100
+  # 親シナリオの conversation_profiles(5 件)は num_agents=100 と数が合わずエラーになるため空に。
+  # M-11 の personal_context 移行が固まり次第、改めて 100 体ぶんを書き起こす
+  conversation_profiles: []
+
+# main_office は 100 体収容のため拡大。会議室を明示的に再定義(deep_merge がリストを差し替えるため)
+places:
+  - name: "main_office"
+    type: "office"
+    center_x: 0
+    center_y: 0
+    half_size: 25
+    capacity: 200
+    description: "オープンなオフィスフロア。中央に共有デスクが並び、各席にノートパソコンが置かれている。壁際にはホワイトボードと観葉植物、給湯コーナー。"
+  - name: "meeting_room_a"
+    type: "meeting_room"
+    center_x: -10
+    center_y: 10
+    half_size: 3
+    capacity: 6
+    description: "小会議室 A。長机と椅子、壁掛けのモニタが 1 台。資料投影や少人数の打ち合わせに使う。"
+  - name: "meeting_room_b"
+    type: "meeting_room"
+    center_x: 10
+    center_y: -10
+    half_size: 3
+    capacity: 6
+    description: "小会議室 B。ホワイトボードと丸テーブル、椅子。雑談ベースの打ち合わせや 1on1 によく使われる。"
+
+events:
+  - type: "zero_gravity"
+    start_step: 50
+
+llm:
+  model: "huihui_ai/qwen3-abliterated:4b"
+  max_tokens: 100
+  temperature: 0.8
+  think: false

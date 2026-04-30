@@ -77,9 +77,53 @@ def t4_event_has_no_effect_when_inactive():
     print("   ✓ start_step 未満では active にならない")
 
 
+def t5_alien_position_and_movement():
+    print("[T5] AlienEvent: 位置指定 + ランダムウォーク移動(2026-05-01 追補)")
+    import random as _r
+    rng = _r.Random(123)
+    ev = AlienEvent(start_step=1, position=(0, 0), move_step_size=2, random_position_range=10)
+    state = ev.maybe_activate(1)
+    assert state["position"] == (0, 0)
+    assert state["kind"] == "alien"
+
+    # 5 step 動かして position が変わったことを確認
+    positions = [ev.position]
+    for _ in range(5):
+        ev.maybe_move(rng=rng)
+        positions.append(ev.position)
+    assert any(p != (0, 0) for p in positions[1:]), f"never moved: {positions}"
+    # 各座標は ±10 の範囲内に収まる
+    for x, y in positions:
+        assert -10 <= x <= 10 and -10 <= y <= 10, f"out of bounds: ({x}, {y})"
+    print(f"   ✓ moved through: {positions}")
+
+    # move_step_size=0 なら動かない
+    still = AlienEvent(start_step=1, position=(5, 5), move_step_size=0)
+    still.maybe_activate(1)
+    still.maybe_move(rng=rng)
+    assert still.position == (5, 5)
+    print("   ✓ move_step_size=0 で固定")
+
+
+def t6_alien_prompt_text_changes_after_move():
+    print("[T6] AlienEvent: 移動するとプロンプト文も更新される")
+    ev = AlienEvent(start_step=1, position=(10, 10), move_step_size=0)
+    ev.maybe_activate(1)
+    text_before = ev.prompt_text
+    assert "(10, 10)" in text_before
+    ev.position = (5, 7)  # 手動で移動
+    text_after = ev.prompt_text
+    assert "(5, 7)" in text_after
+    assert text_before != text_after
+    print(f"   ✓ before: {text_before}")
+    print(f"   ✓ after : {text_after}")
+
+
 if __name__ == "__main__":
     t1_alien_activates_at_start_step()
     t2_zero_gravity_basic()
     t3_fire_kind_field_added()
     t4_event_has_no_effect_when_inactive()
+    t5_alien_position_and_movement()
+    t6_alien_prompt_text_changes_after_move()
     print("\nALL TESTS PASSED ✓")
