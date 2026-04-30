@@ -98,7 +98,7 @@ def _is_legacy_config(persona_cfg: Mapping[str, Any]) -> bool:
 class PersonaFactory:
     """config の `agents.persona` セクションから Persona を乱数生成する(新スキーマ)。
 
-    Config schema(2026-04-29 議事録準拠):
+    Config schema(2026-05-01 改訂、4/24 議事録 §62 の「日本人 90% / 外国人 10%」設計に回帰):
 
         agents:
           persona:
@@ -108,6 +108,7 @@ class PersonaFactory:
               values: [male, female]     # 抽選候補
             nationality:
               pool: [日本, 米国, 中国, ...]
+              weights: [90, 1.25, 1.25, ...]  # 任意。省略時は均等ランダム
             mbti:
               values: [INTJ, ENFP, ...]  # 省略時は 16 タイプ全部
 
@@ -121,6 +122,7 @@ class PersonaFactory:
         gender_values: List[str],
         nationality_pool: List[str],
         mbti_values: Optional[List[str]] = None,
+        nationality_weights: Optional[List[float]] = None,
     ) -> None:
         lo, hi = age_range
         if lo < 0 or hi < lo:
@@ -134,6 +136,20 @@ class PersonaFactory:
         if not nationality_pool:
             raise ValueError("nationality_pool must not be empty")
         self.nationality_pool = list(nationality_pool)
+
+        if nationality_weights is not None:
+            if len(nationality_weights) != len(nationality_pool):
+                raise ValueError(
+                    f"nationality_weights length ({len(nationality_weights)}) "
+                    f"must match nationality_pool length ({len(nationality_pool)})"
+                )
+            if any(w < 0 for w in nationality_weights):
+                raise ValueError("nationality_weights must be non-negative")
+            if sum(nationality_weights) <= 0:
+                raise ValueError("nationality_weights must sum to a positive value")
+            self.nationality_weights: Optional[List[float]] = [float(w) for w in nationality_weights]
+        else:
+            self.nationality_weights = None
 
         chosen = list(mbti_values) if mbti_values else list(MBTI_TYPES)
         for m in chosen:
@@ -160,6 +176,10 @@ class PersonaFactory:
 
         nationality_cfg = persona_cfg.get("nationality", {})
         nationality_pool = list(nationality_cfg.get("pool", ["日本"]))
+        nationality_weights_raw = nationality_cfg.get("weights")
+        nationality_weights = (
+            list(nationality_weights_raw) if nationality_weights_raw is not None else None
+        )
 
         mbti_cfg = persona_cfg.get("mbti", {})
         mbti_values = list(mbti_cfg.get("values", MBTI_TYPES))
@@ -169,6 +189,7 @@ class PersonaFactory:
             gender_values=gender_values,
             nationality_pool=nationality_pool,
             mbti_values=mbti_values,
+            nationality_weights=nationality_weights,
         )
 
     def generate(
@@ -186,7 +207,10 @@ class PersonaFactory:
         age = rng.randint(self.age_range[0], self.age_range[1])
         if gender is None:
             gender = rng.choice(self.gender_values)
-        nationality = rng.choice(self.nationality_pool)
+        if self.nationality_weights is not None:
+            nationality = rng.choices(self.nationality_pool, weights=self.nationality_weights, k=1)[0]
+        else:
+            nationality = rng.choice(self.nationality_pool)
         mbti = rng.choice(self.mbti_values)
         return Persona(
             age=age,
