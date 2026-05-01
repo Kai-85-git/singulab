@@ -6,6 +6,10 @@ extends: "scenario_alien_5.yaml"
 
 simulation:
   duration: 100
+  # 2026-05-01 改訂(100 体スケール対応):
+  # フィールドを 50×50 → 100×100 に拡張し、main_office を適切なサイズ(40×40)に。
+  # 100 人 × 16 sq/人(= 4×4m/人)で現実的なオフィス密度。
+  half_space_size: 50
 
 agents:
   num_agents: 100
@@ -103,13 +107,25 @@ places:
     type: "office"
     center_x: 0
     center_y: 0
-    half_size: 25
-    capacity: 200
+    half_size: 20
+    capacity: 120
+    description: "100 人規模の大型オフィスフロア。デスクが整然と並び、窓側からは外の景色が見える。給湯コーナーや共有スペースもある。"
+
+# 100 体 × 半径 10 m だと「同じオフィスにいるのに声が届かない」状態になるため、
+# 100 体スケールでは 15 m に拡張して集団的な反応を観察可能にする。
+# 設計書 [05_3階-物理-重力/03_コミュニケーション到達距離] §3 の「大集団 r_comm 3〜5」想定とは
+# 異なるが、本シナリオは「1 つの箱に集まった 100 人」を観察する設計のため広めに採る。
+world_laws:
+  communication_radius: 15.0
 
 events:
   - type: "alien"
     # 100 step の場合、step 50(中間)でイベント発火。前半は日常会話、後半は反応観察。
     start_step: 50
+    # UFO 着地点を main_office (-20..20) の外側に。窓際のエージェントだけが
+    # 段 3(イベント観察距離依存)で Mid 視認、奥側は会話伝播でのみ知る形になる。
+    center_x: -35
+    center_y: 30
 
 llm:
   # ⚠️ 粉川氏マシンで `ollama list` を実行し、実際にあるタグに書き換えてください。

@@ -6,6 +6,8 @@ extends: "scenario_zero_gravity_5.yaml"
 
 simulation:
   duration: 100
+  # 2026-05-01 改訂(100 体スケール対応):scenario_alien_100.yaml と同じ拡張。
+  half_space_size: 50
 
 agents:
   num_agents: 100
@@ -100,8 +102,13 @@ places:
     type: "office"
     center_x: 0
     center_y: 0
-    half_size: 25
-    capacity: 200
+    half_size: 20
+    capacity: 120
+    description: "100 人規模の大型オフィスフロア。デスクが整然と並び、窓側からは外の景色が見える。給湯コーナーや共有スペースもある。"
+
+# scenario_alien_100.yaml と同じく 15 m に拡張(集団反応観察のため)
+world_laws:
+  communication_radius: 15.0
 
 events:
   - type: "zero_gravity"
