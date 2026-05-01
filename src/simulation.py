@@ -453,6 +453,7 @@ class Simulation:
     def step_simulation(self) -> None:
         self.step += 1
 
+        activation_events: List[Dict] = []
         for ev in self.events:
             new_state = ev.maybe_activate(self.step)
             # 2026-05-01 追補:AlienEvent は active 中、毎 step ランダムウォークで移動する
@@ -473,6 +474,20 @@ class Simulation:
                         f"EVENT '{new_state['name']}' ({kind}) activated at step {self.step}: "
                         f"prompt_text={new_state.get('prompt_text', '(no prompt_text)')!r}"
                     )
+                # 2026-05-01 修正:events.jsonl にも構造化レコードを残す
+                # (従来は logger.info のみで、創発指標の解析対象から外れていた)
+                activation_record: Dict = {
+                    "type": "event_activated",
+                    "kind": kind,
+                    "name": new_state.get("name"),
+                    "prompt_text": new_state.get("prompt_text"),
+                }
+                if new_state.get("position") is not None:
+                    activation_record["position"] = list(new_state["position"])
+                for opt_key in ("intensity", "radius"):
+                    if new_state.get(opt_key) is not None:
+                        activation_record[opt_key] = new_state[opt_key]
+                activation_events.append(activation_record)
 
         for agent in self.agents:
             agent.update_state(self.places)
@@ -537,7 +552,7 @@ class Simulation:
         self.runlog.log_memory_reasoning_batch(memory_records)
 
         # Phase 4: execute movement via World (capacity enforcement + events)
-        step_events: List[Dict] = list(cognition_events)  # Phase 2-3 認知メモリ系
+        step_events: List[Dict] = list(activation_events) + list(cognition_events)  # 発火 + 認知メモリ系
         for agent, action in action_decisions:
             if action["action"] == "move" and action["direction"]:
                 _, events = self.world.attempt_move(agent, action["direction"], self.agents)
