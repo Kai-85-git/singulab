@@ -1,0 +1,130 @@
+{
+  "timestamp": "2026-05-01T15:17:21",
+  "config_path": "config/scenario_alien_5.yaml",
+  "random_seed": 42,
+  "duration": 30,
+  "num_agents": 5,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 10,
+      "capacity": 100
+    },
+    {
+      "name": "meeting_room_a",
+      "type": "meeting_room",
+      "center": [
+        -6,
+        6
+      ],
+      "half_size": 2,
+      "capacity": 4
+    },
+    {
+      "name": "meeting_room_b",
+      "type": "meeting_room",
+      "center": [
+        6,
+        -6
+      ],
+      "half_size": 2,
+      "capacity": 4
+    }
+  ],
+  "environment": {
+    "economy": "neutral",
+    "economy_text_used": "現在、景気は可もなく不可もない。"
+  },
+  "world_laws": {
+    "communication_radius": 10.0,
+    "communication_radius_overrides": {},
+    "cognitive_limit": 10,
+    "message_delay": {
+      "same_place_near": 0,
+      "same_place_far": 1,
+      "cross_place": 3
+    }
+  },
+  "personas": [
+    {
+      "age": 22,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 52,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 34,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ISTJ"
+    },
+    {
+      "age": 30,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 29,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    }
+  ],
+  "conversation_profiles": null,
+  "personal_contexts": [
+    {
+      "family": "都内で一人暮らし。実家は地方",
+      "hobby": "週末は街歩きでカメラを持ち歩く",
+      "today_mood": "昨夜よく眠れた。少し雑談したい気分",
+      "recent_concern": "来月の引っ越し先がまだ決まっていない",
+      "expertise_hint": "学生時代に天文同好会で星を見ていた"
+    },
+    {
+      "family": "妻と保育園児が 2 人。送り迎えが日課",
+      "hobby": "プラモ作りと深夜のラジオ",
+      "today_mood": "朝から少し焦っている。会議が立て込んでいる",
+      "recent_concern": "上の子の発表会の準備",
+      "expertise_hint": "前職で電気工事士の資格を取った"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "シェアハウスで友人と暮らしている",
+      "hobby": "古い SF 映画を観ることと、自作キーボード",
+      "today_mood": "カフェインを摂りすぎて少し落ち着かない",
+      "recent_concern": "副業で受けた仕事の納期",
+      "expertise_hint": "以前ドローンの空撮を仕事で扱っていた"
+    }
+  ],
+  "llm": {
+    "model": "huihui_ai/qwen3-abliterated:4b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.8
+  }
+}

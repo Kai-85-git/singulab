@@ -209,7 +209,9 @@ class Agent:
         """自然会話用の役割・関心・目的を prompt に挿入する。"""
         if not self.conversation_fragment:
             return ""
-        return f"\n=== CONVERSATION PROFILE ===\n{self.conversation_fragment}\n"
+        # 2026-05-01: personal_contexts(生活の文脈)への移行に伴いセクション名を変更。
+        # legacy の conversation_profiles も同じセクションに流す(opaque な fragment 文字列のため)。
+        return f"\n=== PERSONAL CONTEXT ===\n{self.conversation_fragment}\n"
 
     def _build_event_section(self, event_infos: Optional[List[Dict]]) -> str:
         """発生中のイベント(火事 / 宇宙人 / 無重力 …)を prompt セクションとして描く。

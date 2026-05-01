@@ -91,6 +91,43 @@ class Simulation:
                 "agents.conversation_profiles must have exactly num_agents entries "
                 f"({len(self.conversation_profiles)} != {self.num_agents})"
             )
+        # 2026-05-01 導入(問題解決ToDo §3 段 2):
+        # personal_contexts は role/speaking_style を排した「生活の文脈」スキーマ。
+        # conversation_profiles(役職ベース)からの移行先で、両方指定された場合は
+        # personal_contexts を優先する(conversation_profiles は legacy 扱い)。
+        #
+        # 大集団(num_agents が 1:1 で書ききれない)向けに、`personal_contexts_pool`
+        # からランダム抽選する pool 方式もサポート。明示の `personal_contexts` が
+        # 優先され、それが無くて pool があれば抽選で num_agents 件補完する。
+        explicit_contexts: List[Dict] = list(
+            agent_config.get("personal_contexts", []) or []
+        )
+        contexts_pool: List[Dict] = list(
+            agent_config.get("personal_contexts_pool", []) or []
+        )
+        if explicit_contexts and len(explicit_contexts) != self.num_agents:
+            raise ValueError(
+                "agents.personal_contexts must have exactly num_agents entries "
+                f"({len(explicit_contexts)} != {self.num_agents})"
+            )
+        if explicit_contexts:
+            self.personal_contexts: List[Dict] = explicit_contexts
+        elif contexts_pool:
+            # 抽選は random_seed 確定後の random モジュール状態を使う(再現性のため)
+            self.personal_contexts = [
+                random.choice(contexts_pool) for _ in range(self.num_agents)
+            ]
+            logger.info(
+                f"personal_contexts: sampled {self.num_agents} from pool "
+                f"(pool size={len(contexts_pool)})"
+            )
+        else:
+            self.personal_contexts = []
+        if self.personal_contexts and self.conversation_profiles:
+            logger.warning(
+                "Both 'personal_contexts' (or pool) and 'conversation_profiles' are set. "
+                "Using 'personal_contexts' (preferred). 'conversation_profiles' is legacy."
+            )
 
         if "places" not in self.config:
             raise ValueError("'places' is required in config")
@@ -197,6 +234,9 @@ class Simulation:
                     ),
                     random_position_range=self.half_space_size,
                     move_step_size=ec.get("move_step_size", 2),
+                    # 段 3(2026-05-01):距離依存知覚。yaml 省略時は AlienEvent 側のデフォルト
+                    near_radius=ec.get("near_radius", 8.0),
+                    visible_radius=ec.get("visible_radius", 18.0),
                 )
             elif etype == "zero_gravity":
                 ev = ZeroGravityEvent(
@@ -315,7 +355,11 @@ class Simulation:
                 persona = self.persona_factory.generate(i, gender, rng=random)
                 persona_fragment = persona.to_prompt()
             self._personas.append(persona)
-            conversation_fragment = self._conversation_profile_to_prompt(i)
+            # personal_contexts 優先、無ければ legacy の conversation_profiles
+            if self.personal_contexts:
+                conversation_fragment = self._personal_context_to_prompt(i)
+            else:
+                conversation_fragment = self._conversation_profile_to_prompt(i)
 
             agent = Agent(
                 agent_id=i,
@@ -348,8 +392,48 @@ class Simulation:
             )
         logger.info("Agents initialized")
 
+    def _personal_context_to_prompt(self, agent_id: int) -> str:
+        """agents.personal_contexts の 1 件を「生活の文脈」prompt に変換する。
+
+        2026-05-01 導入(問題解決ToDo §3 段 2):
+        役職ベースの conversation_profiles に代わる、ロール直書きを排した個人属性。
+        各エージェントが固有のインプットを持つことで、同じイベントに対しても
+        自然に異なる反応が出ることを狙う(エコー対策の本筋)。
+
+        サポートするキー(すべて任意・自由記述):
+            family            : 家族構成・住まい
+            hobby             : 趣味
+            today_mood        : 今日の気分・体調
+            recent_concern    : 最近気にしていること
+            expertise_hint    : 何となく詳しい分野(役職ではなく経験ベース)
+            note              : 自由欄(上記に当てはまらない事実)
+        """
+        if not self.personal_contexts:
+            return ""
+        ctx = self.personal_contexts[agent_id]
+        label_map = [
+            ("family", "家族・住まい"),
+            ("hobby", "趣味"),
+            ("today_mood", "今日の気分"),
+            ("recent_concern", "最近気にしていること"),
+            ("expertise_hint", "何となく詳しい分野"),
+            ("note", "その他"),
+        ]
+        lines: List[str] = []
+        for key, label in label_map:
+            value = ctx.get(key)
+            if value:
+                lines.append(f"{label}: {value}")
+        # 「役割を演じてください」ではなく、状態記述として与える(兵頭氏アドバイス準拠)。
+        # 命令文は付けない。LLM が個人属性をどう会話に滲ませるかは観察対象。
+        return "\n".join(lines)
+
     def _conversation_profile_to_prompt(self, agent_id: int) -> str:
-        """agents.conversation_profiles の 1 件を自然文 prompt に変換する。"""
+        """[legacy] agents.conversation_profiles の 1 件を自然文 prompt に変換する。
+
+        2026-05-01: personal_contexts への移行に伴い deprecated。
+        新規シナリオは personal_contexts を使うこと。
+        """
         if not self.conversation_profiles:
             return ""
         profile = self.conversation_profiles[agent_id]
@@ -405,6 +489,7 @@ class Simulation:
                 for p in self._personas
             ] if self.persona_factory is not None else None,
             "conversation_profiles": self.conversation_profiles or None,
+            "personal_contexts": self.personal_contexts or None,
             "llm": {
                 "model": self.llm_client.model,
                 "base_url": self.llm_client.base_url,

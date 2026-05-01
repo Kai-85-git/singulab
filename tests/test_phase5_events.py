@@ -1,7 +1,7 @@
 """Phase 5(C-2-3 / C-3-3): AlienEvent / ZeroGravityEvent のユニットテスト。
 
 - start_step 前は activate しない / 知覚情報も None
-- start_step 以降は active になり、全 agent 位置で同じ prompt_text を返す
+- start_step 以降は active になり、距離帯ごとに異なる prompt_text を返す(2026-05-01 段 3 改訂)
 - 既存 FireEvent も `kind="fire"` を返すことを確認(後方互換)
 """
 import sys
@@ -17,8 +17,8 @@ from src.events.zero_gravity import ZeroGravityEvent
 
 
 def t1_alien_activates_at_start_step():
-    print("[T1] AlienEvent: start_step での発火と知覚情報")
-    ev = AlienEvent(start_step=3)
+    print("[T1] AlienEvent: start_step での発火と距離依存の知覚(2026-05-01 段 3 改訂)")
+    ev = AlienEvent(start_step=3, position=(0, 0), near_radius=8.0, visible_radius=18.0)
     # start_step 前
     assert ev.maybe_activate(2) is None, "should not activate before start_step"
     assert ev.perceived_info((0, 0)) is None, "should not be perceived before activation"
@@ -29,14 +29,21 @@ def t1_alien_activates_at_start_step():
     assert state["active"] is True
     # 同 step を繰り返し呼んでも再発火しない
     assert ev.maybe_activate(4) is None
-    # 全 agent 位置で同じ知覚情報
-    info_a = ev.perceived_info((0, 0))
-    info_b = ev.perceived_info((100, 100))
-    assert info_a is not None and info_b is not None
-    assert info_a["prompt_text"] == info_b["prompt_text"]
-    assert info_a["kind"] == "alien"
-    assert "地球外生命体" in info_a["prompt_text"]
-    print(f"   ✓ 位置不問で同 prompt_text: {info_a['prompt_text']}")
+    # Near 帯(距離 0): 詳細視認
+    near_info = ev.perceived_info((0, 0))
+    assert near_info is not None
+    assert near_info["kind"] == "alien"
+    assert near_info["perception_band"] == "near"
+    assert "目の前" in near_info["prompt_text"]
+    # Mid 帯(距離 ~12): 遠望
+    mid_info = ev.perceived_info((10, 7))
+    assert mid_info is not None
+    assert mid_info["perception_band"] == "mid"
+    assert "遠くに" in mid_info["prompt_text"]
+    # Far 帯(距離 ~141): 知覚不可
+    far_info = ev.perceived_info((100, 100))
+    assert far_info is None, "far agents should not perceive directly"
+    print(f"   ✓ near={near_info['perception_band']} mid={mid_info['perception_band']} far=None")
 
 
 def t2_zero_gravity_basic():

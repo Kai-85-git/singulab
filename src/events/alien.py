@@ -4,12 +4,19 @@
 
 設計指針(議事録 §3.4 兵頭氏アドバイス準拠):
 - 「**指示を書きすぎない**」。「現在、地球外生命体との接触が確認されています。」程度の粗い投げ込み
-- 全 agent に同時通達。位置依存(火事のような距離減衰)はない
 
 2026-04-30 追補(ユーザフィードバック):
 火事のように **着地位置** を持たせて視覚化できるようにした。
 prompt_text には「○○の方角に降りた」を含める。
+
+2026-05-01 改訂(要件定義 02_エージェント属性 §6.5、段 3):
+旧設計「全 agent に同時通達。位置依存なし」を撤回。
+seg2_check_alien_5 で全員同一インプットによるエコーループが残ったため、距離依存に変更。
+- Near(距離 ≤ near_radius): 詳細視認
+- Mid(near_radius < 距離 ≤ visible_radius): 遠望
+- Far(visible_radius < 距離): 直接観察不可。会話経由のみで伝播
 """
+import math
 import random
 from typing import Dict, Optional, Tuple
 
@@ -17,14 +24,17 @@ from .base import Event
 
 
 class AlienEvent(Event):
-    """宇宙人接触イベント。`start_step` で発火し、以降は全 agent が知覚する。
+    """宇宙人接触イベント。`start_step` で発火。距離帯ごとに知覚内容が異なる。
 
     Args:
         name: 識別子
         start_step: 発火ステップ
-        prompt_text: 注入する状態記述(指示は書きすぎない)
+        prompt_text: 状態記述のテンプレート(指示は書きすぎない)
         position: UFO の着地位置(指定なしなら maybe_activate 時に乱数生成)
         random_position_range: 乱数生成時の範囲(half_space_size を渡す)
+        move_step_size: 着地後の毎 step ランダムウォーク量(±)
+        near_radius: この距離以内のエージェントは詳細視認(既定 8.0)
+        visible_radius: この距離以内なら遠望できる。これより遠い人は知覚しない(既定 18.0)
     """
 
     def __init__(
@@ -35,6 +45,8 @@ class AlienEvent(Event):
         position: Optional[Tuple[int, int]] = None,
         random_position_range: int = 25,
         move_step_size: int = 2,
+        near_radius: float = 8.0,
+        visible_radius: float = 18.0,
     ) -> None:
         self.name = name
         self.start_step = start_step
@@ -46,6 +58,13 @@ class AlienEvent(Event):
         self._prompt_text_template = prompt_text
         # UFO 移動量(±step_size の乱数ウォーク)
         self.move_step_size = max(0, int(move_step_size))
+        # 知覚距離帯(段 3, 2026-05-01)
+        if near_radius < 0 or visible_radius < near_radius:
+            raise ValueError(
+                f"AlienEvent radii invalid: near={near_radius}, visible={visible_radius}"
+            )
+        self.near_radius = float(near_radius)
+        self.visible_radius = float(visible_radius)
 
     @property
     def prompt_text(self) -> str:
@@ -98,13 +117,37 @@ class AlienEvent(Event):
         }
 
     def perceived_info(self, agent_position: Tuple[float, float]) -> Optional[Dict]:
-        if not self.active:
+        """エージェント位置から見た知覚情報を返す。
+
+        2026-05-01(段 3)で位置依存に変更。距離帯ごとに異なる prompt_text を返し、
+        遠方のエージェントは None(直接観察できない=会話経由でのみ知る)。
+        """
+        if not self.active or self.position is None:
             return None
-        # 位置依存なし。全員に同じ情報(着地点を含む prompt_text を渡す)。
+        dx = agent_position[0] - self.position[0]
+        dy = agent_position[1] - self.position[1]
+        distance = math.sqrt(dx * dx + dy * dy)
+        if distance > self.visible_radius:
+            return None  # 直接観察不可。他者の発話経由でのみ伝わる
+
+        base = self._prompt_text_template or "現在、地球外生命体との接触が確認されています。"
+        pos = self.position
+        if distance <= self.near_radius:
+            band = "near"
+            prompt = (
+                f"{base} 目の前に UFO がいる。座標 ({pos[0]}, {pos[1]}) でほぼ静止して見える。"
+            )
+        else:
+            band = "mid"
+            prompt = (
+                f"{base} 遠くに UFO らしきものが見える。座標 ({pos[0]}, {pos[1]}) 付近。"
+            )
         return {
             "kind": "alien",
             "name": self.name,
             "activated_step": self.activated_step,
             "position": self.position,
-            "prompt_text": self.prompt_text,
+            "agent_distance": round(distance, 2),
+            "perception_band": band,
+            "prompt_text": prompt,
         }
