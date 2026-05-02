@@ -1,0 +1,16 @@
+# 100 体 v3 のサイズ感確認用テスト(duration: 1)。
+# main_office 60×60 m + meeting_room 8×8 m × 2 の配置を視覚化フレームで確認するため。
+# 約 18 分で完走。
+
+extends: "scenario_alien_100_v3.yaml"
+
+simulation:
+  duration: 1
+
+events:
+  - type: "alien"
+    # 1 step テストなので発火させて UFO 位置も同時に確認
+    start_step: 1
+    center_x: -55
+    center_y: 45
+    move_step_size: 2

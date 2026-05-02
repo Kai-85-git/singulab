@@ -14,6 +14,8 @@ agents:
   num_agents: 5
   initial_placement: "random_in_place"
   home_place: "main_office"
+  # 2026-05-01 追加:性別を明示指定(男 4 / 女 1)。未指定なら 50:50 ランダム。
+  genders: ["male", "male", "male", "male", "female"]
   # 2026-05-01 改訂(問題解決ToDo §3 段 2):
   # 旧 conversation_profiles(role / speaking_style 直書き)はエコーループの一因
   # かつ「役割を演じさせる」設計だったため撤去。代わりに personal_contexts で
@@ -74,7 +76,8 @@ environment:
   economy: "neutral"
 
 world_laws:
-  communication_radius: 10.0
+  # 2026-05-01 改訂:現実のオフィス会話距離(社会距離 1.2〜3.5 m + 余裕)に近づけ 5 m に
+  communication_radius: 5.0
   cognitive_limit: 10
 
 events:

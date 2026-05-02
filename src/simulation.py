@@ -347,8 +347,46 @@ class Simulation:
             f"Initializing {self.num_agents} agents (placement={self.initial_placement})..."
         )
         positions = self._generate_initial_positions()
+        # 2026-05-01 追加:性別を明示指定可能にする(`agents.genders` が設定されていれば優先)。
+        # 例:`agents.genders: [male, male, male, male, female]`(num_agents 件、順序通り)。
+        # 未設定なら従来通り 50:50 ランダム。
+        agent_cfg = self.config.get("agents", {})
+        explicit_genders = agent_cfg.get("genders")
+        # 空リストは「未指定」と同等(継承を打ち消す目的で yaml に書かれる)
+        if explicit_genders is not None and len(explicit_genders) == 0:
+            explicit_genders = None
+        if explicit_genders is not None:
+            if len(explicit_genders) != self.num_agents:
+                raise ValueError(
+                    "agents.genders length must match num_agents "
+                    f"({len(explicit_genders)} != {self.num_agents})"
+                )
+            for g in explicit_genders:
+                if g not in ("male", "female"):
+                    raise ValueError(f"agents.genders must be 'male' or 'female', got: {g!r}")
+            logger.info(f"Genders are explicitly set: {explicit_genders}")
+        # 2026-05-02 追加:重み付き抽選サポート(persona.gender.weights)。
+        # 100 体規模で「男 80% / 女 20%」のような比率を yaml で指定可能にする。
+        # 要件定義 02_エージェント属性 §2「男女比は試験条件で振る」に該当。
+        gender_cfg = agent_cfg.get("persona", {}).get("gender", {})
+        gender_values = list(gender_cfg.get("values", ["male", "female"]))
+        gender_weights = gender_cfg.get("weights")
+        if gender_weights is not None and explicit_genders is None:
+            if len(gender_weights) != len(gender_values):
+                raise ValueError(
+                    f"persona.gender.weights length ({len(gender_weights)}) "
+                    f"must match values length ({len(gender_values)})"
+                )
+            logger.info(
+                f"Gender weights: {dict(zip(gender_values, gender_weights))}"
+            )
         for i in range(self.num_agents):
-            gender = random.choice(["male", "female"])
+            if explicit_genders is not None:
+                gender = explicit_genders[i]
+            elif gender_weights:
+                gender = random.choices(gender_values, weights=gender_weights, k=1)[0]
+            else:
+                gender = random.choice(gender_values)
             persona: Optional[Persona] = None
             persona_fragment = ""
             if self.persona_factory is not None:

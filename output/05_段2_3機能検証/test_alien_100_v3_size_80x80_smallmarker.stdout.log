@@ -1,0 +1,324 @@
+2026-05-02 16:51:11,121 [INFO] root: config = config/scenario_alien_100_v3_test1step.yaml
+2026-05-02 16:51:11,121 [INFO] root: output_dir = output/05_段2_3機能検証/test_alien_100_v3_size_80x80_smallmarker
+2026-05-02 16:51:11,146 [INFO] src.simulation: random_seed = 42 に固定
+2026-05-02 16:51:11,146 [INFO] src.simulation: personal_contexts: sampled 100 from pool (pool size=16)
+2026-05-02 16:51:11,146 [INFO] src.simulation: World initialized: 3 place(s) ['main_office', 'meeting_room_a', 'meeting_room_b'] (types: ['office', 'meeting_room', 'meeting_room'])
+2026-05-02 16:51:11,147 [INFO] src.simulation: Visualizer enabled: frames every 1 step(s) -> output/05_段2_3機能検証/test_alien_100_v3_size_80x80_smallmarker\frames
+2026-05-02 16:51:11,148 [INFO] src.simulation: Environment: economy=neutral -> "現在、景気は可もなく不可もない。"
+2026-05-02 16:51:11,148 [INFO] src.simulation: WorldLaws: comm_radius=5.0, overrides={}, cognitive_limit=10
+2026-05-02 16:51:11,148 [INFO] src.simulation: AlienEvent 'alien_0' configured: start_step=1
+2026-05-02 16:51:11,148 [INFO] src.simulation: LLM think mode: False (Qwen3 系の thinking 抑制用)
+2026-05-02 16:51:11,148 [INFO] src.simulation: Starting simulation...
+2026-05-02 16:51:13,259 [INFO] src.simulation: Initializing 100 agents (placement=random_in_place)...
+2026-05-02 16:51:13,259 [INFO] src.simulation: Gender weights: {'male': 80, 'female': 20}
+2026-05-02 16:51:13,261 [INFO] src.simulation: Personas generated: 100 agents (age=(20, 60), nationalities=['日本', '米国', '中国', 'インド', 'ブラジル', 'ドイツ', 'フランス', '韓国', 'ベトナム'], mbti=16 types)
+2026-05-02 16:51:13,261 [INFO] src.simulation: Agents initialized
+2026-05-02 16:51:13,263 [INFO] src.simulation: EVENT 'alien_0' (alien) activated at step 1: prompt_text='現在、地球外生命体との接触が確認されています。 UFO は座標 (-55, 45) 付近を移動中。'
+2026-05-02 16:58:32,002 [INFO] src.simulation: Step 1: Agent 1 -> 3 nearby: "今朝の風は少し冷たいですが、このオフィスの窓から見える景色は本当に静かで落ち着きますね。"
+2026-05-02 16:58:32,004 [INFO] src.agent.agent: Agent 32 received message from Agent 1: "今朝の風は少し冷たいですが、このオフィスの窓から見える景色は本当に静かで落ち着きますね。"
+2026-05-02 16:58:34,127 [INFO] src.agent.agent: Agent 63 received message from Agent 1: "今朝の風は少し冷たいですが、このオフィスの窓から見える景色は本当に静かで落ち着きますね。"
+2026-05-02 16:58:34,130 [INFO] src.agent.agent: Agent 82 received message from Agent 1: "今朝の風は少し冷たいですが、このオフィスの窓から見える景色は本当に静かで落ち着きますね。"
+2026-05-02 16:58:34,131 [INFO] src.simulation: Step 1: Agent 2 -> 3 nearby: "今、給湯コーナーで水を飲んでいます。少し暑いですが、冷たい飲み物はいいですね。"
+2026-05-02 16:58:34,131 [INFO] src.agent.agent: Agent 21 received message from Agent 2: "今、給湯コーナーで水を飲んでいます。少し暑いですが、冷たい飲み物はいいですね。"
+2026-05-02 16:58:34,133 [INFO] src.agent.agent: Agent 27 received message from Agent 2: "今、給湯コーナーで水を飲んでいます。少し暑いですが、冷たい飲み物はいいですね。"
+2026-05-02 16:58:34,133 [INFO] src.agent.agent: Agent 89 received message from Agent 2: "今、給湯コーナーで水を飲んでいます。少し暑いですが、冷たい飲み物はいいですね。"
+2026-05-02 16:58:34,133 [INFO] src.simulation: Step 1: Agent 3 -> 1 nearby: "朝の風が少し冷たいですね。この場所の窓側はどのくらいの明るさですか？"
+2026-05-02 16:58:34,134 [INFO] src.agent.agent: Agent 18 received message from Agent 3: "朝の風が少し冷たいですね。この場所の窓側はどのくらいの明るさですか？"
+2026-05-02 16:58:34,134 [INFO] src.simulation: Step 1: Agent 5 -> 1 nearby: "ドローンの撮影経験を活かせない仕事で少し焦ってます。他の人と協力して納期を守れるか心配です。"
+2026-05-02 16:58:34,134 [INFO] src.agent.agent: Agent 56 received message from Agent 5: "ドローンの撮影経験を活かせない仕事で少し焦ってます。他の人と協力して納期を守れるか心配です。"
+2026-05-02 16:58:34,135 [INFO] src.simulation: Step 1: Agent 7 -> 1 nearby: "お忙しい中、どうぞよろしくお願いします。"
+2026-05-02 16:58:34,135 [INFO] src.agent.agent: Agent 25 received message from Agent 7: "お忙しい中、どうぞよろしくお願いします。"
+2026-05-02 16:58:34,135 [INFO] src.simulation: Step 1: Agent 9 -> 1 nearby: "今日の会議はどの分野ですか？それとも準備している発表会に関係するですか？"
+2026-05-02 16:58:34,136 [INFO] src.agent.agent: Agent 75 received message from Agent 9: "今日の会議はどの分野ですか？それとも準備している発表会に関係するですか？"
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'cp932' codec can't encode character '\u89c1' in position 112: illegal multibyte sequence
+Call stack:
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 70, in <module>
+    sys.exit(main())
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 59, in main
+    sim.run()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 767, in run
+    self.step_simulation()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 638, in step_simulation
+    logger.info(
+Message: 'Step 1: Agent 10 -> 2 nearby: "今日は少し話したい things があるの。今朝、会議室の窓から外を\u89c1ていたとき、青い光がちょっと変わっていたな。ちょっと観察した感じがするけど、あなたも見ていたの？"'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'cp932' codec can't encode character '\u89c1' in position 124: illegal multibyte sequence
+Call stack:
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 70, in <module>
+    sys.exit(main())
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 59, in main
+    sim.run()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 767, in run
+    self.step_simulation()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 642, in step_simulation
+    cog_evs = other.receive_message(agent.id, content, step=self.step)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\agent\agent.py", line 618, in receive_message
+    logger.info(f'Agent {self.id} received message from Agent {from_agent_id}: "{content}"')
+Message: 'Agent 24 received message from Agent 10: "今日は少し話したい things があるの。今朝、会議室の窓から外を\u89c1ていたとき、青い光がちょっと変わっていたな。ちょっと観察した感じがするけど、あなたも見ていたの？"'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'cp932' codec can't encode character '\u89c1' in position 124: illegal multibyte sequence
+Call stack:
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 70, in <module>
+    sys.exit(main())
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 59, in main
+    sim.run()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 767, in run
+    self.step_simulation()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 642, in step_simulation
+    cog_evs = other.receive_message(agent.id, content, step=self.step)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\agent\agent.py", line 618, in receive_message
+    logger.info(f'Agent {self.id} received message from Agent {from_agent_id}: "{content}"')
+Message: 'Agent 84 received message from Agent 10: "今日は少し話したい things があるの。今朝、会議室の窓から外を\u89c1ていたとき、青い光がちょっと変わっていたな。ちょっと観察した感じがするけど、あなたも見ていたの？"'
+Arguments: ()
+2026-05-02 16:58:34,145 [INFO] src.simulation: Step 1: Agent 14 -> 1 nearby: "最近は引っ越しの件、どうしているか？"
+2026-05-02 16:58:34,145 [INFO] src.agent.agent: Agent 97 received message from Agent 14: "最近は引っ越しの件、どうしているか？"
+2026-05-02 16:58:34,145 [INFO] src.simulation: Step 1: Agent 15 -> 2 nearby: "今朝はジョギングできて、気分が悪くないな。今日も仕事があるけど、ちょっと話してみたい。"
+2026-05-02 16:58:34,145 [INFO] src.agent.agent: Agent 82 received message from Agent 15: "今朝はジョギングできて、気分が悪くないな。今日も仕事があるけど、ちょっと話してみたい。"
+2026-05-02 16:58:34,146 [INFO] src.agent.agent: Agent 93 received message from Agent 15: "今朝はジョギングできて、気分が悪くないな。今日も仕事があるけど、ちょっと話してみたい。"
+2026-05-02 16:58:34,147 [INFO] src.simulation: Step 1: Agent 16 -> 1 nearby: "UFO が見えていて、それが地球外生命体との接触と確認されていますね。この座標 (-55, 45) はどの場所に該当しますか？"
+2026-05-02 16:58:34,147 [INFO] src.agent.agent: Agent 36 received message from Agent 16: "UFO が見えていて、それが地球外生命体との接触と確認されていますね。この座標 (-55, 45) はどの場所に該当しますか？"
+2026-05-02 16:58:34,148 [INFO] src.simulation: Step 1: Agent 17 -> 1 nearby: "朝の風が少し冷たいですね。今日の仕事も頑張ってください。"
+2026-05-02 16:58:34,148 [INFO] src.agent.agent: Agent 98 received message from Agent 17: "朝の風が少し冷たいですね。今日の仕事も頑張ってください。"
+2026-05-02 16:58:34,148 [INFO] src.simulation: Step 1: Agent 18 -> 2 nearby: "母の通院の付き添いについて、どうしていますか？"
+2026-05-02 16:58:34,148 [INFO] src.agent.agent: Agent 3 received message from Agent 18: "母の通院の付き添いについて、どうしていますか？"
+2026-05-02 16:58:34,149 [INFO] src.agent.agent: Agent 54 received message from Agent 18: "母の通院の付き添いについて、どうしていますか？"
+2026-05-02 16:58:34,149 [INFO] src.simulation: Step 1: Agent 20 -> 3 nearby: "昨日はようやく眠れていて、今朝は気分よく起きることができました。少し話してみたいんですけど、どうですか？"
+2026-05-02 16:58:34,150 [INFO] src.agent.agent: Agent 41 received message from Agent 20: "昨日はようやく眠れていて、今朝は気分よく起きることができました。少し話してみたいんですけど、どうですか？"
+2026-05-02 16:58:34,150 [INFO] src.agent.agent: Agent 62 received message from Agent 20: "昨日はようやく眠れていて、今朝は気分よく起きることができました。少し話してみたいんですけど、どうですか？"
+2026-05-02 16:58:34,151 [INFO] src.agent.agent: Agent 77 received message from Agent 20: "昨日はようやく眠れていて、今朝は気分よく起きることができました。少し話してみたいんですけど、どうですか？"
+2026-05-02 16:58:34,151 [INFO] src.simulation: Step 1: Agent 21 -> 3 nearby: "お疲れ様でした。今日は午後は空いてるんで、ちょっと話そうか？"
+2026-05-02 16:58:34,151 [INFO] src.agent.agent: Agent 2 received message from Agent 21: "お疲れ様でした。今日は午後は空いてるんで、ちょっと話そうか？"
+2026-05-02 16:58:34,152 [INFO] src.agent.agent: Agent 29 received message from Agent 21: "お疲れ様でした。今日は午後は空いてるんで、ちょっと話そうか？"
+2026-05-02 16:58:34,152 [INFO] src.agent.agent: Agent 89 received message from Agent 21: "お疲れ様でした。今日は午後は空いてるんで、ちょっと話そうか？"
+2026-05-02 16:58:34,153 [INFO] src.simulation: Step 1: Agent 22 -> 3 nearby: "このオフィスの給湯コーナー、最近は使いにくくなったのかな？"
+2026-05-02 16:58:34,153 [INFO] src.agent.agent: Agent 54 received message from Agent 22: "このオフィスの給湯コーナー、最近は使いにくくなったのかな？"
+2026-05-02 16:58:34,153 [INFO] src.agent.agent: Agent 64 received message from Agent 22: "このオフィスの給湯コーナー、最近は使いにくくなったのかな？"
+2026-05-02 16:58:34,153 [INFO] src.agent.agent: Agent 80 received message from Agent 22: "このオフィスの給湯コーナー、最近は使いにくくなったのかな？"
+2026-05-02 16:58:34,154 [INFO] src.simulation: Step 1: Agent 23 -> 1 nearby: "肩が痛いので、少し動かせるなら、ちょっと休憩入れてくれないかな？"
+2026-05-02 16:58:34,154 [INFO] src.agent.agent: Agent 84 received message from Agent 23: "肩が痛いので、少し動かせるなら、ちょっと休憩入れてくれないかな？"
+2026-05-02 16:58:34,155 [INFO] src.simulation: Step 1: Agent 24 -> 2 nearby: "お疲れさまでした。今朝は夜泣きで眠りが足りなかったので、少し疲れていたんです。今日の打ち合わせ、どうでしょうか？"
+2026-05-02 16:58:34,155 [INFO] src.agent.agent: Agent 10 received message from Agent 24: "お疲れさまでした。今朝は夜泣きで眠りが足りなかったので、少し疲れていたんです。今日の打ち合わせ、どうでしょうか？"
+2026-05-02 16:58:34,155 [INFO] src.agent.agent: Agent 46 received message from Agent 24: "お疲れさまでした。今朝は夜泣きで眠りが足りなかったので、少し疲れていたんです。今日の打ち合わせ、どうでしょうか？"
+2026-05-02 16:58:34,155 [INFO] src.simulation: Step 1: Agent 25 -> 1 nearby: "ドローンの撮影で使ったレンズ、まだ使えてる？"
+2026-05-02 16:58:34,156 [INFO] src.agent.agent: Agent 7 received message from Agent 25: "ドローンの撮影で使ったレンズ、まだ使えてる？"
+2026-05-02 16:58:34,156 [INFO] src.simulation: Step 1: Agent 27 -> 1 nearby: "肩が痛いので、少し休憩を取ってもいいですか？"
+2026-05-02 16:58:34,156 [INFO] src.agent.agent: Agent 2 received message from Agent 27: "肩が痛いので、少し休憩を取ってもいいですか？"
+2026-05-02 16:58:34,157 [INFO] src.simulation: Step 1: Agent 29 -> 2 nearby: "風邪気味でちょっと気力が落ちています。今日の体調はどのくらいですか？"
+2026-05-02 16:58:34,157 [INFO] src.agent.agent: Agent 21 received message from Agent 29: "風邪気味でちょっと気力が落ちています。今日の体調はどのくらいですか？"
+2026-05-02 16:58:34,157 [INFO] src.agent.agent: Agent 58 received message from Agent 29: "風邪気味でちょっと気力が落ちています。今日の体調はどのくらいですか？"
+2026-05-02 16:58:34,158 [INFO] src.simulation: Step 1: Agent 30 -> 2 nearby: "お疲れ様です。今朝の散歩で犬の健康診断の結果を確認しました。どうでしたか？"
+2026-05-02 16:58:34,158 [INFO] src.agent.agent: Agent 76 received message from Agent 30: "お疲れ様です。今朝の散歩で犬の健康診断の結果を確認しました。どうでしたか？"
+2026-05-02 16:58:34,159 [INFO] src.agent.agent: Agent 95 received message from Agent 30: "お疲れ様です。今朝の散歩で犬の健康診断の結果を確認しました。どうでしたか？"
+2026-05-02 16:58:34,159 [INFO] src.simulation: Step 1: Agent 32 -> 2 nearby: "昨日のリフォーム見積の見直しを一緒に進められるでしょうか？"
+2026-05-02 16:58:34,159 [INFO] src.agent.agent: Agent 1 received message from Agent 32: "昨日のリフォーム見積の見直しを一緒に進められるでしょうか？"
+2026-05-02 16:58:34,160 [INFO] src.agent.agent: Agent 63 received message from Agent 32: "昨日のリフォーム見積の見直しを一緒に進められるでしょうか？"
+2026-05-02 16:58:34,160 [INFO] src.simulation: Step 1: Agent 33 -> 1 nearby: "お疲れ様です。このオフィスの給湯コーナーは使い勝手が良いですね。"
+2026-05-02 16:58:34,160 [INFO] src.agent.agent: Agent 59 received message from Agent 33: "お疲れ様です。このオフィスの給湯コーナーは使い勝手が良いですね。"
+2026-05-02 16:58:34,161 [INFO] src.simulation: Step 1: Agent 34 -> 1 nearby: "おはよう。お風呂はまだ空いていますか？"
+2026-05-02 16:58:34,161 [INFO] src.agent.agent: Agent 57 received message from Agent 34: "おはよう。お風呂はまだ空いていますか？"
+2026-05-02 16:58:34,161 [INFO] src.simulation: Step 1: Agent 35 -> 2 nearby: "朝から会議が詰まっているので、ちょっと手伝っていただけますか？"
+2026-05-02 16:58:34,161 [INFO] src.agent.agent: Agent 42 received message from Agent 35: "朝から会議が詰まっているので、ちょっと手伝っていただけますか？"
+2026-05-02 16:58:34,162 [INFO] src.agent.agent: Agent 79 received message from Agent 35: "朝から会議が詰まっているので、ちょっと手伝っていただけますか？"
+2026-05-02 16:58:34,162 [INFO] src.simulation: Step 1: Agent 36 -> 1 nearby: "母の通院の付き添いについて、何か手伝いできますか？"
+2026-05-02 16:58:34,162 [INFO] src.agent.agent: Agent 16 received message from Agent 36: "母の通院の付き添いについて、何か手伝いできますか？"
+2026-05-02 16:58:34,163 [INFO] src.simulation: Step 1: Agent 40 -> 3 nearby: "お疲れ様です。この場所の給湯コーナーは使いやすいですか？"
+2026-05-02 16:58:34,163 [INFO] src.agent.agent: Agent 86 received message from Agent 40: "お疲れ様です。この場所の給湯コーナーは使いやすいですか？"
+2026-05-02 16:58:34,163 [INFO] src.agent.agent: Agent 90 received message from Agent 40: "お疲れ様です。この場所の給湯コーナーは使いやすいですか？"
+2026-05-02 16:58:34,164 [INFO] src.agent.agent: Agent 91 received message from Agent 40: "お疲れ様です。この場所の給湯コーナーは使いやすいですか？"
+2026-05-02 16:58:34,164 [INFO] src.simulation: Step 1: Agent 41 -> 3 nearby: "おはよう。このオフィス、どうしてですか？"
+2026-05-02 16:58:34,164 [INFO] src.agent.agent: Agent 20 received message from Agent 41: "おはよう。このオフィス、どうしてですか？"
+2026-05-02 16:58:34,165 [INFO] src.agent.agent: Agent 62 received message from Agent 41: "おはよう。このオフィス、どうしてですか？"
+2026-05-02 16:58:34,165 [INFO] src.agent.agent: Agent 77 received message from Agent 41: "おはよう。このオフィス、どうしてですか？"
+2026-05-02 16:58:34,166 [INFO] src.simulation: Step 1: Agent 42 -> 2 nearby: "今日の朝は気温が少し下がったけど、朝の風は気持ちいいですね。どうしましたか？"
+2026-05-02 16:58:34,166 [INFO] src.agent.agent: Agent 35 received message from Agent 42: "今日の朝は気温が少し下がったけど、朝の風は気持ちいいですね。どうしましたか？"
+2026-05-02 16:58:34,166 [INFO] src.agent.agent: Agent 79 received message from Agent 42: "今日の朝は気温が少し下がったけど、朝の風は気持ちいいですね。どうしましたか？"
+2026-05-02 16:58:34,167 [INFO] src.simulation: Step 1: Agent 44 -> 1 nearby: "今日の会議はどの分野の話ですか？ちょっと時間がかかるので、何か手伝うことはありますか？"
+2026-05-02 16:58:34,167 [INFO] src.agent.agent: Agent 96 received message from Agent 44: "今日の会議はどの分野の話ですか？ちょっと時間がかかるので、何か手伝うことはありますか？"
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'cp932' codec can't encode character '\u061f' in position 101: illegal multibyte sequence
+Call stack:
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 70, in <module>
+    sys.exit(main())
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 59, in main
+    sim.run()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 767, in run
+    self.step_simulation()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 638, in step_simulation
+    logger.info(
+Message: 'Step 1: Agent 45 -> 1 nearby: "おはよう。この場所、朝の風が少し冷たいね。どう\u061f"'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'cp932' codec can't encode character '\u061f' in position 113: illegal multibyte sequence
+Call stack:
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.3056.0_x64__qbz5n2kfra8p0\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 70, in <module>
+    sys.exit(main())
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\main.py", line 59, in main
+    sim.run()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 767, in run
+    self.step_simulation()
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\simulation.py", line 642, in step_simulation
+    cog_evs = other.receive_message(agent.id, content, step=self.step)
+  File "D:\Projects\IRIS-company\departments\r_and_d\singulab\src\agent\agent.py", line 618, in receive_message
+    logger.info(f'Agent {self.id} received message from Agent {from_agent_id}: "{content}"')
+Message: 'Agent 48 received message from Agent 45: "おはよう。この場所、朝の風が少し冷たいね。どう\u061f"'
+Arguments: ()
+2026-05-02 16:58:34,169 [INFO] src.simulation: Step 1: Agent 46 -> 1 nearby: "最近、胃が重いのだけど、どうしてこの場所は少し寒いの？"
+2026-05-02 16:58:34,169 [INFO] src.agent.agent: Agent 24 received message from Agent 46: "最近、胃が重いのだけど、どうしてこの場所は少し寒いの？"
+2026-05-02 16:58:34,169 [INFO] src.simulation: Step 1: Agent 47 -> 1 nearby: "最近、お父様の通院の付き添いをしていたので、少し心配しています。今、このオフィスフロアの窓側の景色はどうですか？"
+2026-05-02 16:58:34,169 [INFO] src.agent.agent: Agent 78 received message from Agent 47: "最近、お父様の通院の付き添いをしていたので、少し心配しています。今、このオフィスフロアの窓側の景色はどうですか？"
+2026-05-02 16:58:34,170 [INFO] src.simulation: Step 1: Agent 48 -> 1 nearby: "おはよう。この場所の給湯コーナーは朝も使いやすいね。"
+2026-05-02 16:58:34,170 [INFO] src.agent.agent: Agent 45 received message from Agent 48: "おはよう。この場所の給湯コーナーは朝も使いやすいね。"
+2026-05-02 16:58:34,170 [INFO] src.simulation: Step 1: Agent 50 -> 1 nearby: "今日の気分が良いので、少し散歩に行きませんか？"
+2026-05-02 16:58:34,171 [INFO] src.agent.agent: Agent 85 received message from Agent 50: "今日の気分が良いので、少し散歩に行きませんか？"
+2026-05-02 16:58:34,171 [INFO] src.simulation: Step 1: Agent 54 -> 2 nearby: "お疲れ様でした。今、このオフィスの窓から見える景色は、ちょっとした風を感じるほど静かですね。"
+2026-05-02 16:58:34,171 [INFO] src.agent.agent: Agent 18 received message from Agent 54: "お疲れ様でした。今、このオフィスの窓から見える景色は、ちょっとした風を感じるほど静かですね。"
+2026-05-02 16:58:34,172 [INFO] src.agent.agent: Agent 22 received message from Agent 54: "お疲れ様でした。今、このオフィスの窓から見える景色は、ちょっとした風を感じるほど静かですね。"
+2026-05-02 16:58:34,172 [INFO] src.simulation: Step 1: Agent 56 -> 2 nearby: "お疲れ様です。このオフィスフロア、先日比べると少し人の動きが少なくないですか？"
+2026-05-02 16:58:34,172 [INFO] src.agent.agent: Agent 5 received message from Agent 56: "お疲れ様です。このオフィスフロア、先日比べると少し人の動きが少なくないですか？"
+2026-05-02 16:58:34,173 [INFO] src.agent.agent: Agent 99 received message from Agent 56: "お疲れ様です。このオフィスフロア、先日比べると少し人の動きが少なくないですか？"
+2026-05-02 16:58:34,173 [INFO] src.simulation: Step 1: Agent 57 -> 1 nearby: "おはよう。今朝は少し寒かったが、走ることができて楽しかったです。朝の空気、どうでしたか？"
+2026-05-02 16:58:34,173 [INFO] src.agent.agent: Agent 34 received message from Agent 57: "おはよう。今朝は少し寒かったが、走ることができて楽しかったです。朝の空気、どうでしたか？"
+2026-05-02 16:58:34,174 [INFO] src.simulation: Step 1: Agent 58 -> 1 nearby: "給湯コーナーはまだ使っていますか？夜泣きで疲れたので、少し休憩したいなあ。"
+2026-05-02 16:58:34,174 [INFO] src.agent.agent: Agent 29 received message from Agent 58: "給湯コーナーはまだ使っていますか？夜泣きで疲れたので、少し休憩したいなあ。"
+2026-05-02 16:58:34,174 [INFO] src.simulation: Step 1: Agent 59 -> 1 nearby: "今、このオフィスの窓から見える風景は、少し肌寒いですが、木々が色づき始めている気がしますね。"
+2026-05-02 16:58:34,174 [INFO] src.agent.agent: Agent 33 received message from Agent 59: "今、このオフィスの窓から見える風景は、少し肌寒いですが、木々が色づき始めている気がしますね。"
+2026-05-02 16:58:34,175 [INFO] src.simulation: Step 1: Agent 61 -> 2 nearby: "お早うございます。ここは really 人が多くなってきたなあ。どうやって過ごすんですか？"
+2026-05-02 16:58:34,175 [INFO] src.agent.agent: Agent 6 received message from Agent 61: "お早うございます。ここは really 人が多くなってきたなあ。どうやって過ごすんですか？"
+2026-05-02 16:58:34,175 [INFO] src.agent.agent: Agent 98 received message from Agent 61: "お早うございます。ここは really 人が多くなってきたなあ。どうやって過ごすんですか？"
+2026-05-02 16:58:34,176 [INFO] src.simulation: Step 1: Agent 62 -> 3 nearby: "最近の車検の手続き、進めているか？"
+2026-05-02 16:58:34,176 [INFO] src.agent.agent: Agent 20 received message from Agent 62: "最近の車検の手続き、進めているか？"
+2026-05-02 16:58:34,176 [INFO] src.agent.agent: Agent 41 received message from Agent 62: "最近の車検の手続き、進めているか？"
+2026-05-02 16:58:34,177 [INFO] src.agent.agent: Agent 77 received message from Agent 62: "最近の車検の手続き、進めているか？"
+2026-05-02 16:58:34,177 [INFO] src.simulation: Step 1: Agent 63 -> 4 nearby: "お疲れ様です。今朝は少し寒かったですね。どうかお体に支障ありませんか？"
+2026-05-02 16:58:34,177 [INFO] src.agent.agent: Agent 1 received message from Agent 63: "お疲れ様です。今朝は少し寒かったですね。どうかお体に支障ありませんか？"
+2026-05-02 16:58:34,178 [INFO] src.agent.agent: Agent 32 received message from Agent 63: "お疲れ様です。今朝は少し寒かったですね。どうかお体に支障ありませんか？"
+2026-05-02 16:58:34,179 [INFO] src.agent.agent: Agent 74 received message from Agent 63: "お疲れ様です。今朝は少し寒かったですね。どうかお体に支障ありませんか？"
+2026-05-02 16:58:34,179 [INFO] src.agent.agent: Agent 92 received message from Agent 63: "お疲れ様です。今朝は少し寒かったですね。どうかお体に支障ありませんか？"
+2026-05-02 16:58:34,179 [INFO] src.simulation: Step 1: Agent 64 -> 2 nearby: "おはよう。この場所の給湯コーナーは今日も使いやすそうね。"
+2026-05-02 16:58:34,179 [INFO] src.agent.agent: Agent 22 received message from Agent 64: "おはよう。この場所の給湯コーナーは今日も使いやすそうね。"
+2026-05-02 16:58:34,180 [INFO] src.agent.agent: Agent 80 received message from Agent 64: "おはよう。この場所の給湯コーナーは今日も使いやすそうね。"
+2026-05-02 16:58:34,180 [INFO] src.simulation: Step 1: Agent 69 -> 1 nearby: "今日の朝は寒いですが、お体は大丈夫ですか？"
+2026-05-02 16:58:34,181 [INFO] src.agent.agent: Agent 87 received message from Agent 69: "今日の朝は寒いですが、お体は大丈夫ですか？"
+2026-05-02 16:58:34,181 [INFO] src.simulation: Step 1: Agent 74 -> 2 nearby: "最近、親の体調が気になっているので、一緒に休憩室で少し話してもいいですか？"
+2026-05-02 16:58:34,181 [INFO] src.agent.agent: Agent 63 received message from Agent 74: "最近、親の体調が気になっているので、一緒に休憩室で少し話してもいいですか？"
+2026-05-02 16:58:34,181 [INFO] src.agent.agent: Agent 92 received message from Agent 74: "最近、親の体調が気になっているので、一緒に休憩室で少し話してもいいですか？"
+2026-05-02 16:58:34,182 [INFO] src.simulation: Step 1: Agent 75 -> 1 nearby: "今日の朝は気分よく走ることができました。少し風が強くなったので、皆さんは体調に気をつけてください。"
+2026-05-02 16:58:34,182 [INFO] src.agent.agent: Agent 9 received message from Agent 75: "今日の朝は気分よく走ることができました。少し風が強くなったので、皆さんは体調に気をつけてください。"
+2026-05-02 16:58:34,182 [INFO] src.simulation: Step 1: Agent 76 -> 2 nearby: "お疲れ様です。このオフィスフロア、最近は少し寒いですね。風が通り過ぎる感じがしますね。"
+2026-05-02 16:58:34,182 [INFO] src.agent.agent: Agent 30 received message from Agent 76: "お疲れ様です。このオフィスフロア、最近は少し寒いですね。風が通り過ぎる感じがしますね。"
+2026-05-02 16:58:34,183 [INFO] src.agent.agent: Agent 95 received message from Agent 76: "お疲れ様です。このオフィスフロア、最近は少し寒いですね。風が通り過ぎる感じがしますね。"
+2026-05-02 16:58:34,183 [INFO] src.simulation: Step 1: Agent 77 -> 4 nearby: "今日の朝は気分がよく、少し早起きしてジョギングしました。どうですか、今朝はいかがでしたか？"
+2026-05-02 16:58:34,183 [INFO] src.agent.agent: Agent 20 received message from Agent 77: "今日の朝は気分がよく、少し早起きしてジョギングしました。どうですか、今朝はいかがでしたか？"
+2026-05-02 16:58:34,184 [INFO] src.agent.agent: Agent 41 received message from Agent 77: "今日の朝は気分がよく、少し早起きしてジョギングしました。どうですか、今朝はいかがでしたか？"
+2026-05-02 16:58:34,184 [INFO] src.agent.agent: Agent 62 received message from Agent 77: "今日の朝は気分がよく、少し早起きしてジョギングしました。どうですか、今朝はいかがでしたか？"
+2026-05-02 16:58:34,185 [INFO] src.agent.agent: Agent 85 received message from Agent 77: "今日の朝は気分がよく、少し早起きしてジョギングしました。どうですか、今朝はいかがでしたか？"
+2026-05-02 16:58:34,185 [INFO] src.simulation: Step 1: Agent 78 -> 2 nearby: "昨日の天気と今日の違いが気になります。どうでしたか？"
+2026-05-02 16:58:34,185 [INFO] src.agent.agent: Agent 47 received message from Agent 78: "昨日の天気と今日の違いが気になります。どうでしたか？"
+2026-05-02 16:58:34,186 [INFO] src.agent.agent: Agent 93 received message from Agent 78: "昨日の天気と今日の違いが気になります。どうでしたか？"
+2026-05-02 16:58:34,186 [INFO] src.simulation: Step 1: Agent 79 -> 2 nearby: "お疲れ様です。今朝の散歩で犬の健康診断の結果を確認しました。どうしましたか？"
+2026-05-02 16:58:34,186 [INFO] src.agent.agent: Agent 35 received message from Agent 79: "お疲れ様です。今朝の散歩で犬の健康診断の結果を確認しました。どうしましたか？"
+2026-05-02 16:58:34,187 [INFO] src.agent.agent: Agent 42 received message from Agent 79: "お疲れ様です。今朝の散歩で犬の健康診断の結果を確認しました。どうしましたか？"
+2026-05-02 16:58:34,187 [INFO] src.simulation: Step 1: Agent 80 -> 2 nearby: "今朝の風が少し冷たいですね。どうですか？"
+2026-05-02 16:58:34,187 [INFO] src.agent.agent: Agent 22 received message from Agent 80: "今朝の風が少し冷たいですね。どうですか？"
+2026-05-02 16:58:34,188 [INFO] src.agent.agent: Agent 64 received message from Agent 80: "今朝の風が少し冷たいですね。どうですか？"
+2026-05-02 16:58:34,188 [INFO] src.simulation: Step 1: Agent 82 -> 2 nearby: "今、このオフィスフロアの窓側は風が少し強く、今日はちょっと寒いですね。"
+2026-05-02 16:58:34,188 [INFO] src.agent.agent: Agent 1 received message from Agent 82: "今、このオフィスフロアの窓側は風が少し強く、今日はちょっと寒いですね。"
+2026-05-02 16:58:34,189 [INFO] src.agent.agent: Agent 15 received message from Agent 82: "今、このオフィスフロアの窓側は風が少し強く、今日はちょっと寒いですね。"
+2026-05-02 16:58:34,189 [INFO] src.simulation: Step 1: Agent 83 -> 1 nearby: "今、給湯コーナーでコーヒーを飲んでいて、少し落ち着かない感じだ。お時間あるなら、一緒に飲んで話すことはできるかな？"
+2026-05-02 16:58:34,189 [INFO] src.agent.agent: Agent 85 received message from Agent 83: "今、給湯コーナーでコーヒーを飲んでいて、少し落ち着かない感じだ。お時間あるなら、一緒に飲んで話すことはできるかな？"
+2026-05-02 16:58:34,190 [INFO] src.simulation: Step 1: Agent 84 -> 2 nearby: "今日の朝はまだ寒いですが、どうでしたか？"
+2026-05-02 16:58:34,190 [INFO] src.agent.agent: Agent 10 received message from Agent 84: "今日の朝はまだ寒いですが、どうでしたか？"
+2026-05-02 16:58:34,190 [INFO] src.agent.agent: Agent 23 received message from Agent 84: "今日の朝はまだ寒いですが、どうでしたか？"
+2026-05-02 16:58:34,191 [INFO] src.simulation: Step 1: Agent 85 -> 3 nearby: "おはようございます。この場所の給湯コーナーは今日も使い勝手が良いですね。どうですか？"
+2026-05-02 16:58:34,191 [INFO] src.agent.agent: Agent 50 received message from Agent 85: "おはようございます。この場所の給湯コーナーは今日も使い勝手が良いですね。どうですか？"
+2026-05-02 16:58:34,191 [INFO] src.agent.agent: Agent 77 received message from Agent 85: "おはようございます。この場所の給湯コーナーは今日も使い勝手が良いですね。どうですか？"
+2026-05-02 16:58:34,192 [INFO] src.agent.agent: Agent 83 received message from Agent 85: "おはようございます。この場所の給湯コーナーは今日も使い勝手が良いですね。どうですか？"
+2026-05-02 16:58:34,192 [INFO] src.simulation: Step 1: Agent 86 -> 3 nearby: "今朝の風が少し冷たいですね。ビザ更新の件、どうしてますか？"
+2026-05-02 16:58:34,192 [INFO] src.agent.agent: Agent 40 received message from Agent 86: "今朝の風が少し冷たいですね。ビザ更新の件、どうしてますか？"
+2026-05-02 16:58:34,193 [INFO] src.agent.agent: Agent 90 received message from Agent 86: "今朝の風が少し冷たいですね。ビザ更新の件、どうしてますか？"
+2026-05-02 16:58:34,193 [INFO] src.agent.agent: Agent 91 received message from Agent 86: "今朝の風が少し冷たいですね。ビザ更新の件、どうしてますか？"
+2026-05-02 16:58:34,194 [INFO] src.simulation: Step 1: Agent 87 -> 1 nearby: "犬の散歩が気分よくて、今日は元気です。どうですか？"
+2026-05-02 16:58:34,194 [INFO] src.agent.agent: Agent 69 received message from Agent 87: "犬の散歩が気分よくて、今日は元気です。どうですか？"
+2026-05-02 16:58:34,194 [INFO] src.simulation: Step 1: Agent 89 -> 2 nearby: "今日の朝はまだ寒いですが、どうでしたか？"
+2026-05-02 16:58:34,195 [INFO] src.agent.agent: Agent 2 received message from Agent 89: "今日の朝はまだ寒いですが、どうでしたか？"
+2026-05-02 16:58:34,195 [INFO] src.agent.agent: Agent 21 received message from Agent 89: "今日の朝はまだ寒いですが、どうでしたか？"
+2026-05-02 16:58:34,196 [INFO] src.simulation: Step 1: Agent 90 -> 2 nearby: "お疲れ様です。今日はコーヒーをあまり飲みすぎたので、少し落ち着きがなくて仕事に集中できないかもしれません。どうしていますか？"
+2026-05-02 16:58:34,196 [INFO] src.agent.agent: Agent 40 received message from Agent 90: "お疲れ様です。今日はコーヒーをあまり飲みすぎたので、少し落ち着きがなくて仕事に集中できないかもしれません。どうしていますか？"
+2026-05-02 16:58:34,196 [INFO] src.agent.agent: Agent 86 received message from Agent 90: "お疲れ様です。今日はコーヒーをあまり飲みすぎたので、少し落ち着きがなくて仕事に集中できないかもしれません。どうしていますか？"
+2026-05-02 16:58:34,196 [INFO] src.simulation: Step 1: Agent 91 -> 2 nearby: "おはよう。この場所の給湯コーナーは今日も使いやすいですか？"
+2026-05-02 16:58:34,196 [INFO] src.agent.agent: Agent 40 received message from Agent 91: "おはよう。この場所の給湯コーナーは今日も使いやすいですか？"
+2026-05-02 16:58:34,196 [INFO] src.agent.agent: Agent 86 received message from Agent 91: "おはよう。この場所の給湯コーナーは今日も使いやすいですか？"
+2026-05-02 16:58:34,198 [INFO] src.simulation: Step 1: Agent 92 -> 2 nearby: "お風邪で少し体が重いですが、今日の仕事も頑張っていきたいです。どうですか？"
+2026-05-02 16:58:34,198 [INFO] src.agent.agent: Agent 63 received message from Agent 92: "お風邪で少し体が重いですが、今日の仕事も頑張っていきたいです。どうですか？"
+2026-05-02 16:58:34,198 [INFO] src.agent.agent: Agent 74 received message from Agent 92: "お風邪で少し体が重いですが、今日の仕事も頑張っていきたいです。どうですか？"
+2026-05-02 16:58:34,199 [INFO] src.simulation: Step 1: Agent 93 -> 2 nearby: "朝から忙しいですね。会議が立て込んでいるんですか？"
+2026-05-02 16:58:34,199 [INFO] src.agent.agent: Agent 15 received message from Agent 93: "朝から忙しいですね。会議が立て込んでいるんですか？"
+2026-05-02 16:58:34,199 [INFO] src.agent.agent: Agent 78 received message from Agent 93: "朝から忙しいですね。会議が立て込んでいるんですか？"
+2026-05-02 16:58:34,200 [INFO] src.simulation: Step 1: Agent 95 -> 2 nearby: "今日の気分は少し落ち着かないです。カフェインを摂りすぎたせいでしょうか。ちょっと休憩時間に立ち寄って話せますか？"
+2026-05-02 16:58:34,200 [INFO] src.agent.agent: Agent 30 received message from Agent 95: "今日の気分は少し落ち着かないです。カフェインを摂りすぎたせいでしょうか。ちょっと休憩時間に立ち寄って話せますか？"
+2026-05-02 16:58:34,200 [INFO] src.agent.agent: Agent 76 received message from Agent 95: "今日の気分は少し落ち着かないです。カフェインを摂りすぎたせいでしょうか。ちょっと休憩時間に立ち寄って話せますか？"
+2026-05-02 16:58:34,201 [INFO] src.simulation: Step 1: Agent 96 -> 1 nearby: "お疲れ様です。今朝の天気はよかったですが、午後はどんな感じですか？"
+2026-05-02 16:58:34,201 [INFO] src.agent.agent: Agent 44 received message from Agent 96: "お疲れ様です。今朝の天気はよかったですが、午後はどんな感じですか？"
+2026-05-02 16:58:34,201 [INFO] src.simulation: Step 1: Agent 97 -> 1 nearby: "最近、海外のニュースが気になるんですけど、あなたはどう think ですか？"
+2026-05-02 16:58:34,201 [INFO] src.agent.agent: Agent 14 received message from Agent 97: "最近、海外のニュースが気になるんですけど、あなたはどう think ですか？"
+2026-05-02 16:58:34,202 [INFO] src.simulation: Step 1: Agent 98 -> 3 nearby: "風邪気味なので、少し休憩を取りながら過ごせますか？"
+2026-05-02 16:58:34,202 [INFO] src.agent.agent: Agent 6 received message from Agent 98: "風邪気味なので、少し休憩を取りながら過ごせますか？"
+2026-05-02 16:58:34,202 [INFO] src.agent.agent: Agent 17 received message from Agent 98: "風邪気味なので、少し休憩を取りながら過ごせますか？"
+2026-05-02 16:58:34,203 [INFO] src.agent.agent: Agent 61 received message from Agent 98: "風邪気味なので、少し休憩を取りながら過ごせますか？"
+2026-05-02 16:58:34,203 [INFO] src.simulation: Step 1: Agent 99 -> 1 nearby: "犬の散歩が終わったので、少し歩きたい think"
+2026-05-02 16:58:34,203 [INFO] src.agent.agent: Agent 56 received message from Agent 99: "犬の散歩が終わったので、少し歩きたい think"
+D:\Projects\IRIS-company\departments\r_and_d\singulab\src\viz\visualizer.py:515: UserWarning: Glyph 128125 (\N{EXTRATERRESTRIAL ALIEN}) missing from font(s) DejaVu Sans.
+  fig.savefig(path, dpi=DPI, bbox_inches="tight")
+D:\Projects\IRIS-company\departments\r_and_d\singulab\src\viz\visualizer.py:515: UserWarning: Glyph 30528 (\N{CJK UNIFIED IDEOGRAPH-7740}) missing from font(s) DejaVu Sans.
+  fig.savefig(path, dpi=DPI, bbox_inches="tight")
+D:\Projects\IRIS-company\departments\r_and_d\singulab\src\viz\visualizer.py:515: UserWarning: Glyph 22320 (\N{CJK UNIFIED IDEOGRAPH-5730}) missing from font(s) DejaVu Sans.
+  fig.savefig(path, dpi=DPI, bbox_inches="tight")
+2026-05-02 17:07:32,045 [INFO] src.simulation: Simulation completed
+2026-05-02 17:07:32,045 [INFO] root: ===== Statistics =====
+2026-05-02 17:07:32,045 [INFO] root:   mean_occupancy: 0.99
+2026-05-02 17:07:32,046 [INFO] root:   std_occupancy: 0.0
+2026-05-02 17:07:32,046 [INFO] root:   mean_agents_in_place: 99.0
+2026-05-02 17:07:32,046 [INFO] root:   max_agents_in_place: 99
+2026-05-02 17:07:32,046 [INFO] root:   min_agents_in_place: 99
+2026-05-02 17:07:32,046 [INFO] root:   total_steps: 1
+2026-05-02 17:07:32,046 [INFO] root:   place_entry_denied_count: 0
+2026-05-02 17:07:32,046 [INFO] root:   memory_evicted_count: 0
+2026-05-02 17:07:32,046 [INFO] root:   memory_re_encountered_count: 0

@@ -377,14 +377,30 @@ class Visualizer:
                     )
 
     def _draw_agents(self, ax, agents: List["Agent"]) -> None:
+        # 2026-05-02 追加:エージェント数に応じてマーカーサイズを動的に縮小。
+        # 100 体規模で「ぎゅうぎゅう詰め」に見える視覚バイアスを軽減。
+        # 5 体ランは従来サイズを維持(後方互換)。
+        n = len(agents)
+        if n <= 10:
+            size_in_place = AGENT_SIZE_IN_PLACE
+            size_outside = AGENT_SIZE_OUTSIDE
+        elif n <= 30:
+            size_in_place = 80
+            size_outside = 40
+        elif n <= 60:
+            size_in_place = 45
+            size_outside = 22
+        else:  # 60+(100 体クラス)
+            size_in_place = 25
+            size_outside = 12
         for agent in agents:
             color = "blue" if agent.gender == "male" else "red"
             if agent.in_place and agent.current_place:
                 marker = "*"
-                size = AGENT_SIZE_IN_PLACE
+                size = size_in_place
             else:
                 marker = "o"
-                size = AGENT_SIZE_OUTSIDE
+                size = size_outside
             ax.scatter(
                 agent.position[0],
                 agent.position[1],

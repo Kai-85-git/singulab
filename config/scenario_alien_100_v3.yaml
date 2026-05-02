@@ -1,19 +1,34 @@
-# 100 人 × 無重力イベント(粉川氏マシン用)。
-# Qwen3 34B Uncensored で実走想定。RTX 3060 Laptop 6GB では完走不可。
-# 詳細手順: docs/05_運用手順/粉川氏向け_100体ラン手順.md
+# 100 体 × 宇宙人 本番ラン v3(2026-05-02)。
+# 私側 PC(RTX 3060 Laptop 6GB)+ Qwen3 4B abliterated で約 9 時間。
+# 5 体 alien_5(prod_v3_alien_5)と同条件で「集団サイズだけが効く」ことを観察するための設計:
+# - 同じモデル(4B)、同じ通信半径(5.0)、同じイベント設計
+# - 男女比は試験条件として 8:2(要件定義 02_エージェント属性 §2)
+# - 国籍 9:1(日本 90% / 外国 10%)は base.yaml 継承
+# - main_office を 60×60 m に拡大(100 人で 36 m²/人 = 現実感)
+# - meeting_room_a/b を 5 体と同サイズで残す(サイズ感確認のため。議事録 §5 とは差分あり)
 
-extends: "scenario_zero_gravity_5.yaml"
+extends: "scenario_alien_5.yaml"
+
+llm:
+  # 5 体検証と同じモデルを使う(検証目的、ユーザ指示)
+  model: "huihui_ai/qwen3-abliterated:4b"
+  max_tokens: 100
+  think: false
 
 simulation:
-  duration: 100
-  # 2026-05-01 改訂(100 体スケール対応):scenario_alien_100.yaml と同じ拡張。
-  half_space_size: 50
+  duration: 30
+  half_space_size: 60  # フィールド 120×120 m(2026-05-02 拡張、視覚的余裕のため)
 
 agents:
   num_agents: 100
-  # 5 体版で残っている legacy `conversation_profiles` を空配列で打ち消し、
-  # 段 2 の `personal_contexts_pool` に切り替える(`scenario_alien_100.yaml` と同等プール)。
-  conversation_profiles: []
+  # 5 体版から継承される `genders`(5 件)を打ち消す。weights 抽選を使用。
+  genders: []
+  # 男女比 8:2(要件定義 02_エージェント属性 §2「試験条件で振る」)
+  persona:
+    gender:
+      values: ["male", "female"]
+      weights: [80, 20]
+  # 5 体版から継承される `personal_contexts`(5 件)を打ち消し、pool 抽選に切替
   personal_contexts: []
   personal_contexts_pool:
     - family: "都内で一人暮らし。実家は地方"
@@ -98,25 +113,45 @@ agents:
       expertise_hint: "学生時代に天体観測サークル"
 
 places:
+  # main_office を 80×80 m に拡大(100 人 × 64 m²/人で視覚的にも余裕)
   - name: "main_office"
     type: "office"
     center_x: 0
     center_y: 0
-    half_size: 20
+    half_size: 40
     capacity: 120
     description: "100 人規模の大型オフィスフロア。デスクが整然と並び、窓側からは外の景色が見える。給湯コーナーや共有スペースもある。"
+  # meeting_room_a/b の位置を main_office 拡大に合わせて再配置(中型 12×12 に拡張)
+  - name: "meeting_room_a"
+    type: "meeting_room"
+    center_x: -28
+    center_y: 28
+    half_size: 6
+    capacity: 12
+    description: "中型会議室 A。長机と 12 脚の椅子、壁掛けのモニタ。資料投影や中規模の打ち合わせに使う。"
+  - name: "meeting_room_b"
+    type: "meeting_room"
+    center_x: 28
+    center_y: -28
+    half_size: 6
+    capacity: 12
+    description: "中型会議室 B。ホワイトボードと丸テーブル、椅子 12 脚。雑談ベースの打ち合わせや 1on1 によく使われる。"
 
-# 2026-05-01 改訂:scenario_alien_100.yaml と同じく現実のオフィス会話距離寄りの 8 m に
 world_laws:
-  communication_radius: 8.0
+  # 2026-05-02 ご指示:5 体検証(prod_v3_alien_5)と同じ 5.0 m に揃える
+  communication_radius: 5.0
+  cognitive_limit: 10
 
 events:
-  - type: "zero_gravity"
-    # 100 step の場合、step 50(中間)でイベント発火。前半は日常会話、後半は反応観察。
-    start_step: 50
+  - type: "alien"
+    # 5 体 alien_5 と同じ start_step=15(中盤発火)
+    start_step: 15
+    # main_office (-40..40) の外側に着地。フィールド境界 (-60..60) の内側
+    # → 段 3(知覚距離依存)が機能:窓際の人だけ Mid 視認、奥側は伝聞
+    center_x: -55
+    center_y: 45
+    move_step_size: 2
 
-llm:
-  # ⚠️ 粉川氏マシンで `ollama list` を実行し、実際にあるタグに書き換えてください。
-  model: "huihui_ai/qwen3-uncensored:34b"
-  max_tokens: 150
-  think: false
+visualization:
+  save_frames: true
+  frame_interval: 1

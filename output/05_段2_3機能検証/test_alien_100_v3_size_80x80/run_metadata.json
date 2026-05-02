@@ -1,0 +1,1365 @@
+{
+  "timestamp": "2026-05-02T16:27:51",
+  "config_path": "config/scenario_alien_100_v3_test1step.yaml",
+  "random_seed": 42,
+  "duration": 1,
+  "num_agents": 100,
+  "initial_placement": "random_in_place",
+  "home_place": "main_office",
+  "places": [
+    {
+      "name": "main_office",
+      "type": "office",
+      "center": [
+        0,
+        0
+      ],
+      "half_size": 40,
+      "capacity": 120
+    },
+    {
+      "name": "meeting_room_a",
+      "type": "meeting_room",
+      "center": [
+        -28,
+        28
+      ],
+      "half_size": 6,
+      "capacity": 12
+    },
+    {
+      "name": "meeting_room_b",
+      "type": "meeting_room",
+      "center": [
+        28,
+        -28
+      ],
+      "half_size": 6,
+      "capacity": 12
+    }
+  ],
+  "environment": {
+    "economy": "neutral",
+    "economy_text_used": "現在、景気は可もなく不可もない。"
+  },
+  "world_laws": {
+    "communication_radius": 5.0,
+    "communication_radius_overrides": {},
+    "cognitive_limit": 10,
+    "message_delay": {
+      "same_place_near": 0,
+      "same_place_far": 1,
+      "cross_place": 3
+    }
+  },
+  "personas": [
+    {
+      "age": 59,
+      "gender": "male",
+      "nationality": "ベトナム",
+      "mbti": "ENTP"
+    },
+    {
+      "age": 33,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INFJ"
+    },
+    {
+      "age": 24,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ESFJ"
+    },
+    {
+      "age": 48,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 53,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 26,
+      "gender": "female",
+      "nationality": "ブラジル",
+      "mbti": "INFJ"
+    },
+    {
+      "age": 26,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INFJ"
+    },
+    {
+      "age": 58,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 60,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESFP"
+    },
+    {
+      "age": 23,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 22,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "INFJ"
+    },
+    {
+      "age": 36,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 47,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENTP"
+    },
+    {
+      "age": 29,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESFJ"
+    },
+    {
+      "age": 29,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INTP"
+    },
+    {
+      "age": 22,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 26,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 29,
+      "gender": "female",
+      "nationality": "インド",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 31,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 41,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 35,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENTP"
+    },
+    {
+      "age": 22,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 49,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 32,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISTJ"
+    },
+    {
+      "age": 37,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ISTP"
+    },
+    {
+      "age": 54,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 36,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISTJ"
+    },
+    {
+      "age": 58,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 52,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 47,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 24,
+      "gender": "male",
+      "nationality": "ブラジル",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 27,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 46,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 32,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISTP"
+    },
+    {
+      "age": 31,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 20,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 57,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 48,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESFP"
+    },
+    {
+      "age": 30,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 60,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENTJ"
+    },
+    {
+      "age": 35,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 29,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 59,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENTJ"
+    },
+    {
+      "age": 60,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISTP"
+    },
+    {
+      "age": 35,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 26,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 53,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 27,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 55,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 52,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 50,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 37,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ESFP"
+    },
+    {
+      "age": 37,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 41,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENTJ"
+    },
+    {
+      "age": 34,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INFJ"
+    },
+    {
+      "age": 24,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 46,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 57,
+      "gender": "male",
+      "nationality": "ブラジル",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 56,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 39,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 54,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 37,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 45,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 59,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ISTP"
+    },
+    {
+      "age": 21,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 49,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISTJ"
+    },
+    {
+      "age": 33,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 44,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 25,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INTP"
+    },
+    {
+      "age": 42,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ENTJ"
+    },
+    {
+      "age": 22,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 21,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 27,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 36,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INFP"
+    },
+    {
+      "age": 27,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INFP"
+    },
+    {
+      "age": 26,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 44,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 60,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    },
+    {
+      "age": 58,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "INTP"
+    },
+    {
+      "age": 47,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENTJ"
+    },
+    {
+      "age": 41,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 26,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ESFJ"
+    },
+    {
+      "age": 49,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFP"
+    },
+    {
+      "age": 53,
+      "gender": "male",
+      "nationality": "フランス",
+      "mbti": "ISTJ"
+    },
+    {
+      "age": 54,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 57,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 25,
+      "gender": "female",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 49,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISTP"
+    },
+    {
+      "age": 51,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INFP"
+    },
+    {
+      "age": 42,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTJ"
+    },
+    {
+      "age": 58,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISTJ"
+    },
+    {
+      "age": 53,
+      "gender": "male",
+      "nationality": "ブラジル",
+      "mbti": "ENTJ"
+    },
+    {
+      "age": 46,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 51,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "INTJ"
+    },
+    {
+      "age": 34,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFP"
+    },
+    {
+      "age": 57,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESFJ"
+    },
+    {
+      "age": 55,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ESTP"
+    },
+    {
+      "age": 36,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ENFJ"
+    },
+    {
+      "age": 54,
+      "gender": "male",
+      "nationality": "ドイツ",
+      "mbti": "INFP"
+    },
+    {
+      "age": 50,
+      "gender": "male",
+      "nationality": "日本",
+      "mbti": "ISFJ"
+    }
+  ],
+  "conversation_profiles": null,
+  "personal_contexts": [
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "都内で一人暮らし。実家は地方",
+      "hobby": "週末は街歩きでカメラを持ち歩く",
+      "today_mood": "昨夜よく眠れた。少し雑談したい気分",
+      "recent_concern": "来月の引っ越し先がまだ決まっていない",
+      "expertise_hint": "学生時代に天文同好会で星を見ていた"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "シェアハウスで友人と暮らしている",
+      "hobby": "古い SF 映画を観ることと、自作キーボード",
+      "today_mood": "カフェインを摂りすぎて少し落ち着かない",
+      "recent_concern": "副業で受けた仕事の納期",
+      "expertise_hint": "以前ドローンの空撮を仕事で扱っていた"
+    },
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "国際結婚。配偶者は外国籍",
+      "hobby": "言語交換と読書",
+      "today_mood": "海外ニュースが気になる",
+      "recent_concern": "配偶者のビザ更新",
+      "expertise_hint": "海外駐在の経験あり"
+    },
+    {
+      "family": "妻と保育園児が 2 人。送り迎えが日課",
+      "hobby": "プラモ作りと深夜のラジオ",
+      "today_mood": "朝から少し焦っている。会議が立て込んでいる",
+      "recent_concern": "上の子の発表会の準備",
+      "expertise_hint": "前職で電気工事士の資格を取った"
+    },
+    {
+      "family": "都内で一人暮らし。実家は地方",
+      "hobby": "週末は街歩きでカメラを持ち歩く",
+      "today_mood": "昨夜よく眠れた。少し雑談したい気分",
+      "recent_concern": "来月の引っ越し先がまだ決まっていない",
+      "expertise_hint": "学生時代に天文同好会で星を見ていた"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "離婚して一人暮らし。月一回子に会う",
+      "hobby": "ジョギングと書道",
+      "today_mood": "今朝は走れた。気分は悪くない",
+      "recent_concern": "親権の調停スケジュール",
+      "expertise_hint": "学生時代に物理を専攻"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "都内で一人暮らし。実家は地方",
+      "hobby": "週末は街歩きでカメラを持ち歩く",
+      "today_mood": "昨夜よく眠れた。少し雑談したい気分",
+      "recent_concern": "来月の引っ越し先がまだ決まっていない",
+      "expertise_hint": "学生時代に天文同好会で星を見ていた"
+    },
+    {
+      "family": "離婚して一人暮らし。月一回子に会う",
+      "hobby": "ジョギングと書道",
+      "today_mood": "今朝は走れた。気分は悪くない",
+      "recent_concern": "親権の調停スケジュール",
+      "expertise_hint": "学生時代に物理を専攻"
+    },
+    {
+      "family": "国際結婚。配偶者は外国籍",
+      "hobby": "言語交換と読書",
+      "today_mood": "海外ニュースが気になる",
+      "recent_concern": "配偶者のビザ更新",
+      "expertise_hint": "海外駐在の経験あり"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "両親が高齢、車で 30 分の距離に住む",
+      "hobby": "魚を捌くことと家庭料理",
+      "today_mood": "肩が重い",
+      "recent_concern": "母の通院の付き添い",
+      "expertise_hint": "若い頃に飲食店で働いていた"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "都内で一人暮らし。実家は地方",
+      "hobby": "週末は街歩きでカメラを持ち歩く",
+      "today_mood": "昨夜よく眠れた。少し雑談したい気分",
+      "recent_concern": "来月の引っ越し先がまだ決まっていない",
+      "expertise_hint": "学生時代に天文同好会で星を見ていた"
+    },
+    {
+      "family": "両親と高校生の子が一人",
+      "hobby": "釣りと家庭菜園",
+      "today_mood": "疲れが残っているが、午後は予定が空いている",
+      "recent_concern": "車検の手続き",
+      "expertise_hint": "防災訓練のリーダー経験あり"
+    },
+    {
+      "family": "国際結婚。配偶者は外国籍",
+      "hobby": "言語交換と読書",
+      "today_mood": "海外ニュースが気になる",
+      "recent_concern": "配偶者のビザ更新",
+      "expertise_hint": "海外駐在の経験あり"
+    },
+    {
+      "family": "学生時代からの恋人と同棲中",
+      "hobby": "クライミングジムとボルダリング",
+      "today_mood": "肩こりがひどい",
+      "recent_concern": "結婚式の費用と日取り",
+      "expertise_hint": "登山サークルで地図読みが得意"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "シェアハウスで友人と暮らしている",
+      "hobby": "古い SF 映画を観ることと、自作キーボード",
+      "today_mood": "カフェインを摂りすぎて少し落ち着かない",
+      "recent_concern": "副業で受けた仕事の納期",
+      "expertise_hint": "以前ドローンの空撮を仕事で扱っていた"
+    },
+    {
+      "family": "離婚して一人暮らし。月一回子に会う",
+      "hobby": "ジョギングと書道",
+      "today_mood": "今朝は走れた。気分は悪くない",
+      "recent_concern": "親権の調停スケジュール",
+      "expertise_hint": "学生時代に物理を専攻"
+    },
+    {
+      "family": "学生時代からの恋人と同棲中",
+      "hobby": "クライミングジムとボルダリング",
+      "today_mood": "肩こりがひどい",
+      "recent_concern": "結婚式の費用と日取り",
+      "expertise_hint": "登山サークルで地図読みが得意"
+    },
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    },
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "両親と祖母と同居の三世代",
+      "hobby": "アマチュア無線と自転車",
+      "today_mood": "祖母が元気で安心している",
+      "recent_concern": "古い家のリフォーム見積",
+      "expertise_hint": "災害ボランティアの経験"
+    },
+    {
+      "family": "両親と祖母と同居の三世代",
+      "hobby": "アマチュア無線と自転車",
+      "today_mood": "祖母が元気で安心している",
+      "recent_concern": "古い家のリフォーム見積",
+      "expertise_hint": "災害ボランティアの経験"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "妻と保育園児が 2 人。送り迎えが日課",
+      "hobby": "プラモ作りと深夜のラジオ",
+      "today_mood": "朝から少し焦っている。会議が立て込んでいる",
+      "recent_concern": "上の子の発表会の準備",
+      "expertise_hint": "前職で電気工事士の資格を取った"
+    },
+    {
+      "family": "両親が高齢、車で 30 分の距離に住む",
+      "hobby": "魚を捌くことと家庭料理",
+      "today_mood": "肩が重い",
+      "recent_concern": "母の通院の付き添い",
+      "expertise_hint": "若い頃に飲食店で働いていた"
+    },
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "単身赴任中。週末だけ家族のところへ",
+      "hobby": "将棋アプリと温泉巡り",
+      "today_mood": "胃が少し重い",
+      "recent_concern": "親の介護費用",
+      "expertise_hint": "若い頃に船舶の機関士をしていた"
+    },
+    {
+      "family": "両親と祖母と同居の三世代",
+      "hobby": "アマチュア無線と自転車",
+      "today_mood": "祖母が元気で安心している",
+      "recent_concern": "古い家のリフォーム見積",
+      "expertise_hint": "災害ボランティアの経験"
+    },
+    {
+      "family": "離婚して一人暮らし。月一回子に会う",
+      "hobby": "ジョギングと書道",
+      "today_mood": "今朝は走れた。気分は悪くない",
+      "recent_concern": "親権の調停スケジュール",
+      "expertise_hint": "学生時代に物理を専攻"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "妻と保育園児が 2 人。送り迎えが日課",
+      "hobby": "プラモ作りと深夜のラジオ",
+      "today_mood": "朝から少し焦っている。会議が立て込んでいる",
+      "recent_concern": "上の子の発表会の準備",
+      "expertise_hint": "前職で電気工事士の資格を取った"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "単身赴任中。週末だけ家族のところへ",
+      "hobby": "将棋アプリと温泉巡り",
+      "today_mood": "胃が少し重い",
+      "recent_concern": "親の介護費用",
+      "expertise_hint": "若い頃に船舶の機関士をしていた"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "両親が高齢、車で 30 分の距離に住む",
+      "hobby": "魚を捌くことと家庭料理",
+      "today_mood": "肩が重い",
+      "recent_concern": "母の通院の付き添い",
+      "expertise_hint": "若い頃に飲食店で働いていた"
+    },
+    {
+      "family": "両親と祖母と同居の三世代",
+      "hobby": "アマチュア無線と自転車",
+      "today_mood": "祖母が元気で安心している",
+      "recent_concern": "古い家のリフォーム見積",
+      "expertise_hint": "災害ボランティアの経験"
+    },
+    {
+      "family": "両親と高校生の子が一人",
+      "hobby": "釣りと家庭菜園",
+      "today_mood": "疲れが残っているが、午後は予定が空いている",
+      "recent_concern": "車検の手続き",
+      "expertise_hint": "防災訓練のリーダー経験あり"
+    },
+    {
+      "family": "両親と祖母と同居の三世代",
+      "hobby": "アマチュア無線と自転車",
+      "today_mood": "祖母が元気で安心している",
+      "recent_concern": "古い家のリフォーム見積",
+      "expertise_hint": "災害ボランティアの経験"
+    },
+    {
+      "family": "両親と祖母と同居の三世代",
+      "hobby": "アマチュア無線と自転車",
+      "today_mood": "祖母が元気で安心している",
+      "recent_concern": "古い家のリフォーム見積",
+      "expertise_hint": "災害ボランティアの経験"
+    },
+    {
+      "family": "離婚して一人暮らし。月一回子に会う",
+      "hobby": "ジョギングと書道",
+      "today_mood": "今朝は走れた。気分は悪くない",
+      "recent_concern": "親権の調停スケジュール",
+      "expertise_hint": "学生時代に物理を専攻"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "両親と高校生の子が一人",
+      "hobby": "釣りと家庭菜園",
+      "today_mood": "疲れが残っているが、午後は予定が空いている",
+      "recent_concern": "車検の手続き",
+      "expertise_hint": "防災訓練のリーダー経験あり"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "両親と高校生の子が一人",
+      "hobby": "釣りと家庭菜園",
+      "today_mood": "疲れが残っているが、午後は予定が空いている",
+      "recent_concern": "車検の手続き",
+      "expertise_hint": "防災訓練のリーダー経験あり"
+    },
+    {
+      "family": "両親が高齢、車で 30 分の距離に住む",
+      "hobby": "魚を捌くことと家庭料理",
+      "today_mood": "肩が重い",
+      "recent_concern": "母の通院の付き添い",
+      "expertise_hint": "若い頃に飲食店で働いていた"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "学生時代からの恋人と同棲中",
+      "hobby": "クライミングジムとボルダリング",
+      "today_mood": "肩こりがひどい",
+      "recent_concern": "結婚式の費用と日取り",
+      "expertise_hint": "登山サークルで地図読みが得意"
+    },
+    {
+      "family": "妻と保育園児が 2 人。送り迎えが日課",
+      "hobby": "プラモ作りと深夜のラジオ",
+      "today_mood": "朝から少し焦っている。会議が立て込んでいる",
+      "recent_concern": "上の子の発表会の準備",
+      "expertise_hint": "前職で電気工事士の資格を取った"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "妻と保育園児が 2 人。送り迎えが日課",
+      "hobby": "プラモ作りと深夜のラジオ",
+      "today_mood": "朝から少し焦っている。会議が立て込んでいる",
+      "recent_concern": "上の子の発表会の準備",
+      "expertise_hint": "前職で電気工事士の資格を取った"
+    },
+    {
+      "family": "学生時代からの恋人と同棲中",
+      "hobby": "クライミングジムとボルダリング",
+      "today_mood": "肩こりがひどい",
+      "recent_concern": "結婚式の費用と日取り",
+      "expertise_hint": "登山サークルで地図読みが得意"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "離婚して一人暮らし。月一回子に会う",
+      "hobby": "ジョギングと書道",
+      "today_mood": "今朝は走れた。気分は悪くない",
+      "recent_concern": "親権の調停スケジュール",
+      "expertise_hint": "学生時代に物理を専攻"
+    },
+    {
+      "family": "学生時代からの恋人と同棲中",
+      "hobby": "クライミングジムとボルダリング",
+      "today_mood": "肩こりがひどい",
+      "recent_concern": "結婚式の費用と日取り",
+      "expertise_hint": "登山サークルで地図読みが得意"
+    },
+    {
+      "family": "離婚して一人暮らし。月一回子に会う",
+      "hobby": "ジョギングと書道",
+      "today_mood": "今朝は走れた。気分は悪くない",
+      "recent_concern": "親権の調停スケジュール",
+      "expertise_hint": "学生時代に物理を専攻"
+    },
+    {
+      "family": "弟と二人暮らし。両親は他県",
+      "hobby": "麻雀と古本屋巡り",
+      "today_mood": "目覚ましをかけ忘れて遅刻しかけた",
+      "recent_concern": "弟の進学費用",
+      "expertise_hint": "学生時代に天体観測サークル"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    },
+    {
+      "family": "両親が高齢、車で 30 分の距離に住む",
+      "hobby": "魚を捌くことと家庭料理",
+      "today_mood": "肩が重い",
+      "recent_concern": "母の通院の付き添い",
+      "expertise_hint": "若い頃に飲食店で働いていた"
+    },
+    {
+      "family": "シェアハウスで友人と暮らしている",
+      "hobby": "古い SF 映画を観ることと、自作キーボード",
+      "today_mood": "カフェインを摂りすぎて少し落ち着かない",
+      "recent_concern": "副業で受けた仕事の納期",
+      "expertise_hint": "以前ドローンの空撮を仕事で扱っていた"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "シェアハウスで友人と暮らしている",
+      "hobby": "古い SF 映画を観ることと、自作キーボード",
+      "today_mood": "カフェインを摂りすぎて少し落ち着かない",
+      "recent_concern": "副業で受けた仕事の納期",
+      "expertise_hint": "以前ドローンの空撮を仕事で扱っていた"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "夫と幼児が 1 人",
+      "hobby": "パン作りと近所の散歩",
+      "today_mood": "夜泣きで寝不足",
+      "recent_concern": "保育園の入園待ち",
+      "expertise_hint": "前職は総務で防災担当"
+    },
+    {
+      "family": "国際結婚。配偶者は外国籍",
+      "hobby": "言語交換と読書",
+      "today_mood": "海外ニュースが気になる",
+      "recent_concern": "配偶者のビザ更新",
+      "expertise_hint": "海外駐在の経験あり"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    },
+    {
+      "family": "両親と祖母と同居の三世代",
+      "hobby": "アマチュア無線と自転車",
+      "today_mood": "祖母が元気で安心している",
+      "recent_concern": "古い家のリフォーム見積",
+      "expertise_hint": "災害ボランティアの経験"
+    },
+    {
+      "family": "実家暮らしの新卒",
+      "hobby": "ライブ配信を見ること、スマホゲーム",
+      "today_mood": "まだ朝が辛い",
+      "recent_concern": "配属先の上司との相性",
+      "expertise_hint": "プログラミングを独学で勉強中"
+    },
+    {
+      "family": "シェアハウスで友人と暮らしている",
+      "hobby": "古い SF 映画を観ることと、自作キーボード",
+      "today_mood": "カフェインを摂りすぎて少し落ち着かない",
+      "recent_concern": "副業で受けた仕事の納期",
+      "expertise_hint": "以前ドローンの空撮を仕事で扱っていた"
+    },
+    {
+      "family": "弟と二人暮らし。両親は他県",
+      "hobby": "麻雀と古本屋巡り",
+      "today_mood": "目覚ましをかけ忘れて遅刻しかけた",
+      "recent_concern": "弟の進学費用",
+      "expertise_hint": "学生時代に天体観測サークル"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "妻と保育園児が 2 人。送り迎えが日課",
+      "hobby": "プラモ作りと深夜のラジオ",
+      "today_mood": "朝から少し焦っている。会議が立て込んでいる",
+      "recent_concern": "上の子の発表会の準備",
+      "expertise_hint": "前職で電気工事士の資格を取った"
+    },
+    {
+      "family": "夫と二人暮らし。最近マンションを買った",
+      "hobby": "ボードゲームと近所のジム",
+      "today_mood": "プロジェクトがひと段落して気持ちが軽い",
+      "recent_concern": "資格試験(簿記)が来月にある",
+      "expertise_hint": "学生時代に建築学科で図面を引いていた"
+    },
+    {
+      "family": "シェアハウスで友人と暮らしている",
+      "hobby": "古い SF 映画を観ることと、自作キーボード",
+      "today_mood": "カフェインを摂りすぎて少し落ち着かない",
+      "recent_concern": "副業で受けた仕事の納期",
+      "expertise_hint": "以前ドローンの空撮を仕事で扱っていた"
+    },
+    {
+      "family": "両親と高校生の子が一人",
+      "hobby": "釣りと家庭菜園",
+      "today_mood": "疲れが残っているが、午後は予定が空いている",
+      "recent_concern": "車検の手続き",
+      "expertise_hint": "防災訓練のリーダー経験あり"
+    },
+    {
+      "family": "国際結婚。配偶者は外国籍",
+      "hobby": "言語交換と読書",
+      "today_mood": "海外ニュースが気になる",
+      "recent_concern": "配偶者のビザ更新",
+      "expertise_hint": "海外駐在の経験あり"
+    },
+    {
+      "family": "実家で両親と同居。妹が一人",
+      "hobby": "観葉植物の世話と料理動画を見ること",
+      "today_mood": "風邪気味で少し集中力が落ちている",
+      "recent_concern": "親の体調と通院の付き添い",
+      "expertise_hint": "看護学校に通っていた時期がある"
+    },
+    {
+      "family": "犬 1 匹と一人暮らし",
+      "hobby": "ヨガと料理教室",
+      "today_mood": "犬の散歩で気分が良い",
+      "recent_concern": "犬の健康診断の結果",
+      "expertise_hint": "薬剤師の資格を持っている"
+    }
+  ],
+  "llm": {
+    "model": "huihui_ai/qwen3-abliterated:4b",
+    "base_url": "http://localhost:11434",
+    "temperature": 0.8
+  }
+}

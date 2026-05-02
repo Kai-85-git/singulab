@@ -1,0 +1,23 @@
+# 100 体 × 宇宙人 のテスト用(1 step だけ走らせて挙動確認)。
+# 私側 PC(RTX 3060 Laptop 6GB)+ Qwen3 4B abliterated で、約 18 分。
+# 本番(duration 100)は粉川氏マシンの 34B で実施想定([scenario_alien_100.yaml](scenario_alien_100.yaml))。
+
+extends: "scenario_alien_100.yaml"
+
+# テストは私側 PC(RTX 3060 Laptop 6GB)で動かすため、4B abliterated に切替。
+# 100 体本番の 34B は粉川氏マシン側で実施。
+llm:
+  model: "huihui_ai/qwen3-abliterated:4b"
+  max_tokens: 100
+  think: false
+
+simulation:
+  duration: 1
+
+events:
+  - type: "alien"
+    # 1 step テストなので発火させて初期挙動を観察
+    start_step: 1
+    center_x: -35
+    center_y: 30
+    move_step_size: 2
