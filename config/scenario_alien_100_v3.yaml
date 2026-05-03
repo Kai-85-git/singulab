@@ -146,11 +146,21 @@ events:
   - type: "alien"
     # 5 体 alien_5 と同じ start_step=15(中盤発火)
     start_step: 15
-    # main_office (-40..40) の外側に着地。フィールド境界 (-60..60) の内側
-    # → 段 3(知覚距離依存)が機能:窓際の人だけ Mid 視認、奥側は伝聞
-    center_x: -55
-    center_y: 45
+    # main_office (-40..40) の **左壁すぐ外側** に着地。フィールド境界 (-60..60) の内側
+    # 2026-05-03 修正:旧 (-55, 45) は角から 15.8m と離れすぎ、visible_radius=18 圏内に
+    # 入るのが「角ぴったりの数人」だけ → prod_v3_alien_100 でほぼ誰も UFO を直接視認できず。
+    # (-50, 30) は左壁中点 (-40, 30) から 10m で、左壁沿いに居る人が Mid 圏に入る。
+    # 「オフィスのすぐ外側に出現」という直感と整合(中央寄せはオフィス内になるので避ける)。
+    center_x: -50
+    center_y: 30
     move_step_size: 2
+    # 段 3 知覚距離を 100 体スケール(office 80×80)に合わせて拡張(2026-05-03)。
+    # 5 体ラン(office 20×20, visible=18)の office カバレッジ ~52% を再現する設定:
+    # - visible=60 → office カバレッジ ~41%(直接知覚 ~40 体)
+    # - near=20  → office カバレッジ ~5%(詳細視認 ~5 体、左壁近傍のみ)
+    # 残りの ~60 体は会話伝播でのみ UFO を知る(段 3 の本来意図を保持)
+    near_radius: 20
+    visible_radius: 60
 
 visualization:
   save_frames: true
