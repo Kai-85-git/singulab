@@ -113,7 +113,9 @@ $headerLines = @(
     "\setCJKmainfont{$CJKMain}",
     "\setCJKsansfont{$CJKSans}",
     "\setCJKmonofont{$CJKMono}",
-    '\xeCJKsetup{CJKecglue=}'
+    '\xeCJKsetup{CJKecglue=}',
+    '\renewcommand{\figurename}{図}',
+    '\renewcommand{\tablename}{表}'
 )
 $headerLines -join "`r`n" | Out-File -FilePath $HeaderFile -Encoding utf8
 Write-Host "[header] wrote $HeaderFile"

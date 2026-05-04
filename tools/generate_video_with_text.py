@@ -97,6 +97,48 @@ def _wrap(text: str, width: int) -> str:
     return "\n".join(textwrap.wrap(text, width=width, break_long_words=True, break_on_hyphens=False))
 
 
+_JSON_FIELD_RE = __import__("re").compile(
+    r'"(action|direction|memory)"\s*:\s*"((?:[^"\\]|\\.)*)"',
+)
+
+
+def _clean_thought_text(text: str) -> str:
+    """思考テキストの整形:LLM が JSON action を reasoning に入れてきた場合は人間可読に変換。
+
+    JSON が途中で切れていても正規表現で `action` / `direction` / `memory` を救出する。
+    例:
+      `{"action": "move", "direction": "right", "memory": null}`
+      → `→ move(right)`
+      `{"action": "stay", "direction": "", "memory": "気になる", "reasoning"...`(切れ)
+      → `→ stay  💭 気になる`
+    JSON 風の構造が見つからなければそのまま返す。
+    """
+    if not text:
+        return ""
+    s = text.strip()
+    if not s.startswith("{"):
+        return s
+    fields = {m.group(1): m.group(2) for m in _JSON_FIELD_RE.finditer(s)}
+    if not fields:
+        return s
+    parts = []
+    action = fields.get("action", "").strip()
+    direction = fields.get("direction", "").strip()
+    if action:
+        if direction and direction.lower() not in ("none", "null", ""):
+            parts.append(f"→ {action}({direction})")
+        else:
+            parts.append(f"→ {action}")
+    mem = fields.get("memory", "").strip()
+    if mem and mem.lower() not in ("null", "none"):
+        # エスケープを元に戻す
+        mem = mem.replace('\\"', '"').replace("\\n", " ").replace("\\\\", "\\")
+        parts.append(f"💭 {mem}")
+    if not parts:
+        return s
+    return "  ".join(parts)
+
+
 def _wrap_fixed_lines(text: str, width: int, max_lines: int) -> str:
     """text を width で折り返し、必ず max_lines 行にする(短ければ空行で埋め、長ければ省略)。"""
     if not text:
@@ -115,6 +157,63 @@ def _wrap_fixed_lines(text: str, width: int, max_lines: int) -> str:
     return "\n".join(lines)
 
 
+def _spotlight_agent_ids(
+    step: int,
+    msgs_by_step: Dict[int, List[Dict]],
+    mr_by_step: Dict[int, List[Dict]],
+    top_n: int,
+    recent_window: int,
+    n_total_agents: int,
+) -> tuple:
+    """spotlight モード:現 step の発話/受信を最優先に、直近活動が高い agent を上位 top_n 件選ぶ。
+
+    Returns:
+        (selected_ids_sorted_by_id, n_thinking_total): 表示する agent_id のリスト(id 昇順)、
+        および現 step に思考ログがある agent の総数。
+    """
+    scores: Dict[int, float] = {}
+
+    def bump(aid: int, weight: float) -> None:
+        if aid is None or aid < 0:
+            return
+        scores[aid] = scores.get(aid, 0.0) + weight
+
+    # 1. 現 step の発話/受信(最重要)
+    for m in msgs_by_step.get(step, []):
+        bump(m.get("from"), 100.0)
+        bump(m.get("to"), 80.0)
+
+    # 2. 直近 recent_window step の発話/受信(線形減衰)
+    for s in range(max(1, step - recent_window + 1), step):
+        decay = max(0.05, 1.0 - (step - s) / max(1, recent_window))
+        for m in msgs_by_step.get(s, []):
+            bump(m.get("from"), 20.0 * decay)
+            bump(m.get("to"), 15.0 * decay)
+
+    # 3. 現 step に思考(reasoning / memory)がある agent
+    thinking_now = mr_by_step.get(step, [])
+    for r in thinking_now:
+        aid = r.get("id", -1)
+        bump(aid, 5.0)
+        body = (r.get("reasoning", "") or "") + (r.get("memory", "") or "")
+        bump(aid, min(len(body) / 200.0, 3.0))
+
+    # 上位 top_n を選出 → agent_id 昇順で固定スロットへ
+    ranked = sorted(scores.items(), key=lambda x: (-x[1], x[0]))[:top_n]
+    selected = [aid for aid, _ in ranked]
+
+    # スコアを得た agent が top_n に満たないときは、id の小さい順で埋める
+    if len(selected) < top_n:
+        for aid in range(n_total_agents):
+            if aid not in selected:
+                selected.append(aid)
+                if len(selected) >= top_n:
+                    break
+
+    selected_sorted = sorted(selected[:top_n])
+    return selected_sorted, len(thinking_now)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Compose field frames + side text panel into mp4"
@@ -124,8 +223,32 @@ def main() -> int:
     parser.add_argument(
         "--recent",
         type=int,
-        default=6,
-        help="サイドに表示する直近メッセージ件数(default: 6)",
+        default=4,
+        help="サイドに表示する直近メッセージ件数(default: 4)",
+    )
+    parser.add_argument(
+        "--thought-mode",
+        choices=["auto", "all", "spotlight"],
+        default="auto",
+        help="思考パネルの表示モード。auto は num_agents > thought-auto-threshold で spotlight に切替(default: auto)",
+    )
+    parser.add_argument(
+        "--thought-top",
+        type=int,
+        default=5,
+        help="spotlight モードで表示する思考スロット数(default: 5)",
+    )
+    parser.add_argument(
+        "--thought-recent-window",
+        type=int,
+        default=10,
+        help="spotlight 選定で「直近」とみなす step 数(default: 10)",
+    )
+    parser.add_argument(
+        "--thought-auto-threshold",
+        type=int,
+        default=12,
+        help="auto モードで spotlight に切り替わる num_agents の閾値(default: 12)",
     )
     parser.add_argument("--out", default=None, help="出力 mp4 のパス")
     parser.add_argument("--overwrite", "-y", action="store_true")
@@ -169,14 +292,29 @@ def main() -> int:
     out_frames_dir = run_dir / "frames_with_text"
     out_frames_dir.mkdir(exist_ok=True)
 
+    # 表示モードの確定:auto は num_agents が閾値超で spotlight に切替
+    n_total_agents = len(personas) if personas else max(
+        (max((m.get("from", -1) for m in msgs), default=-1) + 1),
+        (max((r.get("id", -1) for r in mr), default=-1) + 1),
+        1,
+    )
+    if args.thought_mode == "auto":
+        thought_mode = "spotlight" if n_total_agents > args.thought_auto_threshold else "all"
+    else:
+        thought_mode = args.thought_mode
+    print(
+        f"thought_mode={thought_mode} "
+        f"(n_agents={n_total_agents}, top={args.thought_top}, window={args.thought_recent_window})"
+    )
+
     # レイアウト定数
-    WRAP_WIDTH = 32  # テキスト折り返し幅(文字)
+    WRAP_WIDTH = 40  # テキスト折り返し幅(文字)。横方向の余白を活用して 2 行に収めやすくする
 
     for png_path in pngs:
         step = int(png_path.stem.split("_")[1])
 
         # 横長の大きめキャンバス。フィールドと右パネルを 1:1.1 で
-        fig = plt.figure(figsize=(20, 11), facecolor="#fafafa")
+        fig = plt.figure(figsize=(20, 12), facecolor="#fafafa")
         gs = fig.add_gridspec(1, 2, width_ratios=[1.0, 1.1], wspace=0.04)
         ax_img = fig.add_subplot(gs[0, 0])
         ax_txt = fig.add_subplot(gs[0, 1])
@@ -199,7 +337,7 @@ def main() -> int:
         ))
         ax_txt.text(
             0.5, 0.978, f"Step {step}",
-            transform=ax_txt.transAxes, fontsize=22, fontweight="bold",
+            transform=ax_txt.transAxes, fontsize=24, fontweight="bold",
             verticalalignment="center", horizontalalignment="center",
             color="white",
         )
@@ -214,7 +352,7 @@ def main() -> int:
         ))
         ax_txt.text(
             0.015, msg_section_top - 0.018, "📨 メッセージ(直近)",
-            transform=ax_txt.transAxes, fontsize=14, fontweight="bold",
+            transform=ax_txt.transAxes, fontsize=16, fontweight="bold",
             verticalalignment="top", color="#1f4e79",
         )
 
@@ -243,20 +381,20 @@ def main() -> int:
             # ヘッダ 1 行目:送信者
             ax_txt.text(
                 0.018, slot_y_top, f"step{s:2d}  {_agent_label(from_id, personas)}",
-                transform=ax_txt.transAxes, fontsize=11, fontweight="bold",
+                transform=ax_txt.transAxes, fontsize=13, fontweight="bold",
                 verticalalignment="top", color=from_color,
             )
             # ヘッダ 2 行目:→ 受信者
             ax_txt.text(
-                0.04, slot_y_top - 0.020, f"→ {_agent_label(to_id, personas)}",
-                transform=ax_txt.transAxes, fontsize=10, fontweight="bold",
+                0.04, slot_y_top - 0.022, f"→ {_agent_label(to_id, personas)}",
+                transform=ax_txt.transAxes, fontsize=12, fontweight="bold",
                 verticalalignment="top", color=to_color,
             )
             # 本文:**常に 2 行**(短ければ空行 / 長ければ省略)
             wrapped = _wrap_fixed_lines(m["message"], WRAP_WIDTH, 2)
             ax_txt.text(
-                0.04, slot_y_top - 0.042, wrapped,
-                transform=ax_txt.transAxes, fontsize=11,
+                0.04, slot_y_top - 0.046, wrapped,
+                transform=ax_txt.transAxes, fontsize=13,
                 verticalalignment="top", color="#222222",
             )
 
@@ -270,48 +408,97 @@ def main() -> int:
         ))
         ax_txt.text(
             0.015, thought_section_top - 0.018, "🧠 思考(現 step)",
-            transform=ax_txt.transAxes, fontsize=14, fontweight="bold",
+            transform=ax_txt.transAxes, fontsize=16, fontweight="bold",
             verticalalignment="top", color="#7d3c98",
         )
 
-        # 固定スロット配置:エージェント数ぶん常に同じ位置
+        # 固定スロット配置:表示する agent の id 集合とスロット数を決定
         thoughts = mr_by_step.get(step, [])
-        # id でソート(描画順を一定に)
         thoughts_sorted = sorted(thoughts, key=lambda r: r.get("id", 0))
-        n_thought_slots = max(len(personas) if personas else len(thoughts_sorted), 1)
-        thought_inner_top = thought_section_top - 0.04
-        thought_inner_bottom = thought_section_bottom + 0.01
+        thought_by_id: Dict[int, Dict] = {r.get("id", -1): r for r in thoughts_sorted}
+
+        if thought_mode == "spotlight":
+            displayed_ids, n_thinking_now = _spotlight_agent_ids(
+                step,
+                msgs_by_step,
+                mr_by_step,
+                args.thought_top,
+                args.thought_recent_window,
+                n_total_agents,
+            )
+            n_thought_slots = max(args.thought_top, 1)
+            # フッタ用にスロット領域の下端を 0.04 ぶん持ち上げる
+            thought_inner_top = thought_section_top - 0.04
+            thought_inner_bottom = thought_section_bottom + 0.05
+        else:
+            displayed_ids = list(range(max(n_total_agents, len(thoughts_sorted), 1)))
+            n_thought_slots = max(len(displayed_ids), 1)
+            thought_inner_top = thought_section_top - 0.04
+            thought_inner_bottom = thought_section_bottom + 0.01
+            n_thinking_now = len(thoughts_sorted)
+
         thought_slot_height = (thought_inner_top - thought_inner_bottom) / n_thought_slots
 
-        # personas があればそれを基準に全エージェントぶんスロットを並べる
-        # thoughts は id で索引引き
-        thought_by_id: Dict[int, Dict] = {r.get("id", -1): r for r in thoughts_sorted}
         for i in range(n_thought_slots):
             slot_y_top = thought_inner_top - i * thought_slot_height
-            aid = i  # スロット i = Agent i
+            # スロット間の区切り線(視覚的にスロットを分離)
+            if i > 0:
+                ax_txt.plot(
+                    [0.02, 0.98], [slot_y_top + 0.002, slot_y_top + 0.002],
+                    transform=ax_txt.transAxes,
+                    color="#cdb4d9", linewidth=0.6, alpha=0.6,
+                )
+            if i >= len(displayed_ids):
+                continue
+            aid = displayed_ids[i]
             color = _agent_color(aid)
             label = _agent_label(aid, personas)
             # ヘッダ
             ax_txt.text(
-                0.018, slot_y_top, label,
-                transform=ax_txt.transAxes, fontsize=11, fontweight="bold",
+                0.018, slot_y_top - 0.002, label,
+                transform=ax_txt.transAxes, fontsize=13, fontweight="bold",
                 verticalalignment="top", color=color,
             )
             r = thought_by_id.get(aid)
             mem = (r.get("memory", "") or "").strip() if r else ""
-            rsn = (r.get("reasoning", "") or "").strip() if r else ""
+            rsn = _clean_thought_text((r.get("reasoning", "") or "").strip()) if r else ""
             # 本文を **常に 2 行**(memory が空なら reasoning を出す)
-            body = mem if mem else rsn
-            prefix = "💭 " if mem else ("📝 " if rsn else "")
+            if mem:
+                body = mem
+                prefix = "💭 "
+            elif rsn:
+                body = rsn
+                prefix = "" if rsn.startswith(("→", "💭")) else "📝 "
+            else:
+                body = ""
+                prefix = ""
             wrapped = _wrap_fixed_lines(f"{prefix}{body}" if body else "", WRAP_WIDTH, 2)
             ax_txt.text(
-                0.04, slot_y_top - 0.022, wrapped,
-                transform=ax_txt.transAxes, fontsize=10,
+                0.04, slot_y_top - 0.024, wrapped,
+                transform=ax_txt.transAxes, fontsize=12,
                 verticalalignment="top", color="#333333",
             )
 
+        # spotlight モード時のフッタ:省略数と「思考中」の総数を明示
+        if thought_mode == "spotlight":
+            hidden_total = max(n_total_agents - len(displayed_ids), 0)
+            hidden_thinking = max(
+                n_thinking_now - sum(1 for aid in displayed_ids if aid in thought_by_id),
+                0,
+            )
+            footer = (
+                f"他 {hidden_total} 名は表示省略"
+                f"(うち今 step に思考あり: {hidden_thinking} 名)"
+            )
+            ax_txt.text(
+                0.5, thought_section_bottom + 0.018, footer,
+                transform=ax_txt.transAxes, fontsize=12,
+                verticalalignment="center", horizontalalignment="center",
+                color="#7d3c98", fontstyle="italic",
+            )
+
         out_png = out_frames_dir / png_path.name
-        plt.savefig(out_png, dpi=110, bbox_inches="tight", facecolor=fig.get_facecolor())
+        plt.savefig(out_png, dpi=140, bbox_inches="tight", facecolor=fig.get_facecolor())
         plt.close(fig)
 
     print(f"Composed {len(pngs)} frames -> {out_frames_dir}")
