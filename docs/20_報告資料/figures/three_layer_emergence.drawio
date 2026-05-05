@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-05-05T00:00:00.000Z" agent="Singulab" version="22.0.0">
+  <diagram name="ThreeLayerEmergence" id="three-layer">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="UFO 出現後の集団分化(Step 21、ピーク 39 体)" style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="20" width="700" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="layer1" value="層 1:見た人(~20-40 体)&#xa;Mid + Near 圏で UFO を直接視認&#xa;UFO の詳細を発話する" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="90" width="500" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow1" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#666666" edge="1" parent="1" source="layer1" target="layer2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow1lbl" value="会話で伝わる" style="text;html=1;align=center;fontSize=11;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="layer2" value="層 2:聞いた人(~30 体)&#xa;会話伝播で UFO を知る&#xa;確認質問・伝聞型の発話" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="220" width="500" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow2" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#666666" edge="1" parent="1" source="layer2" target="layer3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow2lbl" value="話題が届かない" style="text;html=1;align=center;fontSize=11;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="400" y="310" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="layer3" value="層 3:無関心 / 別話題継続(~30-40 体)&#xa;personal_context に基づく日常会話を続ける&#xa;(犬の散歩・天気・仕事 など)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="350" width="500" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="plus" value="＋" style="text;html=1;align=center;verticalAlign=middle;fontSize=32;fontStyle=1;fontColor=#82b366" vertex="1" parent="1">
+          <mxGeometry x="420" y="450" width="60" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="expert" value="専門家モード(自然発生 / A5 のような役回り)&#xa;集団規模ゆえに発生する「説明者役」&#xa;周囲の質問に答え続けることでハブ化していく" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="180" y="500" width="540" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note" value="※ 100 体 × 30 step / prod_v3_alien_100_v2 観察結果" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="500" height="24" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
