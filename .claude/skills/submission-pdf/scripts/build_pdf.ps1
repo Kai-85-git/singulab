@@ -108,16 +108,25 @@ Write-Host "[font] latin: main=$MainFont sans=$SansFont mono=$MonoFont"
 Write-Host "[font] cjk  : main=$CJKMain sans=$CJKSans mono=$CJKMono"
 
 # 7. Write the xeCJK header used by --include-in-header
+# 図/表 を [char] 指定にしてスクリプトのソース encoding に依存しないようにする
+# (PowerShell 5.1 が .ps1 を CP932 として読むと literal '図' が壊れるため)
+$zuChar    = [char]0x56F3  # 図
+$hyouChar  = [char]0x8868  # 表
 $headerLines = @(
     '\usepackage{xeCJK}',
     "\setCJKmainfont{$CJKMain}",
     "\setCJKsansfont{$CJKSans}",
     "\setCJKmonofont{$CJKMono}",
     '\xeCJKsetup{CJKecglue=}',
-    '\renewcommand{\figurename}{図}',
-    '\renewcommand{\tablename}{表}'
+    "\renewcommand{\figurename}{$zuChar}",
+    "\renewcommand{\tablename}{$hyouChar}"
 )
-$headerLines -join "`r`n" | Out-File -FilePath $HeaderFile -Encoding utf8
+# UTF-8 (no BOM) で書き出す。Out-File -Encoding utf8 は BOM 付きになるため .NET 直書き
+[System.IO.File]::WriteAllText(
+    (Join-Path (Get-Location) $HeaderFile),
+    ($headerLines -join "`r`n") + "`r`n",
+    [System.Text.UTF8Encoding]::new($false)
+)
 Write-Host "[header] wrote $HeaderFile"
 
 # 8. Run Pandoc

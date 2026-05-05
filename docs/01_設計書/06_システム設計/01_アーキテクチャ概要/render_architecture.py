@@ -80,7 +80,7 @@ def _arrow(ax, src, dst, color="#666666"):
     start = (src_cx, sy)  # src 下端中央
     end = (dst_cx, dy + dh)  # dst 上端中央
 
-    if abs(src_cx - dst_cx) > 5:
+    if abs(src_cx - dst_cx) > 1:
         # L 字経路
         verts = [start, (src_cx, (sy + dy + dh) / 2), (dst_cx, (sy + dy + dh) / 2), end]
         codes = [MPath.MOVETO, MPath.LINETO, MPath.LINETO, MPath.LINETO]
@@ -129,46 +129,41 @@ def render(out_path: Path) -> None:
                "Simulation Engine\n5 体・100 体 × 30 step",
                BLUE_F, BLUE_E, fontsize=12, fontweight="bold")
 
-    # 左ブランチ:LLM スタック
+    # 左ブランチ:LLM スタック(本番ランは Qwen3 4B のみ)
     llm = _box(ax, 14, 38, 24, 6,
-               "AsyncLLMClient\nOpenAI 互換 + Semaphore 8",
+               "OllamaClient\n(src/llm/ollama.py)",
                GREEN_F, GREEN_E, fontsize=10)
     ollama = _box(ax, 16, 26, 20, 6,
                   "Ollama\nlocalhost:11434",
                   YELLOW_F, YELLOW_E, fontsize=10)
-    qwen = _box(ax, 6, 14, 16, 5,
-                "Qwen3 4B\nabliterated",
-                RED_F, RED_E, fontsize=9)
-    llama = _box(ax, 28, 14, 16, 5,
-                 "Llama 3.2 3B\nabliterated",
-                 RED_F, RED_E, fontsize=9)
+    qwen = _box(ax, 13, 13, 26, 6,
+                "Qwen3 4B abliterated\n(temperature 0.8 / native think=false)",
+                RED_F, RED_E, fontsize=8)
 
-    # 右ブランチ:RunLogger + 5 jsonl(1 段に横並び)
+    # 右ブランチ:JsonlLogger + 3 jsonl + run_metadata.json
     rl = _box(ax, 60, 38, 50, 6,
-              "RunLogger",
+              "JsonlLogger",
               PURPLE_F, PURPLE_E, fontsize=12, fontweight="bold")
 
-    # 5 jsonl を 1 行に
-    log_w, log_h = 11, 5
-    y_log = 22
+    # 出力ファイル 4 つを 1 行に(長いラベルは 2 行表記でシリンダ内に収める)
+    log_w, log_h = 12, 6
+    y_log = 21
     logs = [
-        ("llm_io.jsonl",     54, y_log),
-        ("perf.jsonl",       66.5, y_log),
-        ("vram.jsonl",       79, y_log),
-        ("events.jsonl",     91.5, y_log),
-        ("emergence.jsonl", 104, y_log),
+        ("messages\n.jsonl",         56, y_log),
+        ("memory_reasoning\n.jsonl", 70, y_log),
+        ("events\n.jsonl",           84, y_log),
+        ("run_metadata\n.json",      98, y_log),
     ]
 
     log_boxes = []
     for label, lx, ly in logs:
-        _cylinder(ax, lx, ly, log_w, log_h, label, ORANGE_F, ORANGE_E, fontsize=9)
+        _cylinder(ax, lx, ly, log_w, log_h, label, ORANGE_F, ORANGE_E, fontsize=8)
         log_boxes.append((lx, ly, log_w, log_h))
 
     # 矢印
     _arrow(ax, sim, llm)
     _arrow(ax, llm, ollama)
     _arrow(ax, ollama, qwen)
-    _arrow(ax, ollama, llama)
     _arrow(ax, sim, rl)
     for box in log_boxes:
         _arrow(ax, rl, box)
