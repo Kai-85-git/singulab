@@ -13,6 +13,9 @@ Singulab ハッカソン(2026-05-07 提出)の報告資料一式。提出物本�
 | [`figures/architecture.drawio`](figures/architecture.drawio) | 上記の draw.io ソース |
 | [`figures/three_layer_emergence.png`](figures/three_layer_emergence.png) | 3 層構造の創発(UFO 出現後の集団分化、Step 21 ピーク 39 体) |
 | [`figures/three_layer_emergence.drawio`](figures/three_layer_emergence.drawio) | 上記の draw.io ソース |
+| [`videos/5体ラン_alien.mp4`](videos/5体ラン_alien.mp4) | 5 体 × 宇宙人イベントの可視化動画(`prod_v3_alien_5`、思考パネル付き) |
+| [`videos/5体ラン_zero_gravity.mp4`](videos/5体ラン_zero_gravity.mp4) | 5 体 × 無重力イベントの可視化動画(`prod_v3_zero_gravity_5`) |
+| [`videos/100体ラン_alien.mp4`](videos/100体ラン_alien.mp4) | 100 体 × 宇宙人イベントの可視化動画(`prod_v3_alien_100_v2`、spotlight モード) |
 
 ## 関連オリジナル(更新が入った場合は本フォルダも追従させる)
 
@@ -20,6 +23,7 @@ Singulab ハッカソン(2026-05-07 提出)の報告資料一式。提出物本�
 - 議事録(オリジナル): [`docs/02_ミーティング/2026年4月/02_議事録/2026年5月05日.md`](../02_ミーティング/2026年4月/02_議事録/2026年5月05日.md)
 - アーキ図(オリジナル): [`docs/01_設計書/06_システム設計/01_アーキテクチャ概要/`](../01_設計書/06_システム設計/01_アーキテクチャ概要/)
 - 3 層構造図(オリジナル): [`docs/04_モデル検証/figures/`](../04_モデル検証/figures/)
+- 動画(オリジナル): [`output/04_本番v2_創発イベント/`](../../output/04_本番v2_創発イベント/) 配下の各 ran ディレクトリ `simulation_with_text.mp4`
 
 ## 用途
 
