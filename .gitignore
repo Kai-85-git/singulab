@@ -1,3 +1,8 @@
+# 環境変数・秘密情報
+.env
+.env.*
+!.env.example
+
 docs/10_共有資料/
 build/
 
