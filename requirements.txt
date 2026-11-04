@@ -1,4 +1,4 @@
-﻿annotated-types==0.7.0
+annotated-types==0.7.0
 anyio==4.13.0
 certifi==2026.4.22
 charset-normalizer==3.4.7
@@ -15,7 +15,7 @@ matplotlib==3.10.9
 numpy==2.2.6
 packaging==26.2
 pandas==2.3.3
-pillow==12.2.0
+pillow==12.3.0
 pydantic==2.13.3
 pydantic_core==2.46.3
 pyparsing==3.3.2
