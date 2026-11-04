@@ -1,4 +1,4 @@
-﻿annotated-types==0.7.0
+annotated-types==0.7.0
 anyio==4.13.0
 certifi==2026.4.22
 charset-normalizer==3.4.7
@@ -29,4 +29,4 @@ structlog==25.5.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 tzdata==2026.2
-urllib3==2.6.3
+urllib3==2.8.0
